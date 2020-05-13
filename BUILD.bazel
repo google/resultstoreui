@@ -1,0 +1,12 @@
+package(default_visibility = ["//visibility:public"])
+
+# load("@rules_py//py:defs.bzl", "py_binary")
+
+py_binary(
+    name = "resultstore",
+    srcs = ["resultstore.py"],
+    deps =  [
+        "//pyglib",
+        "@com_google_googleapis//google/devtools/resultstore/v2:resultstore_proto"
+    ]
+)
