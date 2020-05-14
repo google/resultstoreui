@@ -1,12 +1,21 @@
 package(default_visibility = ["//visibility:public"])
 
-# load("@rules_py//py:defs.bzl", "py_binary")
+load("@grpc_deps//:requirements.bzl", "requirement")
+
+py_library(
+  name = "resultstore_api",
+  srcs = glob(["google/**/*.py"]),
+  deps = [
+    requirement("grpcio"),
+    requirement("protobuf"),
+    requirement("google-api-core"),
+  ]
+)
 
 py_binary(
     name = "resultstore",
-    srcs = ["resultstore.py"],
-    deps =  [
-        "//pyglib",
-        "@com_google_googleapis//google/devtools/resultstore/v2:resultstore_proto"
-    ]
+    srcs = glob(["*.py"]),
+    deps = [
+      "resultstore_api",
+    ],
 )
