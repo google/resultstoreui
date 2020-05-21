@@ -14,14 +14,16 @@ from resultstoreui_utils import (get_default_invocation,
                                  get_default_configuration, gen_new_uuid,
                                  get_parent, get_default_target,
                                  get_default_configured_target,
-                                 get_default_action,
-                                 get_name)
+                                 get_default_action, get_name)
 from bigstore_client import BigStoreClient
+from collections import defaultdict
 
 _LOGGER = logging.getLogger(__name__)
 _LOGGER.setLevel(logging.INFO)
 
 _FIELD_MASK_HEADER = 'x-goog-fieldmask'
+
+RESOURCE_TYPES = defaultdict()
 
 
 class Error(Exception):
@@ -30,7 +32,6 @@ class Error(Exception):
 
 class ResultStoreClient(object):
     """Client for ResultStore v2"""
-
     def __init__(self, credentials, flags):
         """
         Initialize the ResultStore Client
@@ -42,6 +43,37 @@ class ResultStoreClient(object):
         self.credentials = credentials
         self.flags = flags
         self.authorization_token = self.get_authorization_token()
+
+    def create_upload_request(self,
+                              resources,
+                              target_id=None,
+                              config_id=None,
+                              action_id=None):
+        """
+        Create upload requests based on resource type
+        
+        Args:
+            resource (One of Target/ConfiguredTarget/Action/Configuration): Resource to be uploaded
+            resource_type (str): Type of resource to create an upload request for
+            target_id (str): Id of target to be uploaded
+            config_id (str): Id of config to be uploaded
+            action_id (str): Id of action to be uploaded
+
+        Returns:
+            Upload Request
+        """
+        request = resultstore_upload_pb2.UploadRequest(
+            id={
+                'target_id': target_id,
+                'configuration_id': config_id,
+                'action_id': action_id
+            },
+            target=resources.get('target'),
+            action=resources.get('action'),
+            configuration=resources.get('configuration'),
+            configured_target=resources.get('configured_target'),
+            upload_operation=resultstore_upload_pb2.UploadRequest.CREATE)
+        return request
 
     def get_authorization_token(self):
         """
@@ -85,6 +117,9 @@ class ResultStoreClient(object):
     def create_invocation(self):
         """
         Create a resultstore invocation
+
+        Args:
+            resume_token (bytes): Initial resume token to put the invocation into batch mode
 
         Returns:
             The response or error from the ResultStore v2 gRPC Stub Call
@@ -367,6 +402,112 @@ class ResultStoreClient(object):
             _LOGGER.info('Received message: %s', response)
             return response
 
+    def create_resource_requests(self, invocation_id, config_id):
+        """
+        Create upload requests to be batch uploaded
+
+        Args:
+            invocation_id (str): Invocation to upload to
+            config_id (str): Invocation configuration id to use or create
+        
+        Returns:
+            A list of upload requests
+        """
+        requests = []
+        if self.flags.create_config:
+            config = get_default_configuration(invocation_id)
+            config_request = self.create_upload_request(
+                defaultdict(None, {'configuration': config}),
+                config_id=config.id.configuration_id)
+            requests.append(config_request)
+        target = get_default_target(invocation_id)
+        target_id = target.id.target_id
+        target_request = self.create_upload_request(
+            defaultdict(None, {'target': target}), target_id)
+        files = None
+        if self.flags.files:
+            files = self._upload_files(target_id)
+        requests.append(target_request)
+        config_target = get_default_configured_target(invocation_id, target_id,
+                                                      config_id)
+        config_target_request = self.create_upload_request(
+            defaultdict(None, {'configured_target': config_target}), target_id,
+            config_id)
+        requests.append(config_target_request)
+        action = get_default_action(invocation_id,
+                                    target_id,
+                                    config_id,
+                                    files=files)
+        action_id = action.id.action_id
+        action_request = self.create_upload_request(
+            defaultdict(None, {'action': action}), target_id, config_id,
+            action_id)
+        requests.append(action_request)
+        return requests
+
+    def finalize_batch_upload(self, resume_token, next_resume_token,
+                              invocation_id):
+        """
+        Finalize an invocation that was in batch mode
+
+        Args:
+            resume_token (bytes): Current resume token
+            next_resume_token (bytes): Next resume token
+            invocation_id (str): Invocation ID to be finalized
+        """
+        invocation = get_default_invocation(invocation_id)
+        finalize_invocation_request = resultstore_upload_pb2.UploadRequest(
+            invocation=invocation,
+            upload_operation=(resultstore_upload_pb2.UploadRequest.FINALIZE))
+        self.batch_upload(resume_token, next_resume_token, invocation_id,
+                          [finalize_invocation_request])
+
+    def batch_upload(self, resume_token, next_resume_token, invocation_id,
+                     upload_requests):
+        """
+        Batch upload the provided upload_requests to the invocation
+
+        Args:
+            resume_token (bytes): Current resume token
+            next_resume_token (bytes): Next resume token
+            invocation_id (str): Invocation ID to upload to
+            upload_requests (Sequence[UploadRequest]): List of UploadRequests to be uploaded
+
+        Returns:
+            The response or error from the ResultStore v2 gRPC Stub Call
+        """
+        invocation_name = 'invocations/' + invocation_id
+        stub = resultstore_upload_pb2_grpc.ResultStoreUploadStub(
+            self.credentials.get_active_channel())
+        request = resultstore_upload_pb2.UploadBatchRequest(
+            parent=invocation_name,
+            resume_token=resume_token,
+            next_resume_token=next_resume_token,
+            authorization_token=self.authorization_token)
+        request.upload_requests.extend(upload_requests)
+
+        try:
+            response = stub.UploadBatch(request)
+        except grpc.RpcError as rpc_error:
+            _LOGGER.error('Received error: %s', rpc_error)
+            return rpc_error
+        else:
+            _LOGGER.info('Received message: %s', response)
+            return response
+
+    def batch_upload_wrapper(self, resume_token, next_resume_token):
+        """
+        Batch upload to a given invocation
+
+        Args:
+            resume_token (bytes): Current resume token
+            next_resume_token (bytes): Next resume token
+        """
+        batched_requests = self.create_resource_requests(
+            self.flags.invocation_id, self.flags.config_id)
+        self.batch_upload(resume_token, next_resume_token,
+                          self.flags.invocation_id, batched_requests)
+
     def single_upload(self):
         """
         Uploads a single invocation to resultstore
@@ -392,12 +533,12 @@ class ResultStoreClient(object):
             build_action = action_pb2.BuildAction()
             action.build_action.CopyFrom(build_action)
         self.create_action(action)
-        self.__file_upload_helper(target_id, action.id.action_id, config_id)
+        self._file_upload_helper(target_id, action.id.action_id, config_id)
         self.finalize_configured_target(self.flags.invocation_id, target_id,
                                         config_id)
         self.finalize_target(self.flags.invocation_id, target_id)
 
-    def __file_upload_helper(self, target_id, action_id, config_id):
+    def _file_upload_helper(self, target_id, action_id, config_id):
         """
         Uploads files specified by the --files flag to the given target
 
@@ -408,12 +549,7 @@ class ResultStoreClient(object):
         """
         result_status = common_pb2.Status.Value(self.flags.status)
         start_time = time.time()
-        storage_dir = '{}/{}/'.format(self.flags.invocation_id, target_id)
-        bigstore_client = BigStoreClient(self.credentials,
-                                         self.flags.bigstore_project_name,
-                                         storage_dir, self.flags.bucket_name)
-        additional_files = bigstore_client.upload_files_to_bigstore(
-            self.flags.files)
+        additional_files = self._upload_files(target_id)
         end_time = time.time()
         duration_seconds = int(end_time - start_time)
         duration = duration_pb2.Duration(seconds=duration_seconds)
@@ -436,3 +572,21 @@ class ResultStoreClient(object):
             timing=common_pb2.Timing(duration=duration))
         self.update_target(new_target,
                            ['timing.duration', 'status_attributes'])
+
+    def _upload_files(self, target_id):
+        """
+        Uploads files to bigstore at the given target_id
+
+        Args:
+            target_id (str): Target for files to be associated with
+
+        Returns:
+            uploaded_files: A list of file_pb2.File() objects
+        """
+        storage_dir = '{}/{}/'.format(self.flags.invocation_id, target_id)
+        bigstore_client = BigStoreClient(self.credentials,
+                                         self.flags.bigstore_project_name,
+                                         storage_dir, self.flags.bucket_name)
+        additional_files = bigstore_client.upload_files_to_bigstore(
+            self.flags.files)
+        return additional_files

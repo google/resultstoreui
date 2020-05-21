@@ -1,10 +1,14 @@
+from base64 import b64encode
 from absl import (flags, app)
 from resultstore_client import ResultStoreClient
 from credentials import Credentials
 from resultstoreapi.cloud.devtools.resultstore_v2.proto import common_pb2
 
 FLAGS = flags.FLAGS
-flags.DEFINE_string('command', '', 'Available commands to execute: get-invocation, create-invocation, single-upload')
+flags.DEFINE_string(
+    'command', '',
+    'Available commands to execute: get-invocation, create-invocation, single-upload'
+)
 flags.DEFINE_string('config_id', 'default', 'Config Id')
 flags.DEFINE_string('target_name', '', 'Target Name')
 flags.DEFINE_string('invocation_id', '', 'Invocation ID')
@@ -21,12 +25,23 @@ flags.DEFINE_list('files', [], 'files to be uploaded with the action')
 flags.DEFINE_string(
     'channel_target', 'resultstore.googleapis.com',
     'The host and port of the service that the channel is created to')
+flags.DEFINE_bool(
+    'create_config', True,
+    'Boolean to control creation of configuration during single or batch upload'
+)
+flags.DEFINE_string('resume_token', '',
+                    'Current resume token for batch uplaods')
+flags.DEFINE_string('next_resume_token', '',
+                    'Next resume token for batch uploads')
 
 
 def main(argv):
     resultstore_creds = Credentials()
     resultstore_client = ResultStoreClient(resultstore_creds, FLAGS)
-    with resultstore_creds.create_secure_channel(FLAGS.channel_target) as channel:
+    resume_token = b64encode(bytes(FLAGS.resume_token, 'utf-8'))
+    next_resume_token = b64encode(bytes(FLAGS.next_resume_token, 'utf-8'))
+    with resultstore_creds.create_secure_channel(
+            FLAGS.channel_target) as channel:
         if not FLAGS.command:
             raise Exception(
                 'No command specified! Please specific a command with --command'
@@ -37,6 +52,13 @@ def main(argv):
             resultstore_client.create_invocation()
         elif FLAGS.command == 'single-upload':
             resultstore_client.single_upload()
+        elif FLAGS.command == 'batch-upload':
+            resultstore_client.batch_upload_wrapper(resume_token,
+                                                    next_resume_token)
+        elif FLAGS.command == 'finalize-batch-upload':
+            resultstore_client.finalize_batch_upload(resume_token,
+                                                     next_resume_token,
+                                                     FLAGS.invocation_id)
         else:
             raise Exception('Command not found: {}'.format(FLAGS.command))
 
