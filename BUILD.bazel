@@ -1,0 +1,22 @@
+package(default_visibility = ["//visibility:public"])
+
+load("@grpc_deps//:requirements.bzl", "requirement")
+
+py_library(
+  name = "resultstore_api",
+  srcs = glob(["google/**/*.py"]),
+  deps = [
+    requirement("grpcio"),
+    requirement("protobuf"),
+    requirement("google-api-core"),
+  ]
+)
+
+py_binary(
+    name = "resultstoreui",
+    srcs = glob(["*.py"]),
+    python_version = 'PY3',
+    deps = [
+      "resultstore_api",
+    ],
+)
