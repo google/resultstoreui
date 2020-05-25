@@ -5,34 +5,38 @@ from credentials import Credentials
 from resultstoreapi.cloud.devtools.resultstore_v2.proto import common_pb2
 
 FLAGS = flags.FLAGS
-flags.DEFINE_string(
-    'command', '',
-    'Available commands to execute: get-invocation, create-invocation, single-upload'
-)
-flags.DEFINE_string('config_id', 'default', 'Config Id')
-flags.DEFINE_string('target_name', '', 'Target Name')
-flags.DEFINE_string('invocation_id', '', 'Invocation ID')
-flags.DEFINE_string('authorization_token', '', 'Authorization Token')
-flags.DEFINE_string('action_type', 'TEST', 'Action Type')
-flags.DEFINE_string('invocation_name', '', 'Invocation Name')
-flags.DEFINE_string('bigstore_project_name', 'google.com:gchips-productivity',
-                    'The project name for the bigstore client')
-flags.DEFINE_enum('status', 'PASSED', common_pb2.Status.keys(),
-                  'Status of this action (if command not provided)')
-flags.DEFINE_string('bucket_name', 'sival-logs',
-                    'Google Cloud Storage Bucket Name')
-flags.DEFINE_list('files', [], 'files to be uploaded with the action')
-flags.DEFINE_string(
-    'channel_target', 'resultstore.googleapis.com',
-    'The host and port of the service that the channel is created to')
-flags.DEFINE_bool(
-    'create_config', True,
-    'Boolean to control creation of configuration during single or batch upload'
-)
-flags.DEFINE_string('resume_token', '',
-                    'Current resume token for batch uplaods')
-flags.DEFINE_string('next_resume_token', '',
-                    'Next resume token for batch uploads')
+
+
+def initialize_flags():
+    flags.DEFINE_string(
+        'command', '',
+        'Available commands to execute: get-invocation, create-invocation, single-upload'
+    )
+    flags.DEFINE_string('config_id', 'default', 'Config Id')
+    flags.DEFINE_string('target_name', '', 'Target Name')
+    flags.DEFINE_string('invocation_id', '', 'Invocation ID')
+    flags.DEFINE_string('authorization_token', '', 'Authorization Token')
+    flags.DEFINE_string('action_type', 'TEST', 'Action Type')
+    flags.DEFINE_string('invocation_name', '', 'Invocation Name')
+    flags.DEFINE_string('bigstore_project_name',
+                        'google.com:gchips-productivity',
+                        'The project name for the bigstore client')
+    flags.DEFINE_enum('status', 'PASSED', common_pb2.Status.keys(),
+                      'Status of this action (if command not provided)')
+    flags.DEFINE_string('bucket_name', 'sival-logs',
+                        'Google Cloud Storage Bucket Name')
+    flags.DEFINE_list('files', [], 'files to be uploaded with the action')
+    flags.DEFINE_string(
+        'channel_target', 'resultstore.googleapis.com',
+        'The host and port of the service that the channel is created to')
+    flags.DEFINE_bool(
+        'create_config', True,
+        'Boolean to control creation of configuration during single or batch upload'
+    )
+    flags.DEFINE_string('resume_token', '',
+                        'Current resume token for batch uplaods')
+    flags.DEFINE_string('next_resume_token', '',
+                        'Next resume token for batch uploads')
 
 
 def main(argv):
@@ -64,4 +68,5 @@ def main(argv):
 
 
 if __name__ == '__main__':
+    initialize_flags()
     app.run(main)
