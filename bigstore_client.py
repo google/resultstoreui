@@ -7,7 +7,6 @@ from resultstoreapi.cloud.devtools.resultstore_v2.proto import (file_pb2)
 
 class BigStoreClient(object):
     """ Client for BigStore"""
-
     def __init__(self, credentials, project_name, storage_dir, bucket_name):
         """
         Initialize BigStore Client

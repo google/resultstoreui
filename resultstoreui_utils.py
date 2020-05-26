@@ -203,7 +203,11 @@ def get_default_configured_target(invocation_id, target_id, config_id):
     return config_target
 
 
-def get_default_action(invocation_id, target_id, config_id, action_id=None):
+def get_default_action(invocation_id,
+                       target_id,
+                       config_id,
+                       action_id=None,
+                       files=None):
     """
     Returns a new Action with fields initialized to defaults.
     
@@ -218,13 +222,13 @@ def get_default_action(invocation_id, target_id, config_id, action_id=None):
     """
     if not action_id:
         action_id = 'test'
-    action = action_pb2.Action(
-        id={
-            'invocation_id': invocation_id,
-            'target_id': target_id,
-            'configuration_id': config_id,
-            'action_id': action_id
-        })
+    action = action_pb2.Action(id={
+        'invocation_id': invocation_id,
+        'target_id': target_id,
+        'configuration_id': config_id,
+        'action_id': action_id
+    },
+                               files=files)
     set_starting_time_to_now(action)
     set_status_to_testing(action)
     return action
