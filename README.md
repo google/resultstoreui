@@ -1,51 +1,101 @@
-# New Project Template
+# ResultStoreUI
+## Usage
 
-This repository contains a template that can be used to seed a repository for a
-new Google open source project.
+This tool can be run using either
 
-This template uses the Apache license, as is Google's default.  See the
-documentation for instructions on using alternate license.
-
-**This is not an officially supported Google product.**
-
-## How to use this template
-
-1. Check it out from GitHub.
-    * There is no reason to fork it.
-1. Create a new local repository and copy the files from this repo into it.
-1. Modify README.md and docs/contributing.md to represent your project, not the
-   template project.
-1. Develop your new project!
-
-``` shell
-git clone https://github.com/google/new-project
-mkdir my-new-thing
-cd my-new-thing
-git init
-cp -r ../new-project/* ../new-project/.github .
-git add *
-git commit -a -m 'Boilerplate for new Google open source project'
+```shell
+bazel run resultstoreui
 ```
 
-## Source Code Headers
+or
 
-Every file containing source code must include copyright and license
-information. This includes any JS/CSS files that you might be serving out to
-browsers. (This is to help well-intentioned people avoid accidental copying that
-doesn't comply with the license.)
+```shell
+python3 resultstoreui.py
+```
 
-Apache header:
+and specifying the following flags
 
-    Copyright 2020 Google LLC
+* `--command`: The main command to be run for the current invocation of the cli
+    eg.
+  * `get-invocation` : Attempts to get the invocation specified with the `--invocation_name` flag.
 
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+  ```shell
+  bazel run resultstoreui -- --command="get-invocation" --invocation_name="invocations/d9910974-4d59-4fee-8188-a891de97814a"
+  ```
 
-        https://www.apache.org/licenses/LICENSE-2.0
+  * `create-invocation`: Attempts to create a new invocation using the optionally provided `--authorization_token` or generating one to be associated with requests made with this invocation in the future. Specifying a `--resume_token` will put the invocation into batch mode.
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+  ```shell
+  bazel run resultstoreui -- --command="create-invocation" --authorization_token="77f3d6ca-0577-429f-ba59-02090d27a15b"
+  ```
+
+  * `single-upload`: Uploads a single target, config, configured target and files to the specified `--invocation-id`
+
+  ```shell
+  bazel run resultstoreui -- --command="single_upload"
+  --invocation_id="d9910974-4d59-4fee-8188-a891de97814a"
+  --authorization_token="77f3d6ca-0577-429f-ba59-02090d27a15b"
+  --files="/path/to/file1, /path/to/file2"
+  ```
+
+  * `batch-upload`: Batch uploads targets, configs, configured targets and files to an invocation in batch mode.
+  
+  ```shell
+  bazel run resultstoreui -- --command="batch-upload"
+  --invocation_id="d9910974-4d59-4fee-8188-a891de97814a"
+  --authorization_token="77f3d6ca-0577-429f-ba59-02090d27a15b"
+  --resume_token="current-resume-token"
+  --next_resume_token="next-resume-token"
+  --files="/path/to/file1, /path/to/file2"
+  ```
+
+  * `finalize-batch-upload` : Finalizes an invocation in batch mode
+
+  ```shell
+  bazel run resultstoreui -- --command="finalize-batch-upload"
+  --invocation_id="d9910974-4d59-4fee-8188-a891de97814a"
+  --resume_token="current-resume-token"
+  --next_resume_token="next-resume-token"
+  --authorization_token="77f3d6ca-0577-429f-ba59-02090d27a15b"
+  ```
+
+* `--channel_target`: The host and port of the service that the channel is created to
+* `--config_id` : config_id to be used when creating a config
+* `--target_name`: target_name to be used when creating a target
+* `--invocation_id`: invocation to edit
+* `--authorization_token`: authorization token to be used during the current command
+* `--action_type`: action_type for the current action to be created
+* `--invocation_name`: action to get when using the `get-invocation` command
+* `--bigstore_project_name`: bigstore project to upload files to
+* `--bucket_name`: Bucket name inside bigstore to upload files to
+* `--files`: comma separated list of paths to files to upload for the current target
+* `--status`: Current status of the action being uploaded
+* `--create_config`: Boolean to specify creatione of a configuration during single-upload or batch-upload
+* `--resume_token`: Current resume token for batch uploads
+* `--next_resume_token`: Next resume token for batch uploads
+
+## Running Tests
+
+Tests can be run with either
+
+```shell
+bazel run test_resultstoreui
+```
+
+or
+
+```shell
+python3 resultstore_client_test.py
+```
+
+## Rebuilding gRPC Client Files
+
+1. Clone https://github.com/googleapis/googleapis
+
+2. Copy the build file from gRPC-build to the `google/devtools/resultstore/v2/` subdirectory
+
+3. `bazel build //...`
+
+4. Navigate to your local bazel cache under `${HOME}/.cache/bazel/_bazel_${USER}/BUILD_ID/execroot/com_google_googleapis`
+
+5. Copy the google subdirectory and replace the current resultstoreapi folder with the newly generated files
