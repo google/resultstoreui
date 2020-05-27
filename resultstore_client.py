@@ -274,7 +274,7 @@ class ResultStoreClient(object):
             The response or error from the ResultStore v2 gRPC Stub Call
         """
         if not update_fields:
-            raise Error('At least one update field must be provided')
+            raise Error('At least one update field must be provided.')
         stub = resultstore_upload_pb2_grpc.ResultStoreUploadStub(
             self.credentials.get_active_channel())
         request = resultstore_upload_pb2.UpdateActionRequest(

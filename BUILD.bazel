@@ -20,3 +20,15 @@ py_binary(
       "resultstore_api",
     ],
 )
+
+py_test(
+  name = "test_resultstoreui",
+  srcs = [
+    "resultstore_client_test.py"
+  ],
+  deps = [
+    "resultstoreui",
+    "resultstore_api",
+  ],
+  main = "resultstore_client_test.py"
+)
