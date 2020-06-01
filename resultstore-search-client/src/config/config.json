@@ -1,0 +1,6 @@
+{
+    "development": {
+        "destinationAddress": "http://localhost:8080",
+        "projectId": "google.com:gchips-productivity"
+    }
+}
