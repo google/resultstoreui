@@ -1,0 +1,101 @@
+syntax = "proto3";
+
+package resultstoresearch.v1;
+
+import "invocation.proto";
+
+// This is the interface used to download information from the ResultStore
+// database.
+//
+// Most APIs require setting a response FieldMask via the 'fields' URL query
+// parameter or the X-Goog-FieldMask HTTP/gRPC header.
+service ResultStoreDownload {
+  // Searches for invocations matching the given query parameters. Results will
+  // be ordered by timing.start_time with most recent first, but total ordering
+  // of results is not guaranteed when difference in timestamps is very small.
+  // Results may be stale.
+  //
+  //
+  // An error will be reported in the following cases:
+  // - If a query string is not provided
+  // - If no field mask was given.
+  rpc SearchInvocations(SearchInvocationsRequest)
+      returns (SearchInvocationsResponse);
+
+  // Retrieves the invocation with the given name.
+  //
+  // An error will be reported in the following cases:
+  // - If the invocation is not found.
+  // - If the given invocation name is badly formatted.
+  // - If no field mask was given.
+  rpc GetInvocation(GetInvocationRequest) returns (Invocation);
+}
+
+// Request passed into SearchInvocations
+message SearchInvocationsRequest {
+  // The maximum number of items to return. Zero means all, but may be capped by
+  // the server.
+  int32 page_size = 1;
+
+  // Options for pagination.
+  oneof page_start {
+    // The next_page_token value returned from a previous Search request, if
+    // any.
+    string page_token = 2;
+
+    // Absolute number of results to skip. May be rejected if too high.
+    int64 offset = 3;
+  }
+
+  // A filtering query string.
+  //
+  // Only a limited number of fields and operators are supported. Not every
+  // field supports every operator.
+  //
+  // Fields that support equals ("=") restrictions:
+  //
+  // name
+  // status_attributes.status
+  // workspace_info.hostname
+  //
+  // Fields that support contains (":") restrictions:
+  //
+  // invocation_attributes.users
+  // invocation_attributes.labels
+  //
+  // Fields that support comparison ("<", "<=", ">", ">=") restrictions;
+  //
+  // timing.start_time
+  //
+  // Supported custom function global restrictions:
+  //
+  // propertyEquals("key", "value")
+  string query = 4;
+
+  // The project id to search under.
+  string project_id = 5;
+
+  // If true, all equals or contains restrictions on string fields in query will
+  // require exact match. Otherwise, a string field restriction may ignore case
+  // and punctuation.
+  bool exact_match = 7;
+}
+
+// Request passed into GetInvocation
+message GetInvocationRequest {
+  // The name of the invocation to retrieve. It must match this format:
+  // invocations/${INVOCATION_ID}
+  // where INVOCATION_ID must be an RFC 4122-compliant random UUID.
+  string name = 1;
+}
+
+// Response from calling SearchInvocations
+message SearchInvocationsResponse {
+  // Invocations matching the search, possibly capped at request.page_size or a
+  // server limit.
+  repeated Invocation invocations = 1;
+
+  // Token to retrieve the next page of results, or empty if there are no
+  // more results.
+  string next_page_token = 2;
+}
