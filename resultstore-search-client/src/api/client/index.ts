@@ -7,7 +7,7 @@ import {
 import * as invocation_pb from '../invocation_pb';
 import { toSentenceCase } from '../../utils/index';
 
-type SetInvocations = (invocations: Array<invocation_pb.Invocation>) => void;
+export type SetInvocations = (invocations: Array<invocation_pb.Invocation>) => void;
 type UpdateError = (error: string, hasError: boolean) => void;
 
 const destinationAddress = 'http://localhost:8080';

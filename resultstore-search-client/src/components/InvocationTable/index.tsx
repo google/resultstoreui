@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -60,14 +60,17 @@ function createData(invocation: invocation_pb.Invocation): Data {
   return { status, name, labels, date, duration, user };
 }
 
-const useStyles = makeStyles({
-  root: {
-    width: "100%",
-  },
-  container: {
-    maxHeight: 440,
-  },
-});
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    margin: {
+      margin: theme.spacing(2),
+    },
+    container: {
+      display: "flex",
+      flexWrap: "wrap",
+    },
+  })
+);
 
 export interface InvocationTableProps {
   invocations: Array<invocation_pb.Invocation>;
@@ -80,9 +83,9 @@ const InvocationTable: React.FC<InvocationTableProps> = ({ invocations }) => {
   const rows = invocations.map((invocation) => createData(invocation));
 
   return (
-    <Paper className={classes.root}>
+    // <Paper className={classes.root}>
       <TableContainer className={classes.container}>
-        <Table stickyHeader aria-label="sticky table">
+        <Table stickyHeader aria-label="sticky table" className={classes.margin}>
           <TableHead>
             <TableRow>
               {columns.map((column) => (
@@ -113,15 +116,7 @@ const InvocationTable: React.FC<InvocationTableProps> = ({ invocations }) => {
           </TableBody>
         </Table>
       </TableContainer>
-      {/* <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onChangePage={handleChangePage}
-        onChangeRowsPerPage={handleChangeRowsPerPage}
-      /> */}
-    </Paper>
   );
 };
+
+export default InvocationTable;
