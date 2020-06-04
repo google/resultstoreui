@@ -55,7 +55,7 @@ function createData(invocation: invocation_pb.Invocation): Data {
     )
     .format("mm:ss");
   const user = `${
-    invocationAttributes.getUsersList[0]
+    invocationAttributes.getUsersList()[0]
   }@${workspaceInfo.getHostname()}`;
   return { status, name, labels, date, duration, user };
 }
