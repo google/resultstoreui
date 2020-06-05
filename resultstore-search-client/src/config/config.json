@@ -2,5 +2,9 @@
     "development": {
         "destinationAddress": "http://localhost:8080",
         "projectId": "google.com:gchips-productivity"
+    },
+    "production": {
+        "destinationAddress": "host.docker.internal:8080",
+        "projectId": "google.com:gchips-productivity"
     }
 }
