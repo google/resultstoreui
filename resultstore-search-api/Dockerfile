@@ -1,0 +1,9 @@
+FROM python:3
+
+RUN pip install absl-py grpcio protobuf gcloud google-api-python-client google-api-python-client
+
+ENV APP_HOME /app
+WORKDIR $APP_HOME
+COPY . ./
+
+CMD ["python3", "server.py"]
