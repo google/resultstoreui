@@ -10,6 +10,6 @@ interface DefaultConfig {
 }
 
 const config = require('./config.json') as Config;
-const environment = process.env.NODE_ENV || 'development';
+const environment =  process.env.REACT_APP_ENVIRONMENT || process.env.NODE_ENV || 'development';
 const environmentConfig = config[environment];
 export default environmentConfig;
