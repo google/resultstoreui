@@ -2,7 +2,7 @@ FROM python:3
 
 RUN pip install absl-py grpcio protobuf gcloud google-api-python-client google-api-python-client
 
-ENV APP_HOME /app
+ENV APP_HOME /usr/src/app
 WORKDIR $APP_HOME
 COPY . ./
 
