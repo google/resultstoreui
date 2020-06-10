@@ -1,0 +1,9 @@
+{
+  "name": "e2e",
+  "version": "1.0.0",
+  "license": "MIT",
+  "devDependencies": {
+    "cypress": "^4.8.0",
+    "typescript": "^3.9.5"
+  }
+}
