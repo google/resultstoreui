@@ -6,5 +6,9 @@
     "production": {
         "destinationAddress": "http://localhost:8080",
         "projectId": "google.com:gchips-productivity"
+    },
+    "test": {
+        "destinationAddress": "http://localhost:8081",
+        "projectId": "google.com:gchips-productivity"
     }
 }
