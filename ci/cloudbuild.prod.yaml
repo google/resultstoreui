@@ -13,14 +13,14 @@ steps:
 
 # Deploy envoy
 - name: gcr.io/cloud-builders/gcloud
-  args: [ 'compute', 'instances', 'update-container', 'intern-instance' , '--container-image', 'gcr.io/google.com:gchips-productivity/resultstoresearch-envoy:latest']
+  args: [ 'compute', 'instances', 'update-container', 'intern-instance' , '--container-image', 'gcr.io/google.com/gchips-productivity/resultstoresearch-envoy:latest']
 
 # Deploy client
 - name: gcr.io/cloud-builders/gcloud
-  args: [ 'compute', 'instances', 'update-container', 'intern-instance' , '--container-image', 'gcr.io/google.com:gchips-productivity/resultstoresearch-client:latest']
+  args: [ 'compute', 'instances', 'update-container', 'intern-instance' , '--container-image', 'gcr.io/google.com/gchips-productivity/resultstoresearch-client:latest']
 
 # Deploy server
 - name: gcr.io/cloud-builders/gcloud
-  args: [ 'compute', 'instances', 'update-container', 'intern-instance' , '--container-image', 'gcr.io/google.com:gchips-productivity/resultstoresearch-server:latest']
+  args: [ 'compute', 'instances', 'update-container', 'intern-instance' , '--container-image', 'gcr.io/google.com/gchips-productivity/resultstoresearch-server:latest']
 
-images: ['gcr.io/google.com:gchips-productivity/resultstoresearch-server:latest', 'gcr.io/google.com:gchips-productivity/resultstoresearch-client:latest', 'gcr.io/google.com:gchips-productivity/resultstoresearch-envoy:latest']
+images: ['gcr.io/google.com/gchips-productivity/resultstoresearch-server:latest', 'gcr.io/google.com/gchips-productivity/resultstoresearch-client:latest', 'gcr.io/google.com/gchips-productivity/resultstoresearch-envoy:latest']

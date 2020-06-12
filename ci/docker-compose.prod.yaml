@@ -4,7 +4,7 @@ services:
     build:
       context: ../resultstore-search-client/envoy/
       network: host
-    image: gcr.io/google.com:gchips-productivity/resultstoresearch-envoy
+    image: gcr.io/google.com/gchips-productivity/resultstoresearch-envoy
     ports:
       - "8080:8080"
       - "9901:9901" 
@@ -13,7 +13,7 @@ services:
     build:
       context: ../resultstore-search-api/
       dockerfile: Dockerfile.prod
-    image: gcr.io/google.com:gchips-productivity/resultstoresearch-server
+    image: gcr.io/google.com/gchips-productivity/resultstoresearch-server
     volumes:
       - ../resultstore-search-api/:/usr/src/app
     ports:
@@ -22,7 +22,7 @@ services:
   client:
     build:
       context: ../resultstore-search-client/
-    image: gcr.io/google.com:gchips-productivity/resultstoresearch-client
+    image: gcr.io/google.com/gchips-productivity/resultstoresearch-client
     volumes:
       - ../resultstore-search-client/:/usr/src/app
       - /usr/src/app/node_modules
