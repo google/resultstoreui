@@ -7,3 +7,20 @@ steps:
   args: ['-f', 'ci/docker-compose.prod.yaml', 'up', '-d']
   env:
   - 'PROJECT_ID=$PROJECT_ID'
+
+- name: gcr.io/cloud-builders/gcloud
+  args: [ 'config', 'set', 'compute/zone', 'us-central1-a']
+
+# Deploy envoy
+- name: gcr.io/cloud-builders/gcloud
+  args: [ 'compute', 'instances', 'update-container', 'intern-instance' , '--container-image', 'gcr.io/google.com:gchips-productivity/resultstoresearch-envoy:latest']
+
+# Deploy client
+- name: gcr.io/cloud-builders/gcloud
+  args: [ 'compute', 'instances', 'update-container', 'intern-instance' , '--container-image', 'gcr.io/google.com:gchips-productivity/resultstoresearch-client:latest']
+
+# Deploy server
+- name: gcr.io/cloud-builders/gcloud
+  args: [ 'compute', 'instances', 'update-container', 'intern-instance' , '--container-image', 'gcr.io/google.com:gchips-productivity/resultstoresearch-server:latest']
+
+images: ['gcr.io/google.com:gchips-productivity/resultstoresearch-server:latest', 'gcr.io/google.com:gchips-productivity/resultstoresearch-client:latest', 'gcr.io/google.com:gchips-productivity/resultstoresearch-envoy:latest']

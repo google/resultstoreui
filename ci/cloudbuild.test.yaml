@@ -10,3 +10,5 @@ steps:
 
 - name: 'docker/compose:1.26.0'
   args: ['-f', 'ci/docker-compose.cypress.yaml', 'up']
+
+images: ['gcr.io/google.com:gchips-productivity/resultstoresearch-envoy-test', 'gcr.io/google.com:gchips-productivity/resultstoresearch-server-mock', 'gcr.io/google.com:gchips-productivity/resultstoresearch-client-test']
