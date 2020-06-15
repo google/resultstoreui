@@ -10,8 +10,8 @@ services:
       - "9901"
     ports:
       - "8080:8080"
-      - "9901:9901" 
-  
+      - "9901:9901"
+
   client:
     build:
       context: ../resultstore-search-client/
@@ -19,13 +19,11 @@ services:
     volumes:
       - ../resultstore-search-client/:/usr/src/app
       - /usr/src/app/node_modules
-    depends_on:
-      - server
+    stdin_open: true
     ports:
       - "3000:80"
     expose:
       - "80"
-    stdin_open: true
     depends_on:
       - server
       - envoy
@@ -37,7 +35,9 @@ services:
     image: gcr.io/google.com/gchips-productivity/resultstoresearch-server
     volumes:
       - ../resultstore-search-api/:/usr/src/app
-    environment: 
-      # GOOGLE_APPLICATION_CREDENTIALS: "/home/lewiscraig/service_account.json"
     ports:
       - "9090:9090"
+    expose:
+      - "9090"
+    depends_on:
+      - envoy

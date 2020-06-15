@@ -7,6 +7,9 @@ from resultstoresearchapi import (
 from proxy_server_utils import configure_grpc_error
 import logging
 import grpc
+from mock_responses import (
+    mock_search_invocations_response
+)
 
 _LOGGER = logging.getLogger(__name__)
 _LOGGER.setLevel(logging.INFO)
@@ -37,6 +40,8 @@ class ProxyServer(
         Returns:
             SearchInvocationsResponse
         """
+        print('meme')
+        return mock_search_invocations_response()
         _LOGGER.info('Received request: %s', request)
         new_request = resultstore_download_pb2.SearchInvocationsRequest(
             query=request.query,

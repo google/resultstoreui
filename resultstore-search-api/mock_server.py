@@ -8,7 +8,6 @@ from mock_proxy import MockProxyServer
 
 FLAGS = flags.FLAGS
 
-
 def initialize_flags():
     flags.DEFINE_string('port', '[::]:9090', 'Server Port')
 

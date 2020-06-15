@@ -21,6 +21,7 @@ class MockProxyServer(
         Returns:
             SearchInvocationsResponse
         """
+        print('meme')
         if request.query == 'incorrect query':
             context.set_details('Invalid query string')
             context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
