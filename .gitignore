@@ -121,5 +121,8 @@ dmypy.json
 
 # Node Modules
 /resultstore-search-client/node_modules
+/e2e/node_modules
+/e2e/cypress/videos
+/e2e/cypress/screenshots
 
 # End of https://www.gitignore.io/api/python

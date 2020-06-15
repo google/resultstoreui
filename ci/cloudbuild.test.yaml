@@ -1,0 +1,12 @@
+steps:
+- name: node
+  entrypoint: yarn
+  args: ['install']
+
+- name: 'docker/compose:1.26.0'
+  args: ['-f', 'ci/docker-compose.test.yaml', 'up', '-d']
+  env:
+  - 'PROJECT_ID=$PROJECT_ID'
+
+- name: 'docker/compose:1.26.0'
+  args: ['-f', 'ci/docker-compose.cypress.yaml', 'up']

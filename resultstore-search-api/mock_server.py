@@ -10,7 +10,7 @@ FLAGS = flags.FLAGS
 
 
 def initialize_flags():
-    flags.DEFINE_string('port', '[::]:9091', 'Server Port')
+    flags.DEFINE_string('port', '[::]:9090', 'Server Port')
 
 
 def serve(argv):

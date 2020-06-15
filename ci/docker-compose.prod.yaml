@@ -1,0 +1,44 @@
+version: "3.8"
+services:
+  envoy:
+    build:
+      context: ../resultstore-search-client/envoy/
+      network: host
+    image: gcr.io/google.com/gchips-productivity/resultstoresearch-envoy
+    expose: 
+      - "8080"
+      - "9901"
+    ports:
+      - "8080:8080"
+      - "9901:9901" 
+  
+  client:
+    build:
+      context: ../resultstore-search-client/
+    image: gcr.io/google.com/gchips-productivity/resultstoresearch-client
+    volumes:
+      - ../resultstore-search-client/:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - server
+    ports:
+      - "3000:80"
+    expose:
+      - "80"
+    stdin_open: true
+    depends_on:
+      - server
+      - envoy
+
+  server:
+    build:
+      context: ../resultstore-search-api/
+      dockerfile: Dockerfile.prod
+    image: gcr.io/google.com/gchips-productivity/resultstoresearch-server
+    environment: 
+      GOOGLE_APPLICATION_CREDENTIALS: /root/keys/keyfile.json
+    volumes:
+      - ../resultstore-search-api/:/usr/src/app
+      - ~/service_account.json:/root/keys/keyfile.json:ro
+    ports:
+      - "9090:9090"
