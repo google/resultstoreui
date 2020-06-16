@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='resultstoresearch.v1',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=b'\n\x1aresultstore_download.proto\x12\x14resultstoresearch.v1\x1a\x10invocation.proto\"\x9b\x01\n\x18SearchInvocationsRequest\x12\x11\n\tpage_size\x18\x01 \x01(\x05\x12\x14\n\npage_token\x18\x02 \x01(\tH\x00\x12\x10\n\x06offset\x18\x03 \x01(\x03H\x00\x12\r\n\x05query\x18\x04 \x01(\t\x12\x12\n\nproject_id\x18\x05 \x01(\t\x12\x13\n\x0b\x65xact_match\x18\x07 \x01(\x08\x42\x0c\n\npage_start\"$\n\x14GetInvocationRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"k\n\x19SearchInvocationsResponse\x12\x35\n\x0binvocations\x18\x01 \x03(\x0b\x32 .resultstoresearch.v1.Invocation\x12\x17\n\x0fnext_page_token\x18\x02 \x01(\t2\xea\x01\n\x13ResultStoreDownload\x12t\n\x11SearchInvocations\x12..resultstoresearch.v1.SearchInvocationsRequest\x1a/.resultstoresearch.v1.SearchInvocationsResponse\x12]\n\rGetInvocation\x12*.resultstoresearch.v1.GetInvocationRequest\x1a .resultstoresearch.v1.Invocationb\x06proto3'
+  serialized_pb=b'\n\x1aresultstore_download.proto\x12\x14resultstoresearch.v1\x1a\x10invocation.proto\"\xa9\x01\n\x18SearchInvocationsRequest\x12\x11\n\tpage_size\x18\x01 \x01(\x05\x12\x14\n\npage_token\x18\x02 \x01(\tH\x00\x12\x10\n\x06offset\x18\x03 \x01(\x03H\x00\x12\r\n\x05query\x18\x04 \x01(\t\x12\x12\n\nproject_id\x18\x05 \x01(\t\x12\x13\n\x0b\x65xact_match\x18\x07 \x01(\x08\x12\x0c\n\x04tool\x18\x08 \x01(\tB\x0c\n\npage_start\"$\n\x14GetInvocationRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"\x18\n\x16GetInitialStateRequest\"\x7f\n\x19SearchInvocationsResponse\x12\x35\n\x0binvocations\x18\x01 \x03(\x0b\x32 .resultstoresearch.v1.Invocation\x12\x17\n\x0fnext_page_token\x18\x02 \x01(\t\x12\x12\n\ntools_list\x18\x03 \x03(\t\"-\n\x17GetInitialStateResponse\x12\x12\n\ntools_list\x18\x01 \x03(\t2\xda\x02\n\x13ResultStoreDownload\x12t\n\x11SearchInvocations\x12..resultstoresearch.v1.SearchInvocationsRequest\x1a/.resultstoresearch.v1.SearchInvocationsResponse\x12]\n\rGetInvocation\x12*.resultstoresearch.v1.GetInvocationRequest\x1a .resultstoresearch.v1.Invocation\x12n\n\x0fGetInitialState\x12,.resultstoresearch.v1.GetInitialStateRequest\x1a-.resultstoresearch.v1.GetInitialStateResponseb\x06proto3'
   ,
   dependencies=[invocation__pb2.DESCRIPTOR,])
 
@@ -75,6 +75,13 @@ _SEARCHINVOCATIONSREQUEST = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='tool', full_name='resultstoresearch.v1.SearchInvocationsRequest.tool', index=6,
+      number=8, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -91,7 +98,7 @@ _SEARCHINVOCATIONSREQUEST = _descriptor.Descriptor(
       index=0, containing_type=None, fields=[]),
   ],
   serialized_start=71,
-  serialized_end=226,
+  serialized_end=240,
 )
 
 
@@ -121,8 +128,32 @@ _GETINVOCATIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=228,
-  serialized_end=264,
+  serialized_start=242,
+  serialized_end=278,
+)
+
+
+_GETINITIALSTATEREQUEST = _descriptor.Descriptor(
+  name='GetInitialStateRequest',
+  full_name='resultstoresearch.v1.GetInitialStateRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=280,
+  serialized_end=304,
 )
 
 
@@ -147,6 +178,13 @@ _SEARCHINVOCATIONSRESPONSE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='tools_list', full_name='resultstoresearch.v1.SearchInvocationsResponse.tools_list', index=2,
+      number=3, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -159,8 +197,39 @@ _SEARCHINVOCATIONSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=266,
-  serialized_end=373,
+  serialized_start=306,
+  serialized_end=433,
+)
+
+
+_GETINITIALSTATERESPONSE = _descriptor.Descriptor(
+  name='GetInitialStateResponse',
+  full_name='resultstoresearch.v1.GetInitialStateResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='tools_list', full_name='resultstoresearch.v1.GetInitialStateResponse.tools_list', index=0,
+      number=1, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=435,
+  serialized_end=480,
 )
 
 _SEARCHINVOCATIONSREQUEST.oneofs_by_name['page_start'].fields.append(
@@ -172,7 +241,9 @@ _SEARCHINVOCATIONSREQUEST.fields_by_name['offset'].containing_oneof = _SEARCHINV
 _SEARCHINVOCATIONSRESPONSE.fields_by_name['invocations'].message_type = invocation__pb2._INVOCATION
 DESCRIPTOR.message_types_by_name['SearchInvocationsRequest'] = _SEARCHINVOCATIONSREQUEST
 DESCRIPTOR.message_types_by_name['GetInvocationRequest'] = _GETINVOCATIONREQUEST
+DESCRIPTOR.message_types_by_name['GetInitialStateRequest'] = _GETINITIALSTATEREQUEST
 DESCRIPTOR.message_types_by_name['SearchInvocationsResponse'] = _SEARCHINVOCATIONSRESPONSE
+DESCRIPTOR.message_types_by_name['GetInitialStateResponse'] = _GETINITIALSTATERESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 SearchInvocationsRequest = _reflection.GeneratedProtocolMessageType('SearchInvocationsRequest', (_message.Message,), {
@@ -189,12 +260,26 @@ GetInvocationRequest = _reflection.GeneratedProtocolMessageType('GetInvocationRe
   })
 _sym_db.RegisterMessage(GetInvocationRequest)
 
+GetInitialStateRequest = _reflection.GeneratedProtocolMessageType('GetInitialStateRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETINITIALSTATEREQUEST,
+  '__module__' : 'resultstore_download_pb2'
+  # @@protoc_insertion_point(class_scope:resultstoresearch.v1.GetInitialStateRequest)
+  })
+_sym_db.RegisterMessage(GetInitialStateRequest)
+
 SearchInvocationsResponse = _reflection.GeneratedProtocolMessageType('SearchInvocationsResponse', (_message.Message,), {
   'DESCRIPTOR' : _SEARCHINVOCATIONSRESPONSE,
   '__module__' : 'resultstore_download_pb2'
   # @@protoc_insertion_point(class_scope:resultstoresearch.v1.SearchInvocationsResponse)
   })
 _sym_db.RegisterMessage(SearchInvocationsResponse)
+
+GetInitialStateResponse = _reflection.GeneratedProtocolMessageType('GetInitialStateResponse', (_message.Message,), {
+  'DESCRIPTOR' : _GETINITIALSTATERESPONSE,
+  '__module__' : 'resultstore_download_pb2'
+  # @@protoc_insertion_point(class_scope:resultstoresearch.v1.GetInitialStateResponse)
+  })
+_sym_db.RegisterMessage(GetInitialStateResponse)
 
 
 
@@ -204,8 +289,8 @@ _RESULTSTOREDOWNLOAD = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=376,
-  serialized_end=610,
+  serialized_start=483,
+  serialized_end=829,
   methods=[
   _descriptor.MethodDescriptor(
     name='SearchInvocations',
@@ -223,6 +308,15 @@ _RESULTSTOREDOWNLOAD = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_GETINVOCATIONREQUEST,
     output_type=invocation__pb2._INVOCATION,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetInitialState',
+    full_name='resultstoresearch.v1.ResultStoreDownload.GetInitialState',
+    index=2,
+    containing_service=None,
+    input_type=_GETINITIALSTATEREQUEST,
+    output_type=_GETINITIALSTATERESPONSE,
     serialized_options=None,
   ),
 ])

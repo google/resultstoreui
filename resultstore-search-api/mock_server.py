@@ -2,8 +2,7 @@ import grpc
 from concurrent import futures
 from absl import (flags, app)
 from resultstoresearchapi import (
-    resultstore_download_pb2_grpc as resultstoresearch_download_pb2_grpc,
-)
+    resultstore_download_pb2_grpc as resultstoresearch_download_pb2_grpc, )
 from mock_proxy import MockProxyServer
 
 FLAGS = flags.FLAGS
