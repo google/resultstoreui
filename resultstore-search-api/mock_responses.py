@@ -4,9 +4,11 @@ from resultstoresearchapi import (invocation_pb2, common_pb2, timestamp_pb2,
 
 def mock_search_invocations_response():
     response = resultstore_download_pb2.SearchInvocationsResponse(
-        invocations=[mock_invocation(), mock_invocation('invo1', 'tool1')],
+        invocations=[mock_invocation(),
+                     mock_invocation('invo1', 'tool1')],
         tools_list=['tool1', 'tool2'])
     return response
+
 
 def mock_search_invocations_response_with_tools():
     response = resultstore_download_pb2.SearchInvocationsResponse(
@@ -15,7 +17,9 @@ def mock_search_invocations_response_with_tools():
     return response
 
 
-def mock_invocation(invocation_name='invocations/51be7217-9798-4448-adf8-1e4428c71e9e', tool_tag=''):
+def mock_invocation(
+        invocation_name='invocations/51be7217-9798-4448-adf8-1e4428c71e9e',
+        tool_tag=''):
     invocation = invocation_pb2.Invocation(
         name=invocation_name,
         status_attributes=mock_status_attributes(),

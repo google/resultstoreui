@@ -18,7 +18,7 @@ class ProxyServer(
     """
     Server that proxies requests to the search api forward to resultstore
     """
-    def __init__(self, channel):
+    def __init__(self, channel, db):
         """
         Initialize the Proxy Server
 
@@ -27,6 +27,7 @@ class ProxyServer(
         """
         self.channel = channel
         self.tools_list = set()
+        self.db = db
 
     def SearchInvocations(self, request, context):
         """

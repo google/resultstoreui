@@ -37,8 +37,44 @@ services:
     image: gcr.io/google.com/gchips-productivity/resultstoresearch-server
     environment: 
       GOOGLE_APPLICATION_CREDENTIALS: /root/keys/keyfile.json
+      DATABASE_HOST: db
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: postgress
+      DATABASE_PORT: 5432
+      DATABASE_NAME: resultstore_search
     volumes:
       - ../resultstore-search-api/:/usr/src/app
       - ~/service_account.json:/root/keys/keyfile.json:ro
     ports:
       - "9090:9090"
+    depends_on:
+      - db
+
+  db:
+    build:
+      context: ../db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgress
+      - POSTGRES_DB=postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@google.com
+      PGADMIN_DEFAULT_PASSWORD: secret
+      PGADMIN_LISTEN_PORT: 5050
+    ports:
+      - "5050:5050"
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    links:
+      - "db:pgsql-server"
+volumes: 
+  pgdata:
+  pgadmin:

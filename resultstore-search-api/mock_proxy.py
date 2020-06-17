@@ -1,6 +1,7 @@
 from resultstoresearchapi import (resultstore_download_pb2_grpc,
                                   resultstore_download_pb2)
-from mock_responses import (mock_search_invocations_response, mock_search_invocations_response_with_tools)
+from mock_responses import (mock_search_invocations_response,
+                            mock_search_invocations_response_with_tools)
 import logging
 import grpc
 

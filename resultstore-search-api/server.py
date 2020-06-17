@@ -8,6 +8,7 @@ from resultstoresearchapi import (
 )
 from credentials import Credentials
 from resultstore_proxy_server import ProxyServer
+from db_client import Database
 import logging
 import grpc
 
@@ -23,8 +24,9 @@ def initialize_flags():
 def serve(argv):
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     creds = Credentials()
+    db = Database(creds.get_db_config())
     with creds.create_secure_channel(FLAGS.destination_server) as channel:
-        proxy_server = ProxyServer(channel)
+        proxy_server = ProxyServer(channel, db)
         resultstoresearch_download_pb2_grpc.add_ResultStoreDownloadServicer_to_server(
             proxy_server, server)
         server.add_insecure_port(FLAGS.port)

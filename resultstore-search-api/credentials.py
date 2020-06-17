@@ -1,4 +1,5 @@
 import contextlib
+import os
 from google import auth
 from google.auth.transport import grpc as google_auth_transport_grpc
 from google.auth.transport import requests as google_auth_transport_requests
@@ -23,6 +24,15 @@ class Credentials():
         """
         self.channel = None
         self.scopes = ALL_SCOPES
+        self.dbconfig = {}
+        self.dbconfig['DATABASE_HOST'] = os.getenv('DATABASE_HOST', 'db')
+        self.dbconfig['DATABASE_USERNAME'] = os.getenv('DATABASE_USERNAME',
+                                                       'postgres')
+        self.dbconfig['DATABASE_PASSWORD'] = os.getenv('DATABASE_PASSWORD',
+                                                       'postgres')
+        self.dbconfig['DATABASE_PORT'] = os.getenv('DATABASE_PORT', 5432)
+        self.dbconfig['DATABASE_NAME'] = os.getenv('DATABASE_NAME',
+                                                   'resultstore_search')
 
     @contextlib.contextmanager
     def create_secure_channel(self, addr):
@@ -50,3 +60,7 @@ class Credentials():
     def get_scopes(self):
         """Returns scopes"""
         return self.scopes
+
+    def get_db_config(self):
+        """Returns dbconfig"""
+        return self.dbconfig
