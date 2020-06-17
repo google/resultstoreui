@@ -6,6 +6,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import Search from '@material-ui/icons/Search';
 import FormControl from '@material-ui/core/FormControl';
 import { SetInvocations, searchInvocations } from '../../api/client/client';
+import { ToolSelectProps } from '../ToolSelect';
 import * as invocation_pb from '../../api/invocation_pb';
 
 const searchPlaceholder = 'Search Invocations';
@@ -13,11 +14,12 @@ const searchPlaceholder = 'Search Invocations';
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         margin: {
-            margin: theme.spacing(2),
+            margin: theme.spacing(1),
         },
         root: {
             display: 'flex',
             flexWrap: 'wrap',
+            flexGrow: 2,
         },
     })
 );
@@ -31,12 +33,18 @@ interface State {
 
 export interface InvocationTableProps {
     setInvocations: SetInvocations;
+    tool: ToolSelectProps['selectedTool'];
+    setToolsList: ToolSelectProps['setToolsList'];
 }
 
 /*
 SearchBar component to search for invocations by query string
 */
-const SearchBar: React.FC<InvocationTableProps> = ({ setInvocations }) => {
+const SearchBar: React.FC<InvocationTableProps> = ({
+    setInvocations,
+    setToolsList,
+    tool,
+}) => {
     const [query, setQuery] = React.useState<State['query']>('');
     const [errorText, setErrorText] = React.useState<State['errorText']>('');
     const [hasError, setHasError] = React.useState<State['hasError']>(false);
@@ -49,7 +57,13 @@ const SearchBar: React.FC<InvocationTableProps> = ({ setInvocations }) => {
 
     const updateQuery = (query: string) => {
         setQuery(query);
-        searchInvocations(query, setInvocations, updateError);
+        searchInvocations(
+            query,
+            setInvocations,
+            updateError,
+            setToolsList,
+            tool
+        );
     };
 
     return (

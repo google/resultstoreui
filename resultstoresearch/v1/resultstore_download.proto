@@ -29,6 +29,8 @@ service ResultStoreDownload {
   // - If the given invocation name is badly formatted.
   // - If no field mask was given.
   rpc GetInvocation(GetInvocationRequest) returns (Invocation);
+
+  rpc GetInitialState(GetInitialStateRequest) returns (GetInitialStateResponse);
 }
 
 // Request passed into SearchInvocations
@@ -79,6 +81,8 @@ message SearchInvocationsRequest {
   // require exact match. Otherwise, a string field restriction may ignore case
   // and punctuation.
   bool exact_match = 7;
+
+  string tool = 8;
 }
 
 // Request passed into GetInvocation
@@ -89,6 +93,8 @@ message GetInvocationRequest {
   string name = 1;
 }
 
+message GetInitialStateRequest {}
+
 // Response from calling SearchInvocations
 message SearchInvocationsResponse {
   // Invocations matching the search, possibly capped at request.page_size or a
@@ -98,4 +104,8 @@ message SearchInvocationsResponse {
   // Token to retrieve the next page of results, or empty if there are no
   // more results.
   string next_page_token = 2;
+
+  repeated string tools_list = 3;
 }
+
+message GetInitialStateResponse { repeated string tools_list = 1; }

@@ -4,7 +4,8 @@ from resultstoresearchapi import (
     resultstore_download_pb2_grpc as resultstoresearch_download_pb2_grpc,
     resultstore_download_pb2 as resultstoresearch_download_pb2,
 )
-from proxy_server_utils import configure_grpc_error
+from proxy_server_utils import (configure_grpc_error, filter_tool,
+                                update_tools_list)
 import logging
 import grpc
 
@@ -25,6 +26,7 @@ class ProxyServer(
             channel (grpc.Channel): Channel used to make requests to destination server
         """
         self.channel = channel
+        self.tools_list = set()
 
     def SearchInvocations(self, request, context):
         """
@@ -57,7 +59,14 @@ class ProxyServer(
             return resultstoresearch_download_pb2.SearchInvocationsResponse()
         else:
             _LOGGER.info('Received message: %s', response)
-            return response
+            self.tools_list = update_tools_list(response.invocations,
+                                                self.tools_list)
+            filtered_invocations = filter_tool(response.invocations,
+                                               request.tool)
+            return resultstoresearch_download_pb2.SearchInvocationsResponse(
+                invocations=filtered_invocations,
+                next_page_token=response.next_page_token,
+                tools_list=list(self.tools_list))
 
     def GetInvocation(self, request, context):
         """
@@ -85,3 +94,17 @@ class ProxyServer(
         else:
             _LOGGER.info('Received message: %s', response)
             return response
+
+    def GetInitialState(self, request, context):
+        """
+        Gets the initial state of the client
+
+        Args:
+            request (GetInitialStateRequest): The initial state request
+            context (grpc.Context)
+
+        Returns:
+            GetInitialStateResponse
+        """
+        return resultstoresearch_download_pb2.GetInitialStateResponse(
+            self.tools_list)

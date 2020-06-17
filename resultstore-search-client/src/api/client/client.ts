@@ -3,12 +3,18 @@ import { ResultStoreDownloadClient } from '../Resultstore_downloadServiceClientP
 import {
     SearchInvocationsRequest,
     SearchInvocationsResponse,
+    GetInitialStateRequest,
+    GetInitialStateResponse,
 } from '../resultstore_download_pb';
 import * as invocation_pb from '../invocation_pb';
 import { toSentenceCase } from '../../utils/utils';
-import config from '../../config/ConfigLoader'
+import config from '../../config/ConfigLoader';
+import { ToolSelectProps } from '../../components/ToolSelect';
 
-export type SetInvocations = (invocations: Array<invocation_pb.Invocation>) => void;
+export type SetInvocations = (
+    invocations: Array<invocation_pb.Invocation>
+) => void;
+export type SetToolsList = (toolsList: Array<string>) => void;
 type UpdateError = (error: string, hasError: boolean) => void;
 
 const resultStore = new ResultStoreDownloadClient(
@@ -31,12 +37,15 @@ Args:
 const searchInvocations = (
     query: string,
     setInvocations: SetInvocations,
-    updateError: UpdateError
+    updateError: UpdateError,
+    setToolsList: ToolSelectProps['setToolsList'],
+    tool: string
 ) => {
     const request = new SearchInvocationsRequest();
     request.setPageSize(defaultPageSize);
     request.setQuery(query);
     request.setProjectId(config.projectId);
+    request.setTool(tool);
     const metadata = {
         'x-goog-fieldmask': searchFieldMask,
     };
@@ -48,10 +57,25 @@ const searchInvocations = (
                 updateError(`${toSentenceCase(err.message)}.`, true);
             } else {
                 updateError('', false);
+                setToolsList(response.getToolsListList());
                 setInvocations(response.getInvocationsList());
             }
         }
     );
 };
 
-export { searchInvocations };
+const getInitialState = (setToolsList) => {
+    const request = new GetInitialStateRequest();
+    const metadata = {};
+    resultStore.getInitialState(
+        request,
+        metadata,
+        (err: grpcWeb.Error, response: GetInitialStateResponse) => {
+            if (!err) {
+                setToolsList(response.getToolsListList());
+            }
+        }
+    );
+};
+
+export { searchInvocations, getInitialState };
