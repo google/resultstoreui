@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -65,6 +65,18 @@ const SearchBar: React.FC<InvocationTableProps> = ({
             tool
         );
     };
+
+    useEffect(() => {
+        if (query !== '') {
+            searchInvocations(
+                query,
+                setInvocations,
+                updateError,
+                setToolsList,
+                tool
+            );
+        }
+    }, [tool]);
 
     return (
         <div className={classes.root}>

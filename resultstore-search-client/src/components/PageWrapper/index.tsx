@@ -23,6 +23,7 @@ const PageWrapper: React.FC = () => {
     const [selectedTool, setSelectedTool] = useState<
         ToolSelectProps['selectedTool']
     >('');
+
     return (
         <div>
             <SearchContainer>

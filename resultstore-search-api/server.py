@@ -8,6 +8,7 @@ from resultstoresearchapi import (
 )
 from credentials import Credentials
 from resultstore_proxy_server import ProxyServer
+from firestore_client import FireStoreClient
 import logging
 import grpc
 
@@ -18,13 +19,16 @@ def initialize_flags():
     flags.DEFINE_string('port', '[::]:9090', 'Server Port')
     flags.DEFINE_string('destination_server', 'resultstore.googleapis.com',
                         'Destination Server')
+    flags.DEFINE_string('project_id', 'google.com:gchips-productivity',
+                        'Project ID')
 
 
 def serve(argv):
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     creds = Credentials()
+    fs = FireStoreClient(FLAGS.project_id)
     with creds.create_secure_channel(FLAGS.destination_server) as channel:
-        proxy_server = ProxyServer(channel)
+        proxy_server = ProxyServer(channel, fs)
         resultstoresearch_download_pb2_grpc.add_ResultStoreDownloadServicer_to_server(
             proxy_server, server)
         server.add_insecure_port(FLAGS.port)

@@ -18,15 +18,16 @@ class ProxyServer(
     """
     Server that proxies requests to the search api forward to resultstore
     """
-    def __init__(self, channel):
+    def __init__(self, channel, fs):
         """
         Initialize the Proxy Server
 
         Args:
             channel (grpc.Channel): Channel used to make requests to destination server
+            fs (FireStoreClient): Client for firestore
         """
         self.channel = channel
-        self.tools_list = set()
+        self.fs = fs
 
     def SearchInvocations(self, request, context):
         """
@@ -59,14 +60,15 @@ class ProxyServer(
             return resultstoresearch_download_pb2.SearchInvocationsResponse()
         else:
             _LOGGER.info('Received message: %s', response)
-            self.tools_list = update_tools_list(response.invocations,
-                                                self.tools_list)
+            tools_list = self.fs.get_tools()
+            tools_list = update_tools_list(response.invocations, tools_list,
+                                           self.fs)
             filtered_invocations = filter_tool(response.invocations,
                                                request.tool)
             return resultstoresearch_download_pb2.SearchInvocationsResponse(
                 invocations=filtered_invocations,
                 next_page_token=response.next_page_token,
-                tools_list=list(self.tools_list))
+                tools_list=list(tools_list))
 
     def GetInvocation(self, request, context):
         """
@@ -107,4 +109,4 @@ class ProxyServer(
             GetInitialStateResponse
         """
         return resultstoresearch_download_pb2.GetInitialStateResponse(
-            self.tools_list)
+            tools_list=self.fs.get_tools())
