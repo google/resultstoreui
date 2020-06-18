@@ -57,7 +57,10 @@ const searchInvocations = (
                 updateError(`${toSentenceCase(err.message)}.`, true);
             } else {
                 updateError('', false);
-                setToolsList(response.getToolsListList());
+                const toolsList = response.getToolsListList();
+                if (toolsList && toolsList.length !== 0) {
+                    setToolsList(toolsList);
+                }
                 setInvocations(response.getInvocationsList());
             }
         }

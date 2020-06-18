@@ -29,7 +29,8 @@ def has_tool_tag(invocation):
         True if tool_tag exists else false
     """
     if (hasattr(invocation, 'workspace_info')
-            and hasattr(invocation.workspace_info, 'tool_tag')):
+            and hasattr(invocation.workspace_info, 'tool_tag')
+            and invocation.workspace_info.tool_tag != ''):
         return True
     return False
 
@@ -60,10 +61,10 @@ def filter_tool(invocations, tool):
     return filtered_invocations
 
 
-def update_tools_list(invocations, tools_list):
+def update_tools_list(invocations, tools_list, fs):
     """
-    Updates tool tag list of seen tool_tags based on current
-    invocations list queried by SearchInvocations
+    Updates tool tag list and firestore with seen tool_tags based on current
+    invocations list in firestore queried by SearchInvocations
 
     Args:
         invocations (Seq[Invocation]): Current list of invocations
@@ -75,7 +76,8 @@ def update_tools_list(invocations, tools_list):
     for invocation in invocations:
         if (has_tool_tag(invocation)
                 and invocation.workspace_info.tool_tag not in tools_list):
-            tools_list.add(invocation.workspace_info.tool_tag)
+            fs.add_tool_tag(invocation.workspace_info.tool_tag)
+            tools_list.append(invocation.workspace_info.tool_tag)
     return tools_list
 
 
