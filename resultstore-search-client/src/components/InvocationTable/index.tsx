@@ -1,119 +1,192 @@
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
+import clsx from 'clsx';
+import styled from 'styled-components';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
+import Paper from '@material-ui/core/Paper';
 import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import TablePagination from '@material-ui/core/TablePagination';
-import { Column, InvocationTableProps } from './types';
+import { InvocationTableProps } from './types';
 import { parseInvocationTableData } from './utils';
+import {
+    Column,
+    Table,
+    InfiniteLoader,
+    TableCellRenderer,
+    TableHeaderProps,
+} from 'react-virtualized';
+
+const HeaderHeight = 60;
+const RowHeight = 48;
+
+const Container = styled(Paper)`
+    width: 91.5%;
+    height: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+`;
 
 const columns: Column[] = [
-    { id: 'status', label: 'Status' },
-    { id: 'name', label: 'Name' },
-    { id: 'labels', label: 'Labels' },
-    { id: 'date', label: 'Run Date' },
-    { id: 'duration', label: 'Duration' },
-    { id: 'user', label: 'User' },
+    { dataKey: 'status', label: 'Status', width: 120 },
+    { dataKey: 'name', label: 'Name', width: 400 },
+    { dataKey: 'labels', label: 'Labels', width: 120 },
+    { dataKey: 'date', label: 'Run Date', width: 200 },
+    { dataKey: 'duration', label: 'Duration', width: 120 },
+    { dataKey: 'user', label: 'User', width: 400 },
 ];
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        margin: {
-            margin: theme.spacing(2),
-        },
-        container: {
+        flexContainer: {
             display: 'flex',
-            flexWrap: 'wrap',
+            alignItems: 'center',
+            boxSizing: 'border-box',
         },
+        tableRow: {
+            cursor: 'pointer',
+        },
+        tableRowHover: {
+            '&:hover': {
+                backgroundColor: theme.palette.grey[200],
+            },
+        },
+        tableCell: {
+            flex: 1,
+        },
+        table: {},
     })
 );
 
 /*
 Table that displays results of an invocation search
 */
-const InvocationTable: React.FC<InvocationTableProps> = ({ invocations }) => {
+const InvocationTable: React.FC<InvocationTableProps> = ({
+    invocations,
+    pageToken,
+    next,
+    isNextPageLoading,
+}) => {
     const classes = useStyles();
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const [width, setWidth] = useState(1920);
+    const [height, setHeight] = useState(1080);
     const rows = invocations.map((invocation) =>
         parseInvocationTableData(invocation)
     );
+    const hasNextPage = pageToken !== '';
+    const isRowLoaded = ({ index }) => !hasNextPage || index < rows.length;
+    const rowCount = hasNextPage ? rows.length + 1 : rows.length;
+    const loadMoreRows = isNextPageLoading
+        ? () => {}
+        : () => next(false, pageToken);
 
-    const handleChangePage = (event: unknown, newPage: number) => {
-        setPage(newPage);
+    const setDimensions = () => {
+        setWidth(
+            containerRef.current ? containerRef.current.offsetWidth : 1920
+        );
+        setHeight(
+            containerRef.current ? containerRef.current.offsetHeight : 1080
+        );
     };
 
-    const handleChangeRowsPerPage = (
-        event: React.ChangeEvent<HTMLInputElement>
-    ) => {
-        setRowsPerPage(+event.target.value);
-        setPage(0);
+    useEffect(() => {
+        setDimensions();
+    }, [containerRef]);
+
+    useEffect(() => {
+        window.addEventListener('resize', setDimensions);
+        return () => window.removeEventListener('resize', setDimensions);
+    }, []);
+
+    const getRowClassName = ({ index }) => {
+        return clsx(classes.tableRow, classes.flexContainer, {
+            [classes.tableRowHover]: index !== -1,
+        });
+    };
+
+    const rowGetter = ({ index }) => {
+        if (!isRowLoaded({ index })) {
+            return {
+                status: 'Loading...',
+            };
+        }
+        return rows[index];
+    };
+
+    const cellRenderer: TableCellRenderer = ({ cellData }) => {
+        return (
+            <TableCell
+                component="div"
+                className={clsx(classes.tableCell, classes.flexContainer)}
+                variant="body"
+                style={{ height: RowHeight }}
+                align={'left'}
+            >
+                {cellData}
+            </TableCell>
+        );
+    };
+
+    const headerRenderer = ({ label }: TableHeaderProps) => {
+        return (
+            <TableCell
+                component="div"
+                className={clsx(classes.tableCell, classes.flexContainer)}
+                variant="head"
+                style={{ height: HeaderHeight }}
+                align={'center'}
+            >
+                <span>{label}</span>
+            </TableCell>
+        );
     };
 
     return (
-        <React.Fragment>
-            <TableContainer className={classes.container}>
-                <Table
-                    stickyHeader
-                    aria-label="sticky table"
-                    className={classes.margin}
-                >
-                    <TableHead>
-                        <TableRow>
-                            {columns.map((column) => (
-                                <TableCell
-                                    key={column.id}
-                                    align={column.align}
-                                    style={{ minWidth: column.minWidth }}
-                                >
-                                    {column.label}
-                                </TableCell>
-                            ))}
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {rows
-                            .slice(
-                                page * rowsPerPage,
-                                page * rowsPerPage + rowsPerPage
-                            )
-                            .map((row) => {
-                                return (
-                                    <TableRow
-                                        hover
-                                        role="checkbox"
-                                        tabIndex={-1}
-                                        key={row.name}
-                                    >
-                                        {columns.map((column) => {
-                                            return (
-                                                <TableCell
-                                                    key={column.id}
-                                                    align={column.align}
-                                                >
-                                                    {row[column.id]}
-                                                </TableCell>
-                                            );
-                                        })}
-                                    </TableRow>
-                                );
-                            })}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-            <TablePagination
-                rowsPerPageOptions={[10, 25, 100]}
-                component="div"
-                count={rows.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onChangePage={handleChangePage}
-                onChangeRowsPerPage={handleChangeRowsPerPage}
-            />
-        </React.Fragment>
+        <Container ref={containerRef} elevation={3}>
+            <InfiniteLoader
+                isRowLoaded={isRowLoaded}
+                loadMoreRows={loadMoreRows}
+                rowCount={rowCount}
+                threshold={15}
+            >
+                {({ onRowsRendered, registerChild }) => (
+                    <Table
+                        height={height}
+                        width={width}
+                        rowHeight={48}
+                        gridStyle={{
+                            direction: 'inherit',
+                        }}
+                        className={classes.table}
+                        headerHeight={HeaderHeight}
+                        ref={registerChild}
+                        rowClassName={getRowClassName}
+                        onRowsRendered={onRowsRendered}
+                        headerStyle={{ display: 'flex', flexGrow: 1 }}
+                        rowGetter={rowGetter}
+                        rowCount={rowCount}
+                    >
+                        {columns.map(({ dataKey, ...other }, index) => {
+                            return (
+                                <Column
+                                    key={dataKey}
+                                    headerRenderer={(headerProps) =>
+                                        headerRenderer({
+                                            ...headerProps,
+                                            columnIndex: index,
+                                        })
+                                    }
+                                    className={classes.flexContainer}
+                                    cellRenderer={cellRenderer}
+                                    dataKey={dataKey}
+                                    flexGrow={1}
+                                    {...other}
+                                />
+                            );
+                        })}
+                    </Table>
+                )}
+            </InfiniteLoader>
+        </Container>
     );
 };
 
