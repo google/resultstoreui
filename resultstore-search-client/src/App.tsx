@@ -1,8 +1,8 @@
 import React from 'react';
-import SearchWrapper from './components/SearchWrapper';
+import PageWrapper from './components/PageWrapper';
 
 function App() {
-    return <SearchWrapper />;
+    return <PageWrapper />;
 }
 
 export default App;

@@ -1,5 +1,4 @@
 import invocation_pb from '../../api/invocation_pb';
-import { State as PageWrapperState } from '../SearchWrapper';
 
 export interface Data {
     status: string;
@@ -19,6 +18,4 @@ export interface Column {
 
 export interface InvocationTableProps {
     invocations: Array<invocation_pb.Invocation>;
-    pageToken: PageWrapperState['pageToken'];
-    next: (newQuery: boolean, pageToken: string) => void;
 }
