@@ -44,8 +44,10 @@ class ProxyServer(
         new_request = resultstore_download_pb2.SearchInvocationsRequest(
             query=request.query,
             project_id=request.project_id,
+            exact_match=request.exact_match,
             page_size=request.page_size,
             page_token=request.page_token,
+            offset=request.offset,
         )
         metadata = context.invocation_metadata()
         stub = resultstore_download_pb2_grpc.ResultStoreDownloadStub(
