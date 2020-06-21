@@ -7,22 +7,23 @@ import {
     GetInitialStateResponse,
 } from '../resultstore_download_pb';
 import * as invocation_pb from '../invocation_pb';
-import { toSentenceCase } from '../../utils/utils';
 import config from '../../config/ConfigLoader';
-import { ToolSelectProps } from '../../components/ToolSelect';
 
 export type SetInvocations = (
     invocations: Array<invocation_pb.Invocation>
 ) => void;
 export type SetToolsList = (toolsList: Array<string>) => void;
-type UpdateError = (error: string, hasError: boolean) => void;
+export type SearchInvocationCallback = (
+    err: grpcWeb.Error,
+    response: SearchInvocationsResponse
+) => void;
 
 const resultStore = new ResultStoreDownloadClient(
     config.destinationAddress,
     null,
     null
 );
-const defaultPageSize = 0;
+const defaultPageSize = 30;
 const searchFieldMask =
     'next_page_token,invocations.name,invocations.invocation_attributes,invocations.timing,invocations.workspace_info,invocations.status_attributes';
 
@@ -36,35 +37,25 @@ Args:
 */
 const searchInvocations = (
     query: string,
-    setInvocations: SetInvocations,
-    updateError: UpdateError,
-    setToolsList: ToolSelectProps['setToolsList'],
-    tool: string
+    newQuery: boolean,
+    tool: string,
+    pageToken: string,
+    callback: SearchInvocationCallback
 ) => {
     const request = new SearchInvocationsRequest();
     request.setPageSize(defaultPageSize);
     request.setQuery(query);
     request.setProjectId(config.projectId);
     request.setTool(tool);
+
+    if (!newQuery) {
+        request.setPageToken(pageToken);
+    }
+
     const metadata = {
         'x-goog-fieldmask': searchFieldMask,
     };
-    resultStore.searchInvocations(
-        request,
-        metadata,
-        (err: grpcWeb.Error, response: SearchInvocationsResponse) => {
-            if (err) {
-                updateError(`${toSentenceCase(err.message)}.`, true);
-            } else {
-                updateError('', false);
-                const toolsList = response.getToolsListList();
-                if (toolsList && toolsList.length !== 0) {
-                    setToolsList(toolsList);
-                }
-                setInvocations(response.getInvocationsList());
-            }
-        }
-    );
+    resultStore.searchInvocations(request, metadata, callback);
 };
 
 const getInitialState = (setToolsList) => {
