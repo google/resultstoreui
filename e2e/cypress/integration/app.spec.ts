@@ -5,26 +5,28 @@ context("ResultStore Search", () => {
 
   it("Should display an error if the query is invalid", () => {
     cy.get('input[id="outlined-adornment-amount"]').type("incorrect query");
-    cy.get('p[id="component-error-text"]').contains("Invalid query string.");
+    cy.get('p[id="search-error"]').contains("Invalid query string.");
   });
 
   it("Should render the invocations in the table", () => {
     cy.get('input[id="outlined-adornment-amount"]').type(
       "invocation_attributes.users:lewiscraig"
     );
-    cy.get('tr[class="MuiTableRow-root MuiTableRow-hover"]').contains(
-      "invocations/51be7217-9798-4448-adf8-1e4428c71e9e"
-    );
-    cy.get('tr[class="MuiTableRow-root MuiTableRow-hover"]').contains(
-      "TESTING"
-    );
-    cy.get('tr[class="MuiTableRow-root MuiTableRow-hover"]').contains(
-      "dank,meme"
-    );
-    cy.get('tr[class="MuiTableRow-root MuiTableRow-hover"]').contains("00:06");
-    cy.get('tr[class="MuiTableRow-root MuiTableRow-hover"]').contains(
-      "lewiscraig@"
-    );
+    cy.get(
+      'div[class="ReactVirtualized__Table__row jss9 jss8 jss10"]'
+    ).contains("invocations/51be7217-9798-4448-adf8-1e4428c71e9e");
+    cy.get(
+      'div[class="ReactVirtualized__Table__row jss9 jss8 jss10"]'
+    ).contains("TESTING");
+    cy.get(
+      'div[class="ReactVirtualized__Table__row jss9 jss8 jss10"]'
+    ).contains("dank,meme");
+    cy.get(
+      'div[class="ReactVirtualized__Table__row jss9 jss8 jss10"]'
+    ).contains("00:06");
+    cy.get(
+      'div[class="ReactVirtualized__Table__row jss9 jss8 jss10"]'
+    ).contains("lewiscraig@");
   });
 
   it("Should display tool1 and tool2 in dropdown and have 1 invocation", () => {
@@ -40,10 +42,11 @@ context("ResultStore Search", () => {
     cy.get('ul[class="MuiList-root MuiMenu-list MuiList-padding"]').contains(
       "tool2"
     );
-    cy.get('li[data-value="tool1"]').click();
+    cy.get('li[data-value="tool2"]').click();
     cy.get('input[id="outlined-adornment-amount"]').type("i");
-    cy.get('tbody[class="MuiTableBody-root"]')
-      .find("tr")
+    cy.get('input[id="outlined-adornment-amount"]').type("i");
+    cy.get('div[class="ReactVirtualized__Table jss12"]')
+      .find('div[class="ReactVirtualized__Table__row jss9 jss8 jss10"]')
       .should("have.length", 1);
   });
 });

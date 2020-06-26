@@ -8,6 +8,7 @@ import {
 } from '../resultstore_download_pb';
 import * as invocation_pb from '../invocation_pb';
 import config from '../../config/ConfigLoader';
+import { Auth } from '../../components/SearchWrapper';
 
 export type SetInvocations = (
     invocations: Array<invocation_pb.Invocation>
@@ -40,6 +41,7 @@ const searchInvocations = (
     newQuery: boolean,
     tool: string,
     pageToken: string,
+    tokenID: Auth['tokenID'],
     callback: SearchInvocationCallback
 ) => {
     const request = new SearchInvocationsRequest();
@@ -54,6 +56,7 @@ const searchInvocations = (
 
     const metadata = {
         'x-goog-fieldmask': searchFieldMask,
+        id_token: tokenID,
     };
     resultStore.searchInvocations(request, metadata, callback);
 };

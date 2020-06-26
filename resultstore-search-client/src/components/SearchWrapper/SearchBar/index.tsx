@@ -26,24 +26,17 @@ const useStyles = makeStyles((theme: Theme) =>
 export interface State {
     query: string;
     invocations: Array<invocation_pb.Invocation>;
-    errorText: string;
-    hasError: boolean;
 }
 
 export interface SearchBarProps {
     setQueryParent: (query: PageWrapperState['query']) => void;
-    errorText: string;
     hasError: boolean;
 }
 
 /*
 SearchBar component to search for invocations by query string
 */
-const SearchBar: React.FC<SearchBarProps> = ({
-    setQueryParent,
-    errorText,
-    hasError,
-}) => {
+const SearchBar: React.FC<SearchBarProps> = ({ setQueryParent, hasError }) => {
     const [query, setQuery] = React.useState<State['query']>('');
     const classes = useStyles();
 
@@ -71,11 +64,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
                     onChange={(e) => updateQuery(e.target.value)}
                     placeholder={searchPlaceholder}
                 />
-                {hasError && (
-                    <FormHelperText id="component-error-text">
-                        {errorText}
-                    </FormHelperText>
-                )}
             </FormControl>
         </div>
     );

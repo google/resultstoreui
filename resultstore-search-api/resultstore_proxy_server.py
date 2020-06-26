@@ -18,6 +18,7 @@ class ProxyServer(
     """
     Server that proxies requests to the search api forward to resultstore
     """
+
     def __init__(self, channel, fs):
         """
         Initialize the Proxy Server
@@ -32,7 +33,7 @@ class ProxyServer(
     def SearchInvocations(self, request, context):
         """
         Proxies the SearchInvocations gRPC call forward
-        
+
         Args:
             request (SearchInvocationsRequest): The search request
             context (grpc.Context)
