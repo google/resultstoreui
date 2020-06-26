@@ -5,13 +5,13 @@ services:
       context: ../resultstore-search-client/envoy/
       network: host
     image: gcr.io/google.com/gchips-productivity/resultstoresearch-envoy
-    expose: 
+    expose:
       - "8080"
       - "9901"
     ports:
       - "8080:8080"
-      - "9901:9901" 
-  
+      - "9901:9901"
+
   client:
     build:
       context: ../resultstore-search-client/
@@ -35,7 +35,7 @@ services:
       context: ../resultstore-search-api/
       dockerfile: Dockerfile.prod
     image: gcr.io/google.com/gchips-productivity/resultstoresearch-server
-    environment: 
+    environment:
       GOOGLE_APPLICATION_CREDENTIALS: /root/keys/keyfile.json
     volumes:
       - ../resultstore-search-api/:/usr/src/app

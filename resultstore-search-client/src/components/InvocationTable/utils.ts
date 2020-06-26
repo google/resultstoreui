@@ -1,5 +1,5 @@
 import moment from 'moment';
-import invocation_pb, { InvocationAttributes } from '../../api/invocation_pb';
+import invocation_pb from '../../api/invocation_pb';
 import common_pb from '../../api/common_pb';
 import { Data } from './types';
 
@@ -12,7 +12,9 @@ Args:
 Returns:
     Table consumable object
 */
-function parseInvocationTableData(invocation: invocation_pb.Invocation): Data {
+export const parseInvocationTableData = (
+    invocation: invocation_pb.Invocation
+): Data => {
     const statusAttributes = invocation.getStatusAttributes();
     const invocationAttributes = invocation.getInvocationAttributes();
     const workspaceInfo = invocation.getWorkspaceInfo();
@@ -20,14 +22,13 @@ function parseInvocationTableData(invocation: invocation_pb.Invocation): Data {
 
     const status = getStatus(statusAttributes);
     const name = invocation.getName();
-    const labels = getLabels(invocationAttributes)
+    const labels = getLabels(invocationAttributes);
     const date = getDate(timing);
     const duration = getDuration(timing);
     const user = getUser(invocationAttributes, workspaceInfo);
 
     return { status, name, labels, date, duration, user };
-}
-
+};
 
 /*
 Helper functions to format invocation table data
@@ -58,7 +59,7 @@ const getStatus = (
     statusAttributes: common_pb.StatusAttributes | undefined
 ) => {
     return (statusAttributes && statusAttributes.getDescription()) || 'UNKNOWN';
-}
+};
 
 const getLabels = (
     invocationAttributes: invocation_pb.InvocationAttributes
@@ -66,17 +67,13 @@ const getLabels = (
     const labelsList =
         (invocationAttributes && invocationAttributes.getLabelsList()) || [];
     return labelsList.join(',');
-}
+};
 
-const getDuration = (
-    timing: common_pb.Timing | undefined
-) => {
+const getDuration = (timing: common_pb.Timing | undefined) => {
     const timingDuration = timing.getDuration();
     const durationSeconds =
         (timingDuration && timingDuration.getSeconds()) || 0;
     return moment
-    .utc(moment.duration(durationSeconds, 's').asMilliseconds())
-    .format('mm:ss');
-}
-
-export { parseInvocationTableData };
+        .utc(moment.duration(durationSeconds, 's').asMilliseconds())
+        .format('mm:ss');
+};
