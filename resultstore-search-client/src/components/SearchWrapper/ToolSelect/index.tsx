@@ -30,6 +30,9 @@ const createToolItems = (toolsList: ToolSelectProps['toolsList']) => {
     ));
 };
 
+/*
+Tool select dropdown
+*/
 const ToolSelect: React.FC<ToolSelectProps> = ({
     selectedTool,
     setSelectedTool,

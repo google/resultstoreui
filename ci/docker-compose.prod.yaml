@@ -15,7 +15,12 @@ services:
   client:
     build:
       context: ../resultstore-search-client/
+      args:
+        REACT_APP_PROJECT_ID: ${PROJECT_ID}
+        REACT_APP_CLIENT_ID: ${CLIENT_ID}
+        REACT_APP_DESTINATION_ADDRESS: ${DESTINATION_ADDRESS}
     image: gcr.io/google.com/gchips-productivity/resultstoresearch-client
+    env_file: .env
     volumes:
       - ../resultstore-search-client/:/usr/src/app
       - /usr/src/app/node_modules
@@ -35,10 +40,14 @@ services:
       context: ../resultstore-search-api/
       dockerfile: Dockerfile.prod
     image: gcr.io/google.com/gchips-productivity/resultstoresearch-server
+    env_file: .env
     environment:
       GOOGLE_APPLICATION_CREDENTIALS: /root/keys/keyfile.json
+      CLIENT_ID: ${CLIENT_ID}
+      PROJECT_ID: ${PROJECT_ID}
+      DESTINATION_SERVER: ${DESTINATION_SERVER}
     volumes:
       - ../resultstore-search-api/:/usr/src/app
-      - ~/service_account.json:/root/keys/keyfile.json:ro
+      - ${SERVICE_ACCOUNT}:/root/keys/keyfile.json:ro
     ports:
       - "9090:9090"

@@ -1,15 +1,16 @@
-interface Config {
-    development: DefaultConfig;
-    production: DefaultConfig;
-    test: DefaultConfig;
-}
-
 interface DefaultConfig {
     destinationAddress: string;
     projectId: string;
+    clientId: string;
 }
 
-const config = require('./config.json') as Config;
-const environment =  process.env.NODE_ENV || 'development';
-const environmentConfig = config[environment];
+const environmentConfig: DefaultConfig = {
+    destinationAddress:
+        process.env.REACT_APP_DESTINATION_ADDRESS || 'http://localhost:8080',
+    clientId:
+        process.env.REACT_APP_CLIENT_ID ||
+        '835513274128-siubdukq9bv1rjq6fv3vvglf4eukte7m.apps.googleusercontent.com',
+    projectId: process.env.REACT_APP_PROJECT_ID,
+};
+
 export default environmentConfig;

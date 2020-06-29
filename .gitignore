@@ -125,4 +125,10 @@ dmypy.json
 /e2e/cypress/videos
 /e2e/cypress/screenshots
 
+# vscode
+/.vscode
+
+# Docker
+/ci/.env
+
 # End of https://www.gitignore.io/api/python

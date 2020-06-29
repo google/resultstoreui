@@ -5,16 +5,20 @@ services:
       context: ../resultstore-search-client/envoy/
       network: host
     image: gcr.io/google.com/gchips-productivity/resultstoresearch-envoy-test
-    expose: 
+    expose:
       - "8080"
       - "9901"
     ports:
       - "8080:8080"
-      - "9901:9901"  
+      - "9901:9901"
 
   client:
     build:
       context: ../resultstore-search-client/
+      args:
+        REACT_APP_PROJECT_ID: ${PROJECT_ID}
+        REACT_APP_CLIENT_ID: ${CLIENT_ID}
+        REACT_APP_DESTINATION_ADDRESS: ${DESTINATION_ADDRESS}
     image: gcr.io/google.com/gchips-productivity/resultstoresearch-client-test
     volumes:
       - ../resultstore-search-client/:/usr/src/app
