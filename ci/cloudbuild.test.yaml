@@ -6,7 +6,6 @@ steps:
   - name: "docker/compose:1.26.0"
     args: ["-f", "ci/docker-compose.test.yaml", "up", "-d"]
     env:
-      - "PROJECT_ID=$PROJECT_ID"
       - "CLIENT_ID=$_CLIENT_ID"
       - "DESTINATION_ADDRESS=$_DESTINATION_ADDRESS"
       - "PROJECT_ID=$_PROJECT_ID"

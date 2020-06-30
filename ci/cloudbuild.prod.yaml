@@ -1,9 +1,14 @@
 steps:
-- name: node
-  entrypoint: yarn
-  args: ['install']
+  - name: node
+    entrypoint: yarn
+    args: ["install"]
 
-- name: 'docker/compose:1.26.0'
-  args: ['-f', 'ci/docker-compose.prod.yaml', 'up', '-d']
-  env:
-  - 'PROJECT_ID=$PROJECT_ID'
+  - name: bash
+    args: [./ci/google-deploy.sh]
+    env:
+      - "CLIENT_ID=$_CLIENT_ID"
+      - "DESTINATION_ADDRESS=$_DESTINATION_ADDRESS"
+      - "PROJECT_ID=$_PROJECT_ID"
+      - "CLOUD_USER=$_CLOUD_USER"
+      - "INSTANCE_NAME=$_INSTANCE_NAME"
+      - "INSTANCE_ZONE=$_INSTANCE_ZONE"
