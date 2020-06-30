@@ -2,11 +2,11 @@ import React from 'react';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import Search from '@material-ui/icons/Search';
 import FormControl from '@material-ui/core/FormControl';
 import { State as PageWrapperState } from '..';
 import * as invocation_pb from '../../../api/invocation_pb';
+import SearchTooltip from './SearchTooltip';
 
 const searchPlaceholder = 'Search Invocations';
 
@@ -58,6 +58,11 @@ const SearchBar: React.FC<SearchBarProps> = ({ setQueryParent, hasError }) => {
                     startAdornment={
                         <InputAdornment position="start">
                             <Search />
+                        </InputAdornment>
+                    }
+                    endAdornment={
+                        <InputAdornment position="end">
+                            <SearchTooltip />
                         </InputAdornment>
                     }
                     value={query}

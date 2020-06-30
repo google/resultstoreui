@@ -49,4 +49,11 @@ context("ResultStore Search", () => {
       .find('div[class="ReactVirtualized__Table__row jss9 jss8 jss10"]')
       .should("have.length", 1);
   });
+
+  it("Should display tooltip on hover", () => {
+    cy.get('svg[aria-label="SearchHelp"').trigger("mouseover");
+    cy.get('div[class="MuiTooltip-popper"]').contains(
+      'Fields that support equals ("=") restrictions:'
+    );
+  });
 });
