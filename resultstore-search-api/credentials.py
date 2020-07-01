@@ -23,6 +23,7 @@ class Credentials():
     """
     Credentials container/helper for resultstoreui
     """
+
     def __init__(self):
         """
         Initialize Credentials
