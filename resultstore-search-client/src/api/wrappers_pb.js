@@ -1450,10 +1450,10 @@ proto.resultstoresearch.v1.BytesValue.serializeBinaryToWriter = function (
 
 /**
  * optional bytes value = 1;
- * @return {string}
+ * @return {!(string|Uint8Array)}
  */
 proto.resultstoresearch.v1.BytesValue.prototype.getValue = function () {
-    return /** @type {string} */ (jspb.Message.getFieldWithDefault(
+    return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(
         this,
         1,
         ''

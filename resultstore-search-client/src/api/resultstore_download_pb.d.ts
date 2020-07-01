@@ -1,6 +1,7 @@
 import * as jspb from "google-protobuf"
 
 import * as invocation_pb from './invocation_pb';
+import * as target_pb from './target_pb';
 
 export class SearchInvocationsRequest extends jspb.Message {
   getPageSize(): number;
@@ -52,38 +53,6 @@ export namespace SearchInvocationsRequest {
   }
 }
 
-export class GetInvocationRequest extends jspb.Message {
-  getName(): string;
-  setName(value: string): GetInvocationRequest;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): GetInvocationRequest.AsObject;
-  static toObject(includeInstance: boolean, msg: GetInvocationRequest): GetInvocationRequest.AsObject;
-  static serializeBinaryToWriter(message: GetInvocationRequest, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): GetInvocationRequest;
-  static deserializeBinaryFromReader(message: GetInvocationRequest, reader: jspb.BinaryReader): GetInvocationRequest;
-}
-
-export namespace GetInvocationRequest {
-  export type AsObject = {
-    name: string,
-  }
-}
-
-export class GetInitialStateRequest extends jspb.Message {
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): GetInitialStateRequest.AsObject;
-  static toObject(includeInstance: boolean, msg: GetInitialStateRequest): GetInitialStateRequest.AsObject;
-  static serializeBinaryToWriter(message: GetInitialStateRequest, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): GetInitialStateRequest;
-  static deserializeBinaryFromReader(message: GetInitialStateRequest, reader: jspb.BinaryReader): GetInitialStateRequest;
-}
-
-export namespace GetInitialStateRequest {
-  export type AsObject = {
-  }
-}
-
 export class SearchInvocationsResponse extends jspb.Message {
   getInvocationsList(): Array<invocation_pb.Invocation>;
   setInvocationsList(value: Array<invocation_pb.Invocation>): SearchInvocationsResponse;
@@ -111,6 +80,104 @@ export namespace SearchInvocationsResponse {
     invocationsList: Array<invocation_pb.Invocation.AsObject>,
     nextPageToken: string,
     toolsListList: Array<string>,
+  }
+}
+
+export class GetInvocationRequest extends jspb.Message {
+  getName(): string;
+  setName(value: string): GetInvocationRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetInvocationRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: GetInvocationRequest): GetInvocationRequest.AsObject;
+  static serializeBinaryToWriter(message: GetInvocationRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetInvocationRequest;
+  static deserializeBinaryFromReader(message: GetInvocationRequest, reader: jspb.BinaryReader): GetInvocationRequest;
+}
+
+export namespace GetInvocationRequest {
+  export type AsObject = {
+    name: string,
+  }
+}
+
+export class ListTargetsRequest extends jspb.Message {
+  getParent(): string;
+  setParent(value: string): ListTargetsRequest;
+
+  getPageSize(): number;
+  setPageSize(value: number): ListTargetsRequest;
+
+  getPageToken(): string;
+  setPageToken(value: string): ListTargetsRequest;
+
+  getOffset(): number;
+  setOffset(value: number): ListTargetsRequest;
+
+  getFilter(): string;
+  setFilter(value: string): ListTargetsRequest;
+
+  getPageStartCase(): ListTargetsRequest.PageStartCase;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ListTargetsRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: ListTargetsRequest): ListTargetsRequest.AsObject;
+  static serializeBinaryToWriter(message: ListTargetsRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ListTargetsRequest;
+  static deserializeBinaryFromReader(message: ListTargetsRequest, reader: jspb.BinaryReader): ListTargetsRequest;
+}
+
+export namespace ListTargetsRequest {
+  export type AsObject = {
+    parent: string,
+    pageSize: number,
+    pageToken: string,
+    offset: number,
+    filter: string,
+  }
+
+  export enum PageStartCase { 
+    PAGE_START_NOT_SET = 0,
+    PAGE_TOKEN = 3,
+    OFFSET = 4,
+  }
+}
+
+export class ListTargetsResponse extends jspb.Message {
+  getTargetsList(): Array<target_pb.Target>;
+  setTargetsList(value: Array<target_pb.Target>): ListTargetsResponse;
+  clearTargetsList(): ListTargetsResponse;
+  addTargets(value?: target_pb.Target, index?: number): target_pb.Target;
+
+  getNextPageToken(): string;
+  setNextPageToken(value: string): ListTargetsResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ListTargetsResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: ListTargetsResponse): ListTargetsResponse.AsObject;
+  static serializeBinaryToWriter(message: ListTargetsResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ListTargetsResponse;
+  static deserializeBinaryFromReader(message: ListTargetsResponse, reader: jspb.BinaryReader): ListTargetsResponse;
+}
+
+export namespace ListTargetsResponse {
+  export type AsObject = {
+    targetsList: Array<target_pb.Target.AsObject>,
+    nextPageToken: string,
+  }
+}
+
+export class GetInitialStateRequest extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetInitialStateRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: GetInitialStateRequest): GetInitialStateRequest.AsObject;
+  static serializeBinaryToWriter(message: GetInitialStateRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetInitialStateRequest;
+  static deserializeBinaryFromReader(message: GetInitialStateRequest, reader: jspb.BinaryReader): GetInitialStateRequest;
+}
+
+export namespace GetInitialStateRequest {
+  export type AsObject = {
   }
 }
 

@@ -14,11 +14,14 @@
 import * as grpcWeb from 'grpc-web';
 
 import * as invocation_pb from './invocation_pb';
+import * as target_pb from './target_pb';
 
 import {
     GetInitialStateRequest,
     GetInitialStateResponse,
     GetInvocationRequest,
+    ListTargetsRequest,
+    ListTargetsResponse,
     SearchInvocationsRequest,
     SearchInvocationsResponse,
 } from './resultstore_download_pb';
@@ -139,6 +142,49 @@ export class ResultStoreDownloadClient {
             request,
             metadata || {},
             this.methodInfoGetInvocation
+        );
+    }
+
+    methodInfoListTargets = new grpcWeb.AbstractClientBase.MethodInfo(
+        ListTargetsResponse,
+        (request: ListTargetsRequest) => {
+            return request.serializeBinary();
+        },
+        ListTargetsResponse.deserializeBinary
+    );
+
+    listTargets(
+        request: ListTargetsRequest,
+        metadata: grpcWeb.Metadata | null
+    ): Promise<ListTargetsResponse>;
+
+    listTargets(
+        request: ListTargetsRequest,
+        metadata: grpcWeb.Metadata | null,
+        callback: (err: grpcWeb.Error, response: ListTargetsResponse) => void
+    ): grpcWeb.ClientReadableStream<ListTargetsResponse>;
+
+    listTargets(
+        request: ListTargetsRequest,
+        metadata: grpcWeb.Metadata | null,
+        callback?: (err: grpcWeb.Error, response: ListTargetsResponse) => void
+    ) {
+        if (callback !== undefined) {
+            return this.client_.rpcCall(
+                this.hostname_ +
+                    '/resultstoresearch.v1.ResultStoreDownload/ListTargets',
+                request,
+                metadata || {},
+                this.methodInfoListTargets,
+                callback
+            );
+        }
+        return this.client_.unaryCall(
+            this.hostname_ +
+                '/resultstoresearch.v1.ResultStoreDownload/ListTargets',
+            request,
+            metadata || {},
+            this.methodInfoListTargets
         );
     }
 

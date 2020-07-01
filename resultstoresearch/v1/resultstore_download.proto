@@ -3,6 +3,7 @@ syntax = "proto3";
 package resultstoresearch.v1;
 
 import "invocation.proto";
+import "target.proto";
 
 // This is the interface used to download information from the ResultStore
 // database.
@@ -29,6 +30,16 @@ service ResultStoreDownload {
   // - If the given invocation name is badly formatted.
   // - If no field mask was given.
   rpc GetInvocation(GetInvocationRequest) returns (Invocation);
+
+  // Retrieves all targets for a parent invocation.  This might be limited by
+  // user or server, in which case a continuation token is provided.
+  // The order in which results are returned is undefined, but stable.
+  //
+  // An error will be reported in the following cases:
+  // - If the parent is not found.
+  // - If the given parent name is badly formatted.
+  // - If no field mask was given.
+  rpc ListTargets(ListTargetsRequest) returns (ListTargetsResponse);
 
   rpc GetInitialState(GetInitialStateRequest) returns (GetInitialStateResponse);
 }
@@ -85,16 +96,6 @@ message SearchInvocationsRequest {
   string tool = 8;
 }
 
-// Request passed into GetInvocation
-message GetInvocationRequest {
-  // The name of the invocation to retrieve. It must match this format:
-  // invocations/${INVOCATION_ID}
-  // where INVOCATION_ID must be an RFC 4122-compliant random UUID.
-  string name = 1;
-}
-
-message GetInitialStateRequest {}
-
 // Response from calling SearchInvocations
 message SearchInvocationsResponse {
   // Invocations matching the search, possibly capped at request.page_size or a
@@ -107,5 +108,51 @@ message SearchInvocationsResponse {
 
   repeated string tools_list = 3;
 }
+
+// Request passed into GetInvocation
+message GetInvocationRequest {
+  // The name of the invocation to retrieve. It must match this format:
+  // invocations/${INVOCATION_ID}
+  // where INVOCATION_ID must be an RFC 4122-compliant random UUID.
+  string name = 1;
+}
+
+// Request passed into ListTargets
+message ListTargetsRequest {
+  // The invocation name of the targets to retrieve. It must match this format:
+  // invocations/${INVOCATION_ID}
+  string parent = 1;
+
+  // The maximum number of items to return.
+  // Zero means all, but may be capped by the server.
+  int32 page_size = 2;
+
+  // Options for pagination.
+  oneof page_start {
+    // The next_page_token value returned from a previous List request, if any.
+    string page_token = 3;
+
+    // Absolute number of results to skip.
+    int64 offset = 4;
+  }
+
+  // A filter to return only resources that match it.
+  // Any fields used in the filter must be also specified in the field mask.
+  // May cause pages with 0 results and a next_page_token to be returned.
+  string filter = 5;
+}
+
+// Response from calling ListTargetsResponse
+message ListTargetsResponse {
+  // Targets matching the request invocation,
+  // possibly capped at request.page_size or a server limit.
+  repeated Target targets = 1;
+
+  // Token to retrieve the next page of results, or empty if there are no
+  // more results in the list.
+  string next_page_token = 2;
+}
+
+message GetInitialStateRequest {}
 
 message GetInitialStateResponse { repeated string tools_list = 1; }
