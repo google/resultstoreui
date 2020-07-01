@@ -283,10 +283,10 @@ proto.resultstoresearch.v1.LineCoverage.serializeBinaryToWriter = function (
 
 /**
  * optional bytes instrumented_lines = 1;
- * @return {string}
+ * @return {!(string|Uint8Array)}
  */
 proto.resultstoresearch.v1.LineCoverage.prototype.getInstrumentedLines = function () {
-    return /** @type {string} */ (jspb.Message.getFieldWithDefault(
+    return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(
         this,
         1,
         ''
@@ -329,10 +329,10 @@ proto.resultstoresearch.v1.LineCoverage.prototype.setInstrumentedLines = functio
 
 /**
  * optional bytes executed_lines = 2;
- * @return {string}
+ * @return {!(string|Uint8Array)}
  */
 proto.resultstoresearch.v1.LineCoverage.prototype.getExecutedLines = function () {
-    return /** @type {string} */ (jspb.Message.getFieldWithDefault(
+    return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(
         this,
         2,
         ''
@@ -533,10 +533,10 @@ proto.resultstoresearch.v1.BranchCoverage.serializeBinaryToWriter = function (
 
 /**
  * optional bytes branch_present = 1;
- * @return {string}
+ * @return {!(string|Uint8Array)}
  */
 proto.resultstoresearch.v1.BranchCoverage.prototype.getBranchPresent = function () {
-    return /** @type {string} */ (jspb.Message.getFieldWithDefault(
+    return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(
         this,
         1,
         ''
@@ -620,10 +620,10 @@ proto.resultstoresearch.v1.BranchCoverage.prototype.clearBranchesInLineList = fu
 
 /**
  * optional bytes executed = 3;
- * @return {string}
+ * @return {!(string|Uint8Array)}
  */
 proto.resultstoresearch.v1.BranchCoverage.prototype.getExecuted = function () {
-    return /** @type {string} */ (jspb.Message.getFieldWithDefault(
+    return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(
         this,
         3,
         ''
@@ -664,10 +664,10 @@ proto.resultstoresearch.v1.BranchCoverage.prototype.setExecuted = function (
 
 /**
  * optional bytes taken = 4;
- * @return {string}
+ * @return {!(string|Uint8Array)}
  */
 proto.resultstoresearch.v1.BranchCoverage.prototype.getTaken = function () {
-    return /** @type {string} */ (jspb.Message.getFieldWithDefault(
+    return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(
         this,
         4,
         ''
