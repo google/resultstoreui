@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Multi Dimensional Table (Plx custom chart chart)</title>
+    <style>
+      table,
+      th,
+      td {
+        border-collapse: collapse;
+        border: 1px solid black;
+      }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+      body {
+        font-family: sans-serif;
+        font-size: 16px;
+        display: flex;
+        flex-direction: column;
+      }
+      body #control-panel {
+        order: 0;
+        flex: 0 0 auto;
+        padding: 8px;
+        display: flex;
+        flex-direction: column;
+      }
+      body #control-panel-1 {
+        display: flex;
+        flex-direction: rogetS;
+      }
+      body #control-panel-1 #tooltip {
+        margin: auto;
+      }
+      body #control-panel-2 {
+        padding-top: 8px;
+        display: flex;
+        flex-direction: row;
+      }
+      body #control-panel-2 #filter-box {
+        margin: auto;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+      }
+      body #control-panel-2 #filter-box label {
+        margin-right: 4px;
+      }
+      body #control-panel-2 #filter-box .autocomplete input {
+        width: 100%;
+      }
+      body #control-panel-2 #filter-box button {
+        margin-left: 4px;
+      }
+      body #control-panel-2 #filter-box .autocomplete {
+        margin-right: 4px;
+        flex: 1 1 auto;
+        display: inline-block;
+        position: relative;
+      }
+      body #control-panel-2 #filter-box .autocomplete-items {
+        position: absolute;
+        border: 1px solid #d4d4d4;
+        border-bottom: none;
+        border-top: none;
+        z-index: 99;
+        top: 100%;
+        left: 0;
+        right: 0;
+        max-height: 50vh;
+        overflow-y: auto;
+      }
+      body #control-panel-2 #filter-box .autocomplete-items div {
+        padding: 5px;
+        cursor: pointer;
+        background-color: #fff;
+        border-bottom: 1px solid #d4d4d4;
+        font-size: 12px;
+      }
+      body
+        #control-panel-2
+        #filter-box
+        .autocomplete-items
+        div.autocomplete-active {
+        background-color: #e9e9e9;
+      }
+      body #results-heatmap {
+        order: 1;
+        flex: 1 1 auto;
+      }
+      body #floating-content {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        position: absolute;
+        width: 80%;
+        height: 80%;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        visibility: hidden;
+        border-width: 2px;
+        border-radius: 8px;
+        border: solid;
+        padding: 5px;
+        background: white;
+        z-index: 2;
+      }
+      body #floating-content-background {
+        width: 100%;
+        height: 100%;
+        visibility: hidden;
+        position: absolute;
+        background: black;
+        opacity: 0.25;
+        z-index: 1;
+      }
+      body #floating-content #data-table {
+        flex: 1 1 auto;
+        overflow: auto;
+        justify-content: center;
+      }
+      body #floating-content #floating-content-controls {
+        display: flex;
+        justify-content: center;
+        flex: 0 0 auto;
+        padding-top: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="floating-content-background"></div>
+    <div id="floating-content">
+      <div id="data-table"></div>
+      <div id="floating-content-controls">
+        <button id="close-floating-content">Close</button>
+      </div>
+    </div>
+    <div id="control-panel">
+      <div class="control-panel-row" id="control-panel-1">
+        <div>
+          <label for="x-axis">X Axis:</label>
+          <select id="x-axis" name="x"> </select>
+          <label for="y-axis">Y Axis:</label>
+          <select id="y-axis" name="y"> </select>
+          <button id="swap-x-y-btn">Swap X and Y</button>
+        </div>
+        <div id="tooltip"><b>NONE</b></div>
+      </div>
+      <div class="control-panel-row" id="control-panel-2">
+        <div id="filter-box">
+          <label for="filter">Filter:</label>
+          <div class="autocomplete">
+            <input type="text" name="filter" id="filter" autocomplete="off" />
+          </div>
+          <button id="filter-submit">Apply</button>
+          <button id="filter-clear">Clear</button>
+        </div>
+      </div>
+    </div>
+    <div id="results-heatmap"></div>
+  </body>
+</html>

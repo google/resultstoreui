@@ -35,6 +35,11 @@ class ResultStoreDownloadStub(object):
                 request_serializer=resultstore__download__pb2.ListTargetsRequest.SerializeToString,
                 response_deserializer=resultstore__download__pb2.ListTargetsResponse.FromString,
                 )
+        self.ListTargetSubFiles = channel.unary_unary(
+                '/resultstoresearch.v1.ResultStoreDownload/ListTargetSubFiles',
+                request_serializer=resultstore__download__pb2.ListTargetSubFilesRequest.SerializeToString,
+                response_deserializer=resultstore__download__pb2.ListTargetSubFilesResponse.FromString,
+                )
         self.GetFile = channel.unary_stream(
                 '/resultstoresearch.v1.ResultStoreDownload/GetFile',
                 request_serializer=resultstore__download__pb2.GetFileRequest.SerializeToString,
@@ -101,6 +106,12 @@ class ResultStoreDownloadServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ListTargetSubFiles(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def GetFile(self, request, context):
         """Retrieves the File with the given uri.
         returns a stream of bytes to be stitched together in order.
@@ -142,6 +153,11 @@ def add_ResultStoreDownloadServicer_to_server(servicer, server):
                     servicer.ListTargets,
                     request_deserializer=resultstore__download__pb2.ListTargetsRequest.FromString,
                     response_serializer=resultstore__download__pb2.ListTargetsResponse.SerializeToString,
+            ),
+            'ListTargetSubFiles': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListTargetSubFiles,
+                    request_deserializer=resultstore__download__pb2.ListTargetSubFilesRequest.FromString,
+                    response_serializer=resultstore__download__pb2.ListTargetSubFilesResponse.SerializeToString,
             ),
             'GetFile': grpc.unary_stream_rpc_method_handler(
                     servicer.GetFile,
@@ -218,6 +234,22 @@ class ResultStoreDownload(object):
         return grpc.experimental.unary_unary(request, target, '/resultstoresearch.v1.ResultStoreDownload/ListTargets',
             resultstore__download__pb2.ListTargetsRequest.SerializeToString,
             resultstore__download__pb2.ListTargetsResponse.FromString,
+            options, channel_credentials,
+            call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ListTargetSubFiles(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/resultstoresearch.v1.ResultStoreDownload/ListTargetSubFiles',
+            resultstore__download__pb2.ListTargetSubFilesRequest.SerializeToString,
+            resultstore__download__pb2.ListTargetSubFilesResponse.FromString,
             options, channel_credentials,
             call_credentials, compression, wait_for_ready, timeout, metadata)
 

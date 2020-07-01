@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import InvocationTable from '../InvocationTable';
 import SearchBar, { State as SearchBarState } from './SearchBar';
@@ -12,6 +12,7 @@ import { toSentenceCase } from '../../utils/utils';
 import ErrorText from '../ErrorText';
 import GoogleButton from '../GoogleButton';
 import { Error } from '../ErrorText';
+import { AuthContext } from '../../contexts/AuthContext';
 
 const SearchContainer = styled.div`
     display: flex;
@@ -34,16 +35,12 @@ export interface State {
     error: Error;
 }
 
-export interface Auth {
-    tokenID: string;
-}
-
 /*
 Wrapper around SearchBar and InvocationTable that passes invocations
 returned from SearchBar to the InvocationTable to be rendered
 */
 const SearchWrapper: React.FC = () => {
-    const [tokenID, setTokenID] = useState<Auth['tokenID']>('');
+    const authContext = useContext(AuthContext);
     const [invocations, setInvocations] = useState<
         InvocationTableProps['invocations']
     >([]);
@@ -71,7 +68,7 @@ const SearchWrapper: React.FC = () => {
             newQuery,
             selectedTool,
             pageToken,
-            tokenID,
+            authContext.tokenId,
             searchInvocationsCallback
         );
     };
@@ -82,16 +79,16 @@ const SearchWrapper: React.FC = () => {
             setPageToken('');
             nextRows(true, '');
         }
-    }, [selectedTool, query]);
+    }, [query]);
 
     const searchInvocationsCallback: SearchInvocationCallback = (
         err,
         response
     ) => {
-        setIsNextPageLoading(false);
         if (err) {
+            setIsNextPageLoading(false);
             setError({
-                errorText: `${toSentenceCase(err.message)}.`,
+                errorText: `${toSentenceCase(err.message)}`,
                 hasError: true,
             });
         } else {
@@ -100,13 +97,14 @@ const SearchWrapper: React.FC = () => {
                 hasError: false,
             });
             setPageToken(response.getNextPageToken());
+            setIsNextPageLoading(false);
             const toolsList = response.getToolsListList();
             if (toolsList && toolsList.length !== 0) {
                 setToolsList(toolsList);
             }
             if (newQuery) {
-                setInvocations(response.getInvocationsList());
                 setNewQuery(false);
+                setInvocations(response.getInvocationsList());
             } else {
                 setInvocations([
                     ...invocations,
@@ -129,7 +127,7 @@ const SearchWrapper: React.FC = () => {
                     setQueryParent={setQuery}
                     hasError={error.hasError}
                 />
-                <GoogleButton setTokenID={setTokenID} />
+                <GoogleButton />
             </SearchContainer>
             <ErrorText text={error.errorText} id={'search-error'} />
             <InvocationTable
@@ -137,6 +135,7 @@ const SearchWrapper: React.FC = () => {
                 next={nextRows}
                 pageToken={pageToken}
                 isNextPageLoading={isNextPageLoading}
+                tokenID={authContext.tokenId}
             />
         </AppContainer>
     );

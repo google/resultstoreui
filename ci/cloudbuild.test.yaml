@@ -8,7 +8,7 @@ steps:
     env:
       - "PROJECT_ID=$PROJECT_ID"
       - "CLIENT_ID=$_CLIENT_ID"
-      - "DESTINATION_ADDRESS=$_DESTINATION_ADDRESS"
+      - "ENVOY_ADDRESS=$_ENVOY_ADDRESS"
       - "PROJECT_ID=$_PROJECT_ID"
 
   - name: "docker/compose:1.26.0"

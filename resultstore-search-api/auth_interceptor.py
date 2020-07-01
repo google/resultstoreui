@@ -6,6 +6,7 @@ from google.auth.transport import requests
 def _unary_unary_rpc_terminator(code, details):
     def terminate(ignored_request, context):
         context.abort(code, details)
+
     return grpc.unary_unary_rpc_method_handler(terminate)
 
 
@@ -13,7 +14,6 @@ class AuthInterceptor(grpc.ServerInterceptor):
     """
     Interceptor to verify that client calls are authenticated
     """
-
     def __init__(self, code, details, creds):
         self._creds = creds
         self._terminator = _unary_unary_rpc_terminator(code, details)
@@ -40,9 +40,11 @@ class AuthInterceptor(grpc.ServerInterceptor):
         token = metadata['id_token']
 
         try:
-            idinfo = id_token.verify_oauth2_token(
-                token, requests.Request(), self._creds.get_client_id())
-            if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
+            idinfo = id_token.verify_oauth2_token(token, requests.Request(),
+                                                  self._creds.get_client_id())
+            if idinfo['iss'] not in [
+                    'accounts.google.com', 'https://accounts.google.com'
+            ]:
                 raise ValueError('Wrong issuer.')
             user_email = idinfo['email']
         except ValueError:

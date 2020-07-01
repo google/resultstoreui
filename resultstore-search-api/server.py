@@ -8,6 +8,7 @@ from resultstoresearchapi import (
 from credentials import Credentials
 from resultstore_proxy_server import ProxyServer
 from firestore_client import FireStoreClient
+from bigstore_client import BigstoreClient
 from auth_interceptor import AuthInterceptor
 import logging
 import grpc
@@ -16,12 +17,13 @@ import grpc
 def serve():
     creds = Credentials()
     fs = FireStoreClient(creds.get_project_id())
-    auth_interceptor = AuthInterceptor(
-        grpc.StatusCode.UNAUTHENTICATED, 'Invalid Authorization', creds)
-    server = grpc.server(futures.ThreadPoolExecutor(
-        max_workers=10), interceptors=(auth_interceptor,))
+    bs = BigstoreClient(creds)
+    auth_interceptor = AuthInterceptor(grpc.StatusCode.UNAUTHENTICATED,
+                                       'Invalid Authorization', creds)
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10),
+                         interceptors=(auth_interceptor, ))
     with creds.create_secure_channel(creds.get_destination_sever()) as channel:
-        proxy_server = ProxyServer(channel, fs)
+        proxy_server = ProxyServer(channel, fs, bs)
         resultstoresearch_download_pb2_grpc.add_ResultStoreDownloadServicer_to_server(
             proxy_server, server)
         server.add_insecure_port(creds.get_port())
