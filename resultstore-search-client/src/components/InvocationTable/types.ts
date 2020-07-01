@@ -23,3 +23,8 @@ export interface InvocationTableProps {
     next: (newQuery: boolean, pageToken: string) => void;
     isNextPageLoading: boolean;
 }
+
+export interface ModalState {
+    isOpen: boolean;
+    index: number;
+}

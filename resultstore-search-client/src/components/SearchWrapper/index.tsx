@@ -91,7 +91,7 @@ const SearchWrapper: React.FC = () => {
         setIsNextPageLoading(false);
         if (err) {
             setError({
-                errorText: `${toSentenceCase(err.message)}.`,
+                errorText: `${toSentenceCase(err.message)}`,
                 hasError: true,
             });
         } else {

@@ -12,28 +12,28 @@ services:
       - "8080:8080"
       - "9901:9901"
 
-  client:
-    build:
-      context: ../resultstore-search-client/
-      args:
-        REACT_APP_PROJECT_ID: ${PROJECT_ID}
-        REACT_APP_CLIENT_ID: ${CLIENT_ID}
-        REACT_APP_DESTINATION_ADDRESS: ${DESTINATION_ADDRESS}
-    image: gcr.io/google.com/gchips-productivity/resultstoresearch-client
-    env_file: .env
-    volumes:
-      - ../resultstore-search-client/:/usr/src/app
-      - /usr/src/app/node_modules
-    depends_on:
-      - server
-    ports:
-      - "80:80"
-    expose:
-      - "80"
-    stdin_open: true
-    depends_on:
-      - server
-      - envoy
+  # client:
+  #   build:
+  #     context: ../resultstore-search-client/
+  #     args:
+  #       REACT_APP_PROJECT_ID: ${PROJECT_ID}
+  #       REACT_APP_CLIENT_ID: ${CLIENT_ID}
+  #       REACT_APP_DESTINATION_ADDRESS: ${DESTINATION_ADDRESS}
+  #   image: gcr.io/google.com/gchips-productivity/resultstoresearch-client
+  #   env_file: .env
+  #   volumes:
+  #     - ../resultstore-search-client/:/usr/src/app
+  #     - /usr/src/app/node_modules
+  #   depends_on:
+  #     - server
+  #   ports:
+  #     - "80:80"
+  #   expose:
+  #     - "80"
+  #   stdin_open: true
+  #   depends_on:
+  #     - server
+  #     - envoy
 
   server:
     build:
@@ -46,6 +46,7 @@ services:
       CLIENT_ID: ${CLIENT_ID}
       PROJECT_ID: ${PROJECT_ID}
       DESTINATION_SERVER: ${DESTINATION_SERVER}
+      BUCKET_NAME: ${BUCKET_NAME}
     volumes:
       - ../resultstore-search-api/:/usr/src/app
       - ${SERVICE_ACCOUNT}:/root/keys/keyfile.json:ro

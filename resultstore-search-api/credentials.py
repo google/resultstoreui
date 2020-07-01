@@ -37,6 +37,7 @@ class Credentials():
         self.project_id = os.environ.get('PROJECT_ID')
         self.client_id = os.environ.get('CLIENT_ID')
         self.destination_sever = os.environ.get('DESTINATION_SERVER')
+        self.bigstore_bucket_name = os.environ.get('BUCKET_NAME')
         self.port = PORT
 
     @ contextlib.contextmanager
@@ -129,6 +130,9 @@ class Credentials():
             Application port
         """
         return self.port
+
+    def get_bucket_name(self):
+        return self.bigstore_bucket_name
 
     def _index_of_role(self, lst, role):
         """
