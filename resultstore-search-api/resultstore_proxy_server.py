@@ -118,6 +118,25 @@ class ProxyServer(
             configure_grpc_error(context, rpc_error)
             return resultstore_file_download_pb2.GetFileResponse()
 
+    def ListTargets(self, request, context):
+        _LOGGER.info('Received request: %s', request)
+        metadata = context.invocation_metadata()
+        new_request = resultstore_download_pb2.ListTargetsRequest(
+            page_token=request.page_token,
+            page_size=request.page_size,
+            parent=request.parent)
+        stub = resultstore_download_pb2_grpc.ResultStoreDownloadStub(
+            self.channel)
+        try:
+            response = stub.ListTargets(new_request, metadata=metadata)
+        except grpc.RpcError as rpc_error:
+            _LOGGER.error('Received error: %s', rpc_error)
+            configure_grpc_error(context, rpc_error)
+            return resultstore_download_pb2.ListTargetsResponse()
+        else:
+            _LOGGER.info('Received message: %s', response)
+            return response
+
     def GetInitialState(self, request, context):
         """
         Gets the initial state of the client

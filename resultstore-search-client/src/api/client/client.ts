@@ -7,6 +7,8 @@ import {
     GetInitialStateResponse,
     GetFileRequest,
     GetFileResponse,
+    ListTargetsRequest,
+    ListTargetsResponse,
 } from '../resultstore_download_pb';
 import * as invocation_pb from '../invocation_pb';
 import config from '../../config/ConfigLoader';
@@ -21,6 +23,10 @@ export type SearchInvocationCallback = (
     response: SearchInvocationsResponse
 ) => void;
 export type GetFileCallback = (file: string) => void;
+export type ListTargetsCallback = (
+    err: grpcWeb.Error,
+    response: ListTargetsResponse
+) => void;
 
 const resultStore = new ResultStoreDownloadClient(
     config.destinationAddress,
@@ -29,7 +35,8 @@ const resultStore = new ResultStoreDownloadClient(
 );
 const defaultPageSize = 50;
 const searchFieldMask =
-    'next_page_token,invocations.name,invocations.invocation_attributes,invocations.timing,invocations.workspace_info,invocations.status_attributes';
+    'next_page_token,invocations.name,invocations.invocation_attributes,invocations.timing,invocations.workspace_info,invocations.status_attributes,invocations.files';
+const searchTargetFieldMask = 'next_page_token,targets.name,targets.files';
 
 /*
 Search for invocations by query
@@ -62,6 +69,30 @@ const searchInvocations = (
         id_token: tokenID,
     };
     resultStore.searchInvocations(request, metadata, callback);
+};
+
+const listTargetsRequest = (
+    newQuery: boolean,
+    parent: string,
+    pageToken: string,
+    tokenID: Auth['tokenID'],
+    callback: ListTargetsCallback
+) => {
+    const request = new ListTargetsRequest();
+    request.setPageToken(pageToken);
+    request.setPageSize(defaultPageSize);
+    request.setParent(parent);
+
+    const metadata = {
+        'x-goog-fieldmask': searchTargetFieldMask,
+        id_token: tokenID,
+    };
+
+    if (!newQuery) {
+        request.setPageToken(pageToken);
+    }
+
+    resultStore.listTargets(request, metadata, callback);
 };
 
 const getInitialState = (setToolsList) => {
@@ -102,4 +133,9 @@ const getFileRequest = (
     });
 };
 
-export { searchInvocations, getInitialState, getFileRequest };
+export {
+    searchInvocations,
+    getInitialState,
+    getFileRequest,
+    listTargetsRequest,
+};

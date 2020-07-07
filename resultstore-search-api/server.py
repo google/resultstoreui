@@ -18,10 +18,10 @@ def serve():
     creds = Credentials()
     fs = FireStoreClient(creds.get_project_id())
     bs = BigstoreClient(creds)
-    auth_interceptor = AuthInterceptor(
-        grpc.StatusCode.UNAUTHENTICATED, 'Invalid Authorization', creds)
-    server = grpc.server(futures.ThreadPoolExecutor(
-        max_workers=10), interceptors=(auth_interceptor,))
+    auth_interceptor = AuthInterceptor(grpc.StatusCode.UNAUTHENTICATED,
+                                       'Invalid Authorization', creds)
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10),
+                         interceptors=(auth_interceptor, ))
     with creds.create_secure_channel(creds.get_destination_sever()) as channel:
         proxy_server = ProxyServer(channel, fs, bs)
         resultstoresearch_download_pb2_grpc.add_ResultStoreDownloadServicer_to_server(

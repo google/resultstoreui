@@ -56,6 +56,7 @@ const GoogleButton: React.FC<GoogleButtonProps> = ({ setTokenID }) => {
                     onFailure={handleError}
                     responseType="id_token"
                     cookiePolicy={'single_host_origin'}
+                    isSignedIn={true}
                 />
             )}
             {isLoggedIn && (
@@ -65,6 +66,7 @@ const GoogleButton: React.FC<GoogleButtonProps> = ({ setTokenID }) => {
                     onLogoutSuccess={logOut}
                     onFailure={handleError}
                     cookiePolicy={'single_host_origin'}
+                    isSignedIn={true}
                 />
             )}
         </>

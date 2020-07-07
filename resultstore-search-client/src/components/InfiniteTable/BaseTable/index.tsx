@@ -1,7 +1,6 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import {
-    ColumnProps,
     Column,
     Table,
     TableCellRenderer,
@@ -9,16 +8,28 @@ import {
     InfiniteLoaderChildProps,
     TableProps,
 } from 'react-virtualized';
-import clsx from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
 
 export interface SelfProps {
-    columns: Array<ColumnProps>;
     rowHeight: number;
-    headerHeight: number;
+    headerClass?: string;
+    cellClass?: string;
+    gridClass?: string;
 }
 
-export type Props = SelfProps & InfiniteLoaderChildProps & TableProps;
+export type Props = SelfProps &
+    Pick<
+        TableProps,
+        | 'columns'
+        | 'width'
+        | 'height'
+        | 'headerHeight'
+        | 'rowCount'
+        | 'rowGetter'
+        | 'rowClassName'
+        | 'onRowClick'
+    > &
+    InfiniteLoaderChildProps;
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -27,18 +38,6 @@ const useStyles = makeStyles((theme: Theme) =>
             alignItems: 'center',
             boxSizing: 'border-box',
         },
-        tableRow: {
-            cursor: 'pointer',
-        },
-        tableRowHover: {
-            '&:hover': {
-                backgroundColor: theme.palette.grey[200],
-            },
-        },
-        tableCell: {
-            flex: 1,
-        },
-        table: {},
     })
 );
 
@@ -54,6 +53,9 @@ const BaseTable: React.FC<Props> = ({
     rowGetter,
     rowClassName,
     onRowClick,
+    headerClass,
+    cellClass,
+    gridClass,
 }) => {
     const classes = useStyles();
 
@@ -61,7 +63,7 @@ const BaseTable: React.FC<Props> = ({
         return (
             <TableCell
                 component="div"
-                className={clsx(classes.tableCell, classes.flexContainer)}
+                className={cellClass}
                 variant="body"
                 style={{ height: rowHeight }}
                 align={'left'}
@@ -75,7 +77,7 @@ const BaseTable: React.FC<Props> = ({
         return (
             <TableCell
                 component="div"
-                className={clsx(classes.tableCell, classes.flexContainer)}
+                className={headerClass}
                 variant="head"
                 style={{ height: headerHeight }}
                 align={'center'}
@@ -92,7 +94,7 @@ const BaseTable: React.FC<Props> = ({
             gridStyle={{
                 direction: 'inherit',
             }}
-            className={classes.table}
+            gridClassName={gridClass}
             headerHeight={headerHeight}
             ref={registerChild}
             rowClassName={rowClassName}
@@ -102,7 +104,7 @@ const BaseTable: React.FC<Props> = ({
             rowCount={rowCount}
             onRowClick={onRowClick}
         >
-            {columns.map(({ dataKey, ...other }) => {
+            {columns.map(({ dataKey, width, ...other }) => {
                 return (
                     <Column
                         key={dataKey}
@@ -115,6 +117,7 @@ const BaseTable: React.FC<Props> = ({
                         cellRenderer={cellRenderer}
                         dataKey={dataKey}
                         flexGrow={1}
+                        width={width}
                         {...other}
                     />
                 );

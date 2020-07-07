@@ -3,7 +3,10 @@ from resultstoresearchapi import (
     resultstore_download_pb2 as resultstoresearch_download_pb2, invocation_pb2
     as resultstoresearch_invocation_pb2, timestamp_pb2 as
     resultstoresearch_timestamp_pb2, duration_pb2 as
-    resultstoresearch_duration_pb2, common_pb2 as resultstoresearch_common_pb2)
+    resultstoresearch_duration_pb2, common_pb2 as resultstoresearch_common_pb2,
+    wrappers_pb2 as resultoresearch_wrapper_pb2, file_pb2 as
+    resultstoresearch_file_pb2)
+import sys
 
 
 def configure_grpc_error(context, rpc_error):
@@ -24,7 +27,7 @@ def has_tool_tag(invocation):
 
     Args:
         invocation (Invocation)
-    
+
     Returns:
         True if tool_tag exists else false
     """
@@ -44,7 +47,7 @@ def filter_tool(invocations, tool):
     Args:
         invocation (Invocation)
         tool (str): tool_tag to filter on
-    
+
     Returns:
         A list of Invocations after filtering
     """
@@ -98,12 +101,15 @@ def convert_invocation(invocation):
     status_attributes = convert_status_attributes(
         invocation.status_attributes) if hasattr(invocation,
                                                  'status_attributes') else None
+    files = convert_files(
+        invocation.files if hasattr(invocation, 'files') else None)
     return resultstoresearch_invocation_pb2.Invocation(
         name=invocation.name,
         status_attributes=status_attributes,
         timing=timing,
         invocation_attributes=invocation_attributes,
-        workspace_info=workspace_info)
+        workspace_info=workspace_info,
+        files=files)
 
 
 def convert_invocation_attributes(invocation_attributes):
@@ -185,3 +191,61 @@ def convert_status_attributes(status_attributes):
         status_attributes, 'description') else ''
     return resultstoresearch_common_pb2.StatusAttributes(
         status=status, description=description)
+
+
+def convert_files(files):
+    converted_files = []
+    for file in files:
+        converted_files.append(convert_file(file))
+    return converted_files
+
+
+def convert_file(file):
+    uid = file.uid if hasattr(file, 'uid') else ''
+    uri = file.uri if hasattr(file, 'uri') else ''
+    length = convert_int_64_value(
+        file.length) if hasattr(file, 'length') else None
+    print_flush(file.length)
+    content_type = file.content_type if hasattr(file, 'content_type') else ''
+    archive_entry = convert_archive_entry(file.archive_entry) if hasattr(
+        file, 'archive_entry') else None
+    print_flush(file.archive_entry)
+    content_viewer = file.content_viewer if hasattr(file,
+                                                    'content_viewer') else ''
+    hidden = file.hidden if hasattr(file, 'hidden') else False
+    description = file.description if hasattr(file, 'description') else ''
+    digest = file.digest if hasattr(file, 'digest') else ''
+    hash_type = file.hash_type if hasattr(
+        file,
+        'hash_type') else resultstoresearch_file_pb2.File.HASH_TYPE_UNSPECIFIED
+
+    return resultstoresearch_file_pb2.File(uid=uid,
+                                           uri=uri,
+                                           length=length,
+                                           content_type=content_type,
+                                           archive_entry=archive_entry,
+                                           content_viewer=content_viewer,
+                                           hidden=hidden,
+                                           description=description,
+                                           digest=digest,
+                                           hash_type=hash_type)
+
+
+def convert_archive_entry(archive_entry):
+    path = archive_entry.path if hasattr(archive_entry, 'path') else ''
+    length = convert_int_64_value(archive_entry.length) if hasattr(
+        archive_entry, 'length') else None
+    content_type = archive_entry.content_type if hasattr(
+        archive_entry, 'content_type') else ''
+
+    return resultstoresearch_file_pb2.ArchiveEntry(path=path,
+                                                   length=length,
+                                                   content_type=content_type)
+
+
+def convert_int_64_value(int_64_value):
+    return resultoresearch_wrapper_pb2.Int64Value(value=int_64_value.value)
+
+
+def print_flush(val):
+    print(val, flush=True)

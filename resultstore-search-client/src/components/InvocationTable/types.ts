@@ -22,6 +22,7 @@ export interface InvocationTableProps {
     pageToken: PageWrapperState['pageToken'];
     next: (newQuery: boolean, pageToken: string) => void;
     isNextPageLoading: boolean;
+    tokenID: string;
 }
 
 export interface ModalState {

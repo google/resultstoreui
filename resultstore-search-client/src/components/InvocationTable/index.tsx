@@ -18,6 +18,7 @@ const Container = styled(Paper)`
     margin-left: auto;
     margin-right: auto;
     margin-top: 20px;
+    outline: none;
 `;
 
 const columns: ColumnProps[] = [
@@ -38,6 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         tableRow: {
             cursor: 'pointer',
+            outline: 'none',
         },
         tableRowHover: {
             '&:hover': {
@@ -47,7 +49,13 @@ const useStyles = makeStyles((theme: Theme) =>
         tableCell: {
             flex: 1,
         },
-        table: {},
+        tableGrid: {
+            outline: 'none',
+        },
+        tableHeader: {
+            fontWeight: 550,
+            fontSize: 16,
+        },
     })
 );
 
@@ -59,6 +67,7 @@ const InvocationTable: React.FC<InvocationTableProps> = ({
     pageToken,
     next,
     isNextPageLoading,
+    tokenID,
 }) => {
     const classes = useStyles();
     const containerRef = useRef<HTMLDivElement>(null);
@@ -108,6 +117,13 @@ const InvocationTable: React.FC<InvocationTableProps> = ({
         });
     };
 
+    const cellClass = clsx(classes.tableCell, classes.flexContainer);
+    const headerClass = clsx(
+        classes.tableCell,
+        classes.flexContainer,
+        classes.tableHeader
+    );
+
     const rowGetter = ({ index }) => {
         if (!isRowLoaded({ index })) {
             return {
@@ -131,6 +147,13 @@ const InvocationTable: React.FC<InvocationTableProps> = ({
         return [];
     };
 
+    const getParent = () => {
+        if (invocations.length > 0) {
+            return invocations[modalState.index].getName();
+        }
+        return '';
+    };
+
     return (
         <Container ref={containerRef} elevation={3}>
             <InfiniteTable
@@ -145,11 +168,16 @@ const InvocationTable: React.FC<InvocationTableProps> = ({
                 onRowClick={onRowClick}
                 isRowLoaded={isRowLoaded}
                 loadMoreRows={loadMoreRows}
+                cellClass={cellClass}
+                headerClass={headerClass}
+                gridClass={classes.tableGrid}
             />
             <FileModal
                 isOpen={modalState.isOpen}
                 close={closeModal}
                 files={getFiles()}
+                parent={getParent()}
+                tokenID={tokenID}
             />
         </Container>
     );

@@ -82,13 +82,12 @@ const SearchWrapper: React.FC = () => {
             setPageToken('');
             nextRows(true, '');
         }
-    }, [selectedTool, query]);
+    }, [query]);
 
     const searchInvocationsCallback: SearchInvocationCallback = (
         err,
         response
     ) => {
-        setIsNextPageLoading(false);
         if (err) {
             setError({
                 errorText: `${toSentenceCase(err.message)}`,
@@ -105,8 +104,8 @@ const SearchWrapper: React.FC = () => {
                 setToolsList(toolsList);
             }
             if (newQuery) {
-                setInvocations(response.getInvocationsList());
                 setNewQuery(false);
+                setInvocations(response.getInvocationsList());
             } else {
                 setInvocations([
                     ...invocations,
@@ -114,6 +113,7 @@ const SearchWrapper: React.FC = () => {
                 ]);
             }
         }
+        setIsNextPageLoading(false);
     };
 
     return (
@@ -137,6 +137,7 @@ const SearchWrapper: React.FC = () => {
                 next={nextRows}
                 pageToken={pageToken}
                 isNextPageLoading={isNextPageLoading}
+                tokenID={tokenID}
             />
         </AppContainer>
     );

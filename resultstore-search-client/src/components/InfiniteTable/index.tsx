@@ -16,13 +16,16 @@ const InfiniteTable: React.FC<Props> = ({
     rowGetter,
     rowClassName,
     onRowClick,
+    headerClass,
+    cellClass,
+    gridClass,
 }) => {
     return (
         <InfiniteLoader
             isRowLoaded={isRowLoaded}
             loadMoreRows={loadMoreRows}
             rowCount={rowCount}
-            threshold={15}
+            threshold={5}
         >
             {({ onRowsRendered, registerChild }) => (
                 <BaseTable
@@ -37,6 +40,9 @@ const InfiniteTable: React.FC<Props> = ({
                     rowGetter={rowGetter}
                     rowClassName={rowClassName}
                     onRowClick={onRowClick}
+                    cellClass={cellClass}
+                    headerClass={headerClass}
+                    gridClass={gridClass}
                 />
             )}
         </InfiniteLoader>

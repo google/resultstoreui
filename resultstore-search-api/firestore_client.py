@@ -8,7 +8,6 @@ VERIFICATION_TIMEOUT = timedelta(hours=24)
 
 class FireStoreClient():
     """ Resultstore search's firestore client"""
-
     def __init__(self, project_id):
         """ 
         Initialize the client
