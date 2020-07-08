@@ -5,6 +5,8 @@ import {
     SearchInvocationsResponse,
     GetInitialStateRequest,
     GetInitialStateResponse,
+    GetFileRequest,
+    GetFileResponse,
 } from '../resultstore_download_pb';
 import * as invocation_pb from '../invocation_pb';
 import config from '../../config/ConfigLoader';
@@ -18,6 +20,7 @@ export type SearchInvocationCallback = (
     err: grpcWeb.Error,
     response: SearchInvocationsResponse
 ) => void;
+export type GetFileCallback = (file: string) => void;
 
 const resultStore = new ResultStoreDownloadClient(
     config.destinationAddress,
@@ -75,4 +78,28 @@ const getInitialState = (setToolsList) => {
     );
 };
 
-export { searchInvocations, getInitialState };
+const getFileRequest = (
+    uri: string,
+    tokenID: Auth['tokenID'],
+    callback: GetFileCallback
+) => {
+    const request = new GetFileRequest();
+    request.setUri(uri);
+    const metadata = {
+        id_token: tokenID,
+    };
+    const stream = resultStore.getFile(request, metadata);
+
+    var file = '';
+
+    stream.on('data', (response) => {
+        file += response.getData_asB64();
+    });
+
+    stream.on('end', () => {
+        console.log(file);
+        callback(file);
+    });
+};
+
+export { searchInvocations, getInitialState, getFileRequest };

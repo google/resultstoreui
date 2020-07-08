@@ -20,7 +20,8 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='resultstoresearch.v1',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=b'\n\x1aresultstore_download.proto\x12\x14resultstoresearch.v1\x1a\x10invocation.proto\x1a\x0ctarget.proto\"\xa9\x01\n\x18SearchInvocationsRequest\x12\x11\n\tpage_size\x18\x01 \x01(\x05\x12\x14\n\npage_token\x18\x02 \x01(\tH\x00\x12\x10\n\x06offset\x18\x03 \x01(\x03H\x00\x12\r\n\x05query\x18\x04 \x01(\t\x12\x12\n\nproject_id\x18\x05 \x01(\t\x12\x13\n\x0b\x65xact_match\x18\x07 \x01(\x08\x12\x0c\n\x04tool\x18\x08 \x01(\tB\x0c\n\npage_start\"\x7f\n\x19SearchInvocationsResponse\x12\x35\n\x0binvocations\x18\x01 \x03(\x0b\x32 .resultstoresearch.v1.Invocation\x12\x17\n\x0fnext_page_token\x18\x02 \x01(\t\x12\x12\n\ntools_list\x18\x03 \x03(\t\"$\n\x14GetInvocationRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"}\n\x12ListTargetsRequest\x12\x0e\n\x06parent\x18\x01 \x01(\t\x12\x11\n\tpage_size\x18\x02 \x01(\x05\x12\x14\n\npage_token\x18\x03 \x01(\tH\x00\x12\x10\n\x06offset\x18\x04 \x01(\x03H\x00\x12\x0e\n\x06\x66ilter\x18\x05 \x01(\tB\x0c\n\npage_start\"]\n\x13ListTargetsResponse\x12-\n\x07targets\x18\x01 \x03(\x0b\x32\x1c.resultstoresearch.v1.Target\x12\x17\n\x0fnext_page_token\x18\x02 \x01(\t\"\x18\n\x16GetInitialStateRequest\"-\n\x17GetInitialStateResponse\x12\x12\n\ntools_list\x18\x01 \x03(\t2\xbe\x03\n\x13ResultStoreDownload\x12t\n\x11SearchInvocations\x12..resultstoresearch.v1.SearchInvocationsRequest\x1a/.resultstoresearch.v1.SearchInvocationsResponse\x12]\n\rGetInvocation\x12*.resultstoresearch.v1.GetInvocationRequest\x1a .resultstoresearch.v1.Invocation\x12\x62\n\x0bListTargets\x12(.resultstoresearch.v1.ListTargetsRequest\x1a).resultstoresearch.v1.ListTargetsResponse\x12n\n\x0fGetInitialState\x12,.resultstoresearch.v1.GetInitialStateRequest\x1a-.resultstoresearch.v1.GetInitialStateResponseb\x06proto3'
+  create_key=_descriptor._internal_create_key,
+  serialized_pb=b'\n\x1aresultstore_download.proto\x12\x14resultstoresearch.v1\x1a\x10invocation.proto\x1a\x0ctarget.proto\"\xa9\x01\n\x18SearchInvocationsRequest\x12\x11\n\tpage_size\x18\x01 \x01(\x05\x12\x14\n\npage_token\x18\x02 \x01(\tH\x00\x12\x10\n\x06offset\x18\x03 \x01(\x03H\x00\x12\r\n\x05query\x18\x04 \x01(\t\x12\x12\n\nproject_id\x18\x05 \x01(\t\x12\x13\n\x0b\x65xact_match\x18\x07 \x01(\x08\x12\x0c\n\x04tool\x18\x08 \x01(\tB\x0c\n\npage_start\"\x7f\n\x19SearchInvocationsResponse\x12\x35\n\x0binvocations\x18\x01 \x03(\x0b\x32 .resultstoresearch.v1.Invocation\x12\x17\n\x0fnext_page_token\x18\x02 \x01(\t\x12\x12\n\ntools_list\x18\x03 \x03(\t\"$\n\x14GetInvocationRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"}\n\x12ListTargetsRequest\x12\x0e\n\x06parent\x18\x01 \x01(\t\x12\x11\n\tpage_size\x18\x02 \x01(\x05\x12\x14\n\npage_token\x18\x03 \x01(\tH\x00\x12\x10\n\x06offset\x18\x04 \x01(\x03H\x00\x12\x0e\n\x06\x66ilter\x18\x05 \x01(\tB\x0c\n\npage_start\"]\n\x13ListTargetsResponse\x12-\n\x07targets\x18\x01 \x03(\x0b\x32\x1c.resultstoresearch.v1.Target\x12\x17\n\x0fnext_page_token\x18\x02 \x01(\t\"]\n\x0eGetFileRequest\x12\x0b\n\x03uri\x18\x01 \x01(\t\x12\x13\n\x0bread_offset\x18\x02 \x01(\x03\x12\x12\n\nread_limit\x18\x03 \x01(\x03\x12\x15\n\rarchive_entry\x18\x04 \x01(\t\"\x1f\n\x0fGetFileResponse\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x0c\"\x18\n\x16GetInitialStateRequest\"-\n\x17GetInitialStateResponse\x12\x12\n\ntools_list\x18\x01 \x03(\t2\x98\x04\n\x13ResultStoreDownload\x12t\n\x11SearchInvocations\x12..resultstoresearch.v1.SearchInvocationsRequest\x1a/.resultstoresearch.v1.SearchInvocationsResponse\x12]\n\rGetInvocation\x12*.resultstoresearch.v1.GetInvocationRequest\x1a .resultstoresearch.v1.Invocation\x12\x62\n\x0bListTargets\x12(.resultstoresearch.v1.ListTargetsRequest\x1a).resultstoresearch.v1.ListTargetsResponse\x12X\n\x07GetFile\x12$.resultstoresearch.v1.GetFileRequest\x1a%.resultstoresearch.v1.GetFileResponse0\x01\x12n\n\x0fGetInitialState\x12,.resultstoresearch.v1.GetInitialStateRequest\x1a-.resultstoresearch.v1.GetInitialStateResponseb\x06proto3'
   ,
   dependencies=[invocation__pb2.DESCRIPTOR,target__pb2.DESCRIPTOR,])
 
@@ -33,6 +34,7 @@ _SEARCHINVOCATIONSREQUEST = _descriptor.Descriptor(
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
+  create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
       name='page_size', full_name='resultstoresearch.v1.SearchInvocationsRequest.page_size', index=0,
@@ -40,49 +42,49 @@ _SEARCHINVOCATIONSREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='page_token', full_name='resultstoresearch.v1.SearchInvocationsRequest.page_token', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='offset', full_name='resultstoresearch.v1.SearchInvocationsRequest.offset', index=2,
       number=3, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='query', full_name='resultstoresearch.v1.SearchInvocationsRequest.query', index=3,
       number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='project_id', full_name='resultstoresearch.v1.SearchInvocationsRequest.project_id', index=4,
       number=5, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='exact_match', full_name='resultstoresearch.v1.SearchInvocationsRequest.exact_match', index=5,
       number=7, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='tool', full_name='resultstoresearch.v1.SearchInvocationsRequest.tool', index=6,
       number=8, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -96,7 +98,9 @@ _SEARCHINVOCATIONSREQUEST = _descriptor.Descriptor(
   oneofs=[
     _descriptor.OneofDescriptor(
       name='page_start', full_name='resultstoresearch.v1.SearchInvocationsRequest.page_start',
-      index=0, containing_type=None, fields=[]),
+      index=0, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
   ],
   serialized_start=85,
   serialized_end=254,
@@ -109,6 +113,7 @@ _SEARCHINVOCATIONSRESPONSE = _descriptor.Descriptor(
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
+  create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
       name='invocations', full_name='resultstoresearch.v1.SearchInvocationsResponse.invocations', index=0,
@@ -116,21 +121,21 @@ _SEARCHINVOCATIONSRESPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='next_page_token', full_name='resultstoresearch.v1.SearchInvocationsResponse.next_page_token', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='tools_list', full_name='resultstoresearch.v1.SearchInvocationsResponse.tools_list', index=2,
       number=3, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -154,6 +159,7 @@ _GETINVOCATIONREQUEST = _descriptor.Descriptor(
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
+  create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
       name='name', full_name='resultstoresearch.v1.GetInvocationRequest.name', index=0,
@@ -161,7 +167,7 @@ _GETINVOCATIONREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -185,6 +191,7 @@ _LISTTARGETSREQUEST = _descriptor.Descriptor(
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
+  create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
       name='parent', full_name='resultstoresearch.v1.ListTargetsRequest.parent', index=0,
@@ -192,35 +199,35 @@ _LISTTARGETSREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='page_size', full_name='resultstoresearch.v1.ListTargetsRequest.page_size', index=1,
       number=2, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='page_token', full_name='resultstoresearch.v1.ListTargetsRequest.page_token', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='offset', full_name='resultstoresearch.v1.ListTargetsRequest.offset', index=3,
       number=4, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='filter', full_name='resultstoresearch.v1.ListTargetsRequest.filter', index=4,
       number=5, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -234,7 +241,9 @@ _LISTTARGETSREQUEST = _descriptor.Descriptor(
   oneofs=[
     _descriptor.OneofDescriptor(
       name='page_start', full_name='resultstoresearch.v1.ListTargetsRequest.page_start',
-      index=0, containing_type=None, fields=[]),
+      index=0, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
   ],
   serialized_start=423,
   serialized_end=548,
@@ -247,6 +256,7 @@ _LISTTARGETSRESPONSE = _descriptor.Descriptor(
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
+  create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
       name='targets', full_name='resultstoresearch.v1.ListTargetsResponse.targets', index=0,
@@ -254,14 +264,14 @@ _LISTTARGETSRESPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='next_page_token', full_name='resultstoresearch.v1.ListTargetsResponse.next_page_token', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -279,13 +289,42 @@ _LISTTARGETSRESPONSE = _descriptor.Descriptor(
 )
 
 
-_GETINITIALSTATEREQUEST = _descriptor.Descriptor(
-  name='GetInitialStateRequest',
-  full_name='resultstoresearch.v1.GetInitialStateRequest',
+_GETFILEREQUEST = _descriptor.Descriptor(
+  name='GetFileRequest',
+  full_name='resultstoresearch.v1.GetFileRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
+  create_key=_descriptor._internal_create_key,
   fields=[
+    _descriptor.FieldDescriptor(
+      name='uri', full_name='resultstoresearch.v1.GetFileRequest.uri', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='read_offset', full_name='resultstoresearch.v1.GetFileRequest.read_offset', index=1,
+      number=2, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='read_limit', full_name='resultstoresearch.v1.GetFileRequest.read_limit', index=2,
+      number=3, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='archive_entry', full_name='resultstoresearch.v1.GetFileRequest.archive_entry', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -299,24 +338,25 @@ _GETINITIALSTATEREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=645,
-  serialized_end=669,
+  serialized_end=738,
 )
 
 
-_GETINITIALSTATERESPONSE = _descriptor.Descriptor(
-  name='GetInitialStateResponse',
-  full_name='resultstoresearch.v1.GetInitialStateResponse',
+_GETFILERESPONSE = _descriptor.Descriptor(
+  name='GetFileResponse',
+  full_name='resultstoresearch.v1.GetFileResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
+  create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='tools_list', full_name='resultstoresearch.v1.GetInitialStateResponse.tools_list', index=0,
-      number=1, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
+      name='data', full_name='resultstoresearch.v1.GetFileResponse.data', index=0,
+      number=1, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"",
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -329,8 +369,65 @@ _GETINITIALSTATERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=671,
-  serialized_end=716,
+  serialized_start=740,
+  serialized_end=771,
+)
+
+
+_GETINITIALSTATEREQUEST = _descriptor.Descriptor(
+  name='GetInitialStateRequest',
+  full_name='resultstoresearch.v1.GetInitialStateRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=773,
+  serialized_end=797,
+)
+
+
+_GETINITIALSTATERESPONSE = _descriptor.Descriptor(
+  name='GetInitialStateResponse',
+  full_name='resultstoresearch.v1.GetInitialStateResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='tools_list', full_name='resultstoresearch.v1.GetInitialStateResponse.tools_list', index=0,
+      number=1, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=799,
+  serialized_end=844,
 )
 
 _SEARCHINVOCATIONSREQUEST.oneofs_by_name['page_start'].fields.append(
@@ -352,6 +449,8 @@ DESCRIPTOR.message_types_by_name['SearchInvocationsResponse'] = _SEARCHINVOCATIO
 DESCRIPTOR.message_types_by_name['GetInvocationRequest'] = _GETINVOCATIONREQUEST
 DESCRIPTOR.message_types_by_name['ListTargetsRequest'] = _LISTTARGETSREQUEST
 DESCRIPTOR.message_types_by_name['ListTargetsResponse'] = _LISTTARGETSRESPONSE
+DESCRIPTOR.message_types_by_name['GetFileRequest'] = _GETFILEREQUEST
+DESCRIPTOR.message_types_by_name['GetFileResponse'] = _GETFILERESPONSE
 DESCRIPTOR.message_types_by_name['GetInitialStateRequest'] = _GETINITIALSTATEREQUEST
 DESCRIPTOR.message_types_by_name['GetInitialStateResponse'] = _GETINITIALSTATERESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -391,6 +490,20 @@ ListTargetsResponse = _reflection.GeneratedProtocolMessageType('ListTargetsRespo
   })
 _sym_db.RegisterMessage(ListTargetsResponse)
 
+GetFileRequest = _reflection.GeneratedProtocolMessageType('GetFileRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETFILEREQUEST,
+  '__module__' : 'resultstore_download_pb2'
+  # @@protoc_insertion_point(class_scope:resultstoresearch.v1.GetFileRequest)
+  })
+_sym_db.RegisterMessage(GetFileRequest)
+
+GetFileResponse = _reflection.GeneratedProtocolMessageType('GetFileResponse', (_message.Message,), {
+  'DESCRIPTOR' : _GETFILERESPONSE,
+  '__module__' : 'resultstore_download_pb2'
+  # @@protoc_insertion_point(class_scope:resultstoresearch.v1.GetFileResponse)
+  })
+_sym_db.RegisterMessage(GetFileResponse)
+
 GetInitialStateRequest = _reflection.GeneratedProtocolMessageType('GetInitialStateRequest', (_message.Message,), {
   'DESCRIPTOR' : _GETINITIALSTATEREQUEST,
   '__module__' : 'resultstore_download_pb2'
@@ -413,8 +526,9 @@ _RESULTSTOREDOWNLOAD = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=719,
-  serialized_end=1165,
+  create_key=_descriptor._internal_create_key,
+  serialized_start=847,
+  serialized_end=1383,
   methods=[
   _descriptor.MethodDescriptor(
     name='SearchInvocations',
@@ -424,6 +538,7 @@ _RESULTSTOREDOWNLOAD = _descriptor.ServiceDescriptor(
     input_type=_SEARCHINVOCATIONSREQUEST,
     output_type=_SEARCHINVOCATIONSRESPONSE,
     serialized_options=None,
+    create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
     name='GetInvocation',
@@ -433,6 +548,7 @@ _RESULTSTOREDOWNLOAD = _descriptor.ServiceDescriptor(
     input_type=_GETINVOCATIONREQUEST,
     output_type=invocation__pb2._INVOCATION,
     serialized_options=None,
+    create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
     name='ListTargets',
@@ -442,15 +558,27 @@ _RESULTSTOREDOWNLOAD = _descriptor.ServiceDescriptor(
     input_type=_LISTTARGETSREQUEST,
     output_type=_LISTTARGETSRESPONSE,
     serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetFile',
+    full_name='resultstoresearch.v1.ResultStoreDownload.GetFile',
+    index=3,
+    containing_service=None,
+    input_type=_GETFILEREQUEST,
+    output_type=_GETFILERESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
     name='GetInitialState',
     full_name='resultstoresearch.v1.ResultStoreDownload.GetInitialState',
-    index=3,
+    index=4,
     containing_service=None,
     input_type=_GETINITIALSTATEREQUEST,
     output_type=_GETINITIALSTATERESPONSE,
     serialized_options=None,
+    create_key=_descriptor._internal_create_key,
   ),
 ])
 _sym_db.RegisterServiceDescriptor(_RESULTSTOREDOWNLOAD)

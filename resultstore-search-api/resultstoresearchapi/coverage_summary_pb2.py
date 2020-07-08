@@ -19,6 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='resultstoresearch.v1',
   syntax='proto3',
   serialized_options=None,
+  create_key=_descriptor._internal_create_key,
   serialized_pb=b'\n\x16\x63overage_summary.proto\x12\x14resultstoresearch.v1\x1a\x0c\x63ommon.proto\"S\n\x13LineCoverageSummary\x12\x1f\n\x17instrumented_line_count\x18\x01 \x01(\x05\x12\x1b\n\x13\x65xecuted_line_count\x18\x02 \x01(\x05\"n\n\x15\x42ranchCoverageSummary\x12\x1a\n\x12total_branch_count\x18\x01 \x01(\x05\x12\x1d\n\x15\x65xecuted_branch_count\x18\x02 \x01(\x05\x12\x1a\n\x12taken_branch_count\x18\x03 \x01(\x05\"\xd1\x01\n\x17LanguageCoverageSummary\x12\x30\n\x08language\x18\x01 \x01(\x0e\x32\x1e.resultstoresearch.v1.Language\x12?\n\x0cline_summary\x18\x02 \x01(\x0b\x32).resultstoresearch.v1.LineCoverageSummary\x12\x43\n\x0e\x62ranch_summary\x18\x03 \x01(\x0b\x32+.resultstoresearch.v1.BranchCoverageSummaryb\x06proto3'
   ,
   dependencies=[common__pb2.DESCRIPTOR,])
@@ -32,6 +33,7 @@ _LINECOVERAGESUMMARY = _descriptor.Descriptor(
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
+  create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
       name='instrumented_line_count', full_name='resultstoresearch.v1.LineCoverageSummary.instrumented_line_count', index=0,
@@ -39,14 +41,14 @@ _LINECOVERAGESUMMARY = _descriptor.Descriptor(
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='executed_line_count', full_name='resultstoresearch.v1.LineCoverageSummary.executed_line_count', index=1,
       number=2, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -70,6 +72,7 @@ _BRANCHCOVERAGESUMMARY = _descriptor.Descriptor(
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
+  create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
       name='total_branch_count', full_name='resultstoresearch.v1.BranchCoverageSummary.total_branch_count', index=0,
@@ -77,21 +80,21 @@ _BRANCHCOVERAGESUMMARY = _descriptor.Descriptor(
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='executed_branch_count', full_name='resultstoresearch.v1.BranchCoverageSummary.executed_branch_count', index=1,
       number=2, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='taken_branch_count', full_name='resultstoresearch.v1.BranchCoverageSummary.taken_branch_count', index=2,
       number=3, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -115,6 +118,7 @@ _LANGUAGECOVERAGESUMMARY = _descriptor.Descriptor(
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
+  create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
       name='language', full_name='resultstoresearch.v1.LanguageCoverageSummary.language', index=0,
@@ -122,21 +126,21 @@ _LANGUAGECOVERAGESUMMARY = _descriptor.Descriptor(
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='line_summary', full_name='resultstoresearch.v1.LanguageCoverageSummary.line_summary', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='branch_summary', full_name='resultstoresearch.v1.LanguageCoverageSummary.branch_summary', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],

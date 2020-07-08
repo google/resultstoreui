@@ -7,8 +7,8 @@ export class Target extends jspb.Message {
   getName(): string;
   setName(value: string): Target;
 
-  getId(): Id | undefined;
-  setId(value?: Id): Target;
+  getId(): Target.Id | undefined;
+  setId(value?: Target.Id): Target;
   hasId(): boolean;
   clearId(): Target;
 
@@ -56,7 +56,7 @@ export class Target extends jspb.Message {
 export namespace Target {
   export type AsObject = {
     name: string,
-    id?: Id.AsObject,
+    id?: Target.Id.AsObject,
     statusAttributes?: common_pb.StatusAttributes.AsObject,
     timing?: common_pb.Timing.AsObject,
     targetAttributes?: TargetAttributes.AsObject,

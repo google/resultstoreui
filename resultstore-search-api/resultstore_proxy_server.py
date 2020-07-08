@@ -1,5 +1,5 @@
 from resultstoreapi.cloud.devtools.resultstore_v2.proto import (
-    resultstore_download_pb2_grpc, resultstore_download_pb2)
+    resultstore_download_pb2_grpc, resultstore_download_pb2, resultstore_file_download_pb2, resultstore_file_download_pb2_grpc)
 from resultstoresearchapi import (
     resultstore_download_pb2_grpc as resultstoresearch_download_pb2_grpc,
     resultstore_download_pb2 as resultstoresearch_download_pb2,
@@ -95,6 +95,27 @@ class ProxyServer(
         else:
             _LOGGER.info('Received message: %s', response)
             return response
+
+    def GetFileRequest(self, request, context):
+        _LOGGER.info('Received request: %s', request)
+        new_request = resultstore_file_download_pb2.GetFileRequest(
+            uri=request.uri,
+            read_offset=request.read_offset,
+            read_limit=request.read_limit,
+            archive_entry=request.archive_entry,
+        )
+        metadata = context.invocation_metadata()
+        stub = resultstore_file_download_pb2_grpc.ResultStoreFileDownloadStub(
+            self.channel
+        )
+        try:
+            responses = stub.GetFile(new_request, metadata=metadata)
+            for response in responses:
+                yield response
+        except grpc.RpcError as rpc_error:
+            _LOGGER.error('Received error: %s', rpc_error)
+            configure_grpc_error(context, rpc_error)
+            return resultstore_file_download_pb2.GetFileResponse()
 
     def GetInitialState(self, request, context):
         """

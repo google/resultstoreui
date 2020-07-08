@@ -19,6 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='resultstoresearch.v1',
   syntax='proto3',
   serialized_options=None,
+  create_key=_descriptor._internal_create_key,
   serialized_pb=b'\n\x1b\x66ile_processing_error.proto\x12\x14resultstoresearch.v1\"s\n\x14\x46ileProcessingErrors\x12\x10\n\x08\x66ile_uid\x18\x01 \x01(\t\x12I\n\x16\x66ile_processing_errors\x18\x03 \x03(\x0b\x32).resultstoresearch.v1.FileProcessingError\"c\n\x13\x46ileProcessingError\x12;\n\x04type\x18\x01 \x01(\x0e\x32-.resultstoresearch.v1.FileProcessingErrorType\x12\x0f\n\x07message\x18\x02 \x01(\t*\xe9\x01\n\x17\x46ileProcessingErrorType\x12*\n&FILE_PROCESSING_ERROR_TYPE_UNSPECIFIED\x10\x00\x12\x16\n\x12GENERIC_READ_ERROR\x10\x01\x12\x17\n\x13GENERIC_PARSE_ERROR\x10\x02\x12\x12\n\x0e\x46ILE_TOO_LARGE\x10\x03\x12\x14\n\x10OUTPUT_TOO_LARGE\x10\x04\x12\x11\n\rACCESS_DENIED\x10\x05\x12\x15\n\x11\x44\x45\x41\x44LINE_EXCEEDED\x10\x06\x12\r\n\tNOT_FOUND\x10\x07\x12\x0e\n\nFILE_EMPTY\x10\x08\x62\x06proto3'
 )
 
@@ -27,43 +28,53 @@ _FILEPROCESSINGERRORTYPE = _descriptor.EnumDescriptor(
   full_name='resultstoresearch.v1.FileProcessingErrorType',
   filename=None,
   file=DESCRIPTOR,
+  create_key=_descriptor._internal_create_key,
   values=[
     _descriptor.EnumValueDescriptor(
       name='FILE_PROCESSING_ERROR_TYPE_UNSPECIFIED', index=0, number=0,
       serialized_options=None,
-      type=None),
+      type=None,
+      create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
       name='GENERIC_READ_ERROR', index=1, number=1,
       serialized_options=None,
-      type=None),
+      type=None,
+      create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
       name='GENERIC_PARSE_ERROR', index=2, number=2,
       serialized_options=None,
-      type=None),
+      type=None,
+      create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
       name='FILE_TOO_LARGE', index=3, number=3,
       serialized_options=None,
-      type=None),
+      type=None,
+      create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
       name='OUTPUT_TOO_LARGE', index=4, number=4,
       serialized_options=None,
-      type=None),
+      type=None,
+      create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
       name='ACCESS_DENIED', index=5, number=5,
       serialized_options=None,
-      type=None),
+      type=None,
+      create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
       name='DEADLINE_EXCEEDED', index=6, number=6,
       serialized_options=None,
-      type=None),
+      type=None,
+      create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
       name='NOT_FOUND', index=7, number=7,
       serialized_options=None,
-      type=None),
+      type=None,
+      create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
       name='FILE_EMPTY', index=8, number=8,
       serialized_options=None,
-      type=None),
+      type=None,
+      create_key=_descriptor._internal_create_key),
   ],
   containing_type=None,
   serialized_options=None,
@@ -91,6 +102,7 @@ _FILEPROCESSINGERRORS = _descriptor.Descriptor(
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
+  create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
       name='file_uid', full_name='resultstoresearch.v1.FileProcessingErrors.file_uid', index=0,
@@ -98,14 +110,14 @@ _FILEPROCESSINGERRORS = _descriptor.Descriptor(
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='file_processing_errors', full_name='resultstoresearch.v1.FileProcessingErrors.file_processing_errors', index=1,
       number=3, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -129,6 +141,7 @@ _FILEPROCESSINGERROR = _descriptor.Descriptor(
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
+  create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
       name='type', full_name='resultstoresearch.v1.FileProcessingError.type', index=0,
@@ -136,14 +149,14 @@ _FILEPROCESSINGERROR = _descriptor.Descriptor(
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='message', full_name='resultstoresearch.v1.FileProcessingError.message', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],

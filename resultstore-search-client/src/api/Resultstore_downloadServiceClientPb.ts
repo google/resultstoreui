@@ -5,11 +5,11 @@
  */
 
 // GENERATED CODE -- DO NOT EDIT!
-/* tslint:disable */
-/* eslint-disable */
+
 
 /* eslint-disable */
 // @ts-nocheck
+
 
 import * as grpcWeb from 'grpc-web';
 
@@ -17,223 +17,208 @@ import * as invocation_pb from './invocation_pb';
 import * as target_pb from './target_pb';
 
 import {
-    GetInitialStateRequest,
-    GetInitialStateResponse,
-    GetInvocationRequest,
-    ListTargetsRequest,
-    ListTargetsResponse,
-    SearchInvocationsRequest,
-    SearchInvocationsResponse,
-} from './resultstore_download_pb';
+  GetFileRequest,
+  GetFileResponse,
+  GetInitialStateRequest,
+  GetInitialStateResponse,
+  GetInvocationRequest,
+  ListTargetsRequest,
+  ListTargetsResponse,
+  SearchInvocationsRequest,
+  SearchInvocationsResponse} from './resultstore_download_pb';
 
 export class ResultStoreDownloadClient {
-    client_: grpcWeb.AbstractClientBase;
-    hostname_: string;
-    credentials_: null | { [index: string]: string };
-    options_: null | { [index: string]: string };
+  client_: grpcWeb.AbstractClientBase;
+  hostname_: string;
+  credentials_: null | { [index: string]: string; };
+  options_: null | { [index: string]: string; };
 
-    constructor(
-        hostname: string,
-        credentials?: null | { [index: string]: string },
-        options?: null | { [index: string]: string }
-    ) {
-        if (!options) options = {};
-        if (!credentials) credentials = {};
-        options['format'] = 'text';
+  constructor (hostname: string,
+               credentials?: null | { [index: string]: string; },
+               options?: null | { [index: string]: string; }) {
+    if (!options) options = {};
+    if (!credentials) credentials = {};
+    options['format'] = 'text';
 
-        this.client_ = new grpcWeb.GrpcWebClientBase(options);
-        this.hostname_ = hostname;
-        this.credentials_ = credentials;
-        this.options_ = options;
+    this.client_ = new grpcWeb.GrpcWebClientBase(options);
+    this.hostname_ = hostname;
+    this.credentials_ = credentials;
+    this.options_ = options;
+  }
+
+  methodInfoSearchInvocations = new grpcWeb.AbstractClientBase.MethodInfo(
+    SearchInvocationsResponse,
+    (request: SearchInvocationsRequest) => {
+      return request.serializeBinary();
+    },
+    SearchInvocationsResponse.deserializeBinary
+  );
+
+  searchInvocations(
+    request: SearchInvocationsRequest,
+    metadata: grpcWeb.Metadata | null): Promise<SearchInvocationsResponse>;
+
+  searchInvocations(
+    request: SearchInvocationsRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: SearchInvocationsResponse) => void): grpcWeb.ClientReadableStream<SearchInvocationsResponse>;
+
+  searchInvocations(
+    request: SearchInvocationsRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: SearchInvocationsResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        new URL('/resultstoresearch.v1.ResultStoreDownload/SearchInvocations', this.hostname_).toString(),
+        request,
+        metadata || {},
+        this.methodInfoSearchInvocations,
+        callback);
     }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/resultstoresearch.v1.ResultStoreDownload/SearchInvocations',
+    request,
+    metadata || {},
+    this.methodInfoSearchInvocations);
+  }
 
-    methodInfoSearchInvocations = new grpcWeb.AbstractClientBase.MethodInfo(
-        SearchInvocationsResponse,
-        (request: SearchInvocationsRequest) => {
-            return request.serializeBinary();
-        },
-        SearchInvocationsResponse.deserializeBinary
-    );
+  methodInfoGetInvocation = new grpcWeb.AbstractClientBase.MethodInfo(
+    invocation_pb.Invocation,
+    (request: GetInvocationRequest) => {
+      return request.serializeBinary();
+    },
+    invocation_pb.Invocation.deserializeBinary
+  );
 
-    searchInvocations(
-        request: SearchInvocationsRequest,
-        metadata: grpcWeb.Metadata | null
-    ): Promise<SearchInvocationsResponse>;
+  getInvocation(
+    request: GetInvocationRequest,
+    metadata: grpcWeb.Metadata | null): Promise<invocation_pb.Invocation>;
 
-    searchInvocations(
-        request: SearchInvocationsRequest,
-        metadata: grpcWeb.Metadata | null,
-        callback: (
-            err: grpcWeb.Error,
-            response: SearchInvocationsResponse
-        ) => void
-    ): grpcWeb.ClientReadableStream<SearchInvocationsResponse>;
+  getInvocation(
+    request: GetInvocationRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: invocation_pb.Invocation) => void): grpcWeb.ClientReadableStream<invocation_pb.Invocation>;
 
-    searchInvocations(
-        request: SearchInvocationsRequest,
-        metadata: grpcWeb.Metadata | null,
-        callback?: (
-            err: grpcWeb.Error,
-            response: SearchInvocationsResponse
-        ) => void
-    ) {
-        if (callback !== undefined) {
-            return this.client_.rpcCall(
-                this.hostname_ +
-                    '/resultstoresearch.v1.ResultStoreDownload/SearchInvocations',
-                request,
-                metadata || {},
-                this.methodInfoSearchInvocations,
-                callback
-            );
-        }
-        return this.client_.unaryCall(
-            this.hostname_ +
-                '/resultstoresearch.v1.ResultStoreDownload/SearchInvocations',
-            request,
-            metadata || {},
-            this.methodInfoSearchInvocations
-        );
+  getInvocation(
+    request: GetInvocationRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: invocation_pb.Invocation) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        new URL('/resultstoresearch.v1.ResultStoreDownload/GetInvocation', this.hostname_).toString(),
+        request,
+        metadata || {},
+        this.methodInfoGetInvocation,
+        callback);
     }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/resultstoresearch.v1.ResultStoreDownload/GetInvocation',
+    request,
+    metadata || {},
+    this.methodInfoGetInvocation);
+  }
 
-    methodInfoGetInvocation = new grpcWeb.AbstractClientBase.MethodInfo(
-        invocation_pb.Invocation,
-        (request: GetInvocationRequest) => {
-            return request.serializeBinary();
-        },
-        invocation_pb.Invocation.deserializeBinary
-    );
+  methodInfoListTargets = new grpcWeb.AbstractClientBase.MethodInfo(
+    ListTargetsResponse,
+    (request: ListTargetsRequest) => {
+      return request.serializeBinary();
+    },
+    ListTargetsResponse.deserializeBinary
+  );
 
-    getInvocation(
-        request: GetInvocationRequest,
-        metadata: grpcWeb.Metadata | null
-    ): Promise<invocation_pb.Invocation>;
+  listTargets(
+    request: ListTargetsRequest,
+    metadata: grpcWeb.Metadata | null): Promise<ListTargetsResponse>;
 
-    getInvocation(
-        request: GetInvocationRequest,
-        metadata: grpcWeb.Metadata | null,
-        callback: (
-            err: grpcWeb.Error,
-            response: invocation_pb.Invocation
-        ) => void
-    ): grpcWeb.ClientReadableStream<invocation_pb.Invocation>;
+  listTargets(
+    request: ListTargetsRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: ListTargetsResponse) => void): grpcWeb.ClientReadableStream<ListTargetsResponse>;
 
-    getInvocation(
-        request: GetInvocationRequest,
-        metadata: grpcWeb.Metadata | null,
-        callback?: (
-            err: grpcWeb.Error,
-            response: invocation_pb.Invocation
-        ) => void
-    ) {
-        if (callback !== undefined) {
-            return this.client_.rpcCall(
-                this.hostname_ +
-                    '/resultstoresearch.v1.ResultStoreDownload/GetInvocation',
-                request,
-                metadata || {},
-                this.methodInfoGetInvocation,
-                callback
-            );
-        }
-        return this.client_.unaryCall(
-            this.hostname_ +
-                '/resultstoresearch.v1.ResultStoreDownload/GetInvocation',
-            request,
-            metadata || {},
-            this.methodInfoGetInvocation
-        );
+  listTargets(
+    request: ListTargetsRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: ListTargetsResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        new URL('/resultstoresearch.v1.ResultStoreDownload/ListTargets', this.hostname_).toString(),
+        request,
+        metadata || {},
+        this.methodInfoListTargets,
+        callback);
     }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/resultstoresearch.v1.ResultStoreDownload/ListTargets',
+    request,
+    metadata || {},
+    this.methodInfoListTargets);
+  }
 
-    methodInfoListTargets = new grpcWeb.AbstractClientBase.MethodInfo(
-        ListTargetsResponse,
-        (request: ListTargetsRequest) => {
-            return request.serializeBinary();
-        },
-        ListTargetsResponse.deserializeBinary
-    );
+  methodInfoGetFile = new grpcWeb.AbstractClientBase.MethodInfo(
+    GetFileResponse,
+    (request: GetFileRequest) => {
+      return request.serializeBinary();
+    },
+    GetFileResponse.deserializeBinary
+  );
 
-    listTargets(
-        request: ListTargetsRequest,
-        metadata: grpcWeb.Metadata | null
-    ): Promise<ListTargetsResponse>;
+  getFile(
+    request: GetFileRequest,
+    metadata?: grpcWeb.Metadata) {
+    return this.client_.serverStreaming(
+      new URL('/resultstoresearch.v1.ResultStoreDownload/GetFile', this.hostname_).toString(),
+      request,
+      metadata || {},
+      this.methodInfoGetFile);
+  }
 
-    listTargets(
-        request: ListTargetsRequest,
-        metadata: grpcWeb.Metadata | null,
-        callback: (err: grpcWeb.Error, response: ListTargetsResponse) => void
-    ): grpcWeb.ClientReadableStream<ListTargetsResponse>;
+  methodInfoGetInitialState = new grpcWeb.AbstractClientBase.MethodInfo(
+    GetInitialStateResponse,
+    (request: GetInitialStateRequest) => {
+      return request.serializeBinary();
+    },
+    GetInitialStateResponse.deserializeBinary
+  );
 
-    listTargets(
-        request: ListTargetsRequest,
-        metadata: grpcWeb.Metadata | null,
-        callback?: (err: grpcWeb.Error, response: ListTargetsResponse) => void
-    ) {
-        if (callback !== undefined) {
-            return this.client_.rpcCall(
-                this.hostname_ +
-                    '/resultstoresearch.v1.ResultStoreDownload/ListTargets',
-                request,
-                metadata || {},
-                this.methodInfoListTargets,
-                callback
-            );
-        }
-        return this.client_.unaryCall(
-            this.hostname_ +
-                '/resultstoresearch.v1.ResultStoreDownload/ListTargets',
-            request,
-            metadata || {},
-            this.methodInfoListTargets
-        );
+  getInitialState(
+    request: GetInitialStateRequest,
+    metadata: grpcWeb.Metadata | null): Promise<GetInitialStateResponse>;
+
+  getInitialState(
+    request: GetInitialStateRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: GetInitialStateResponse) => void): grpcWeb.ClientReadableStream<GetInitialStateResponse>;
+
+  getInitialState(
+    request: GetInitialStateRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: GetInitialStateResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        new URL('/resultstoresearch.v1.ResultStoreDownload/GetInitialState', this.hostname_).toString(),
+        request,
+        metadata || {},
+        this.methodInfoGetInitialState,
+        callback);
     }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/resultstoresearch.v1.ResultStoreDownload/GetInitialState',
+    request,
+    metadata || {},
+    this.methodInfoGetInitialState);
+  }
 
-    methodInfoGetInitialState = new grpcWeb.AbstractClientBase.MethodInfo(
-        GetInitialStateResponse,
-        (request: GetInitialStateRequest) => {
-            return request.serializeBinary();
-        },
-        GetInitialStateResponse.deserializeBinary
-    );
-
-    getInitialState(
-        request: GetInitialStateRequest,
-        metadata: grpcWeb.Metadata | null
-    ): Promise<GetInitialStateResponse>;
-
-    getInitialState(
-        request: GetInitialStateRequest,
-        metadata: grpcWeb.Metadata | null,
-        callback: (
-            err: grpcWeb.Error,
-            response: GetInitialStateResponse
-        ) => void
-    ): grpcWeb.ClientReadableStream<GetInitialStateResponse>;
-
-    getInitialState(
-        request: GetInitialStateRequest,
-        metadata: grpcWeb.Metadata | null,
-        callback?: (
-            err: grpcWeb.Error,
-            response: GetInitialStateResponse
-        ) => void
-    ) {
-        if (callback !== undefined) {
-            return this.client_.rpcCall(
-                this.hostname_ +
-                    '/resultstoresearch.v1.ResultStoreDownload/GetInitialState',
-                request,
-                metadata || {},
-                this.methodInfoGetInitialState,
-                callback
-            );
-        }
-        return this.client_.unaryCall(
-            this.hostname_ +
-                '/resultstoresearch.v1.ResultStoreDownload/GetInitialState',
-            request,
-            metadata || {},
-            this.methodInfoGetInitialState
-        );
-    }
 }
+

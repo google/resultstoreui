@@ -167,6 +167,56 @@ export namespace ListTargetsResponse {
   }
 }
 
+export class GetFileRequest extends jspb.Message {
+  getUri(): string;
+  setUri(value: string): GetFileRequest;
+
+  getReadOffset(): number;
+  setReadOffset(value: number): GetFileRequest;
+
+  getReadLimit(): number;
+  setReadLimit(value: number): GetFileRequest;
+
+  getArchiveEntry(): string;
+  setArchiveEntry(value: string): GetFileRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetFileRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: GetFileRequest): GetFileRequest.AsObject;
+  static serializeBinaryToWriter(message: GetFileRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetFileRequest;
+  static deserializeBinaryFromReader(message: GetFileRequest, reader: jspb.BinaryReader): GetFileRequest;
+}
+
+export namespace GetFileRequest {
+  export type AsObject = {
+    uri: string,
+    readOffset: number,
+    readLimit: number,
+    archiveEntry: string,
+  }
+}
+
+export class GetFileResponse extends jspb.Message {
+  getData(): Uint8Array | string;
+  getData_asU8(): Uint8Array;
+  getData_asB64(): string;
+  setData(value: Uint8Array | string): GetFileResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetFileResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: GetFileResponse): GetFileResponse.AsObject;
+  static serializeBinaryToWriter(message: GetFileResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetFileResponse;
+  static deserializeBinaryFromReader(message: GetFileResponse, reader: jspb.BinaryReader): GetFileResponse;
+}
+
+export namespace GetFileResponse {
+  export type AsObject = {
+    data: Uint8Array | string,
+  }
+}
+
 export class GetInitialStateRequest extends jspb.Message {
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetInitialStateRequest.AsObject;

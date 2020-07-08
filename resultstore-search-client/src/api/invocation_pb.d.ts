@@ -10,8 +10,8 @@ export class Invocation extends jspb.Message {
   getName(): string;
   setName(value: string): Invocation;
 
-  getId(): Id | undefined;
-  setId(value?: Id): Invocation;
+  getId(): Invocation.Id | undefined;
+  setId(value?: Invocation.Id): Invocation;
   hasId(): boolean;
   clearId(): Invocation;
 
@@ -71,7 +71,7 @@ export class Invocation extends jspb.Message {
 export namespace Invocation {
   export type AsObject = {
     name: string,
-    id?: Id.AsObject,
+    id?: Invocation.Id.AsObject,
     statusAttributes?: common_pb.StatusAttributes.AsObject,
     timing?: common_pb.Timing.AsObject,
     invocationAttributes?: InvocationAttributes.AsObject,
