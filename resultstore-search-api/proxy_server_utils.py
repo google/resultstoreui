@@ -205,11 +205,9 @@ def convert_file(file):
     uri = file.uri if hasattr(file, 'uri') else ''
     length = convert_int_64_value(
         file.length) if hasattr(file, 'length') else None
-    print_flush(file.length)
     content_type = file.content_type if hasattr(file, 'content_type') else ''
     archive_entry = convert_archive_entry(file.archive_entry) if hasattr(
         file, 'archive_entry') else None
-    print_flush(file.archive_entry)
     content_viewer = file.content_viewer if hasattr(file,
                                                     'content_viewer') else ''
     hidden = file.hidden if hasattr(file, 'hidden') else False

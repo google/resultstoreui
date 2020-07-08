@@ -97,10 +97,11 @@ class ProxyServer(
             _LOGGER.info('Received message: %s', response)
             return response
 
-    def GetFileRequest(self, request, context):
+    def GetFile(self, request, context):
+        print("MEME", flush=True)
         _LOGGER.info('Received request: %s', request)
         new_request = resultstore_file_download_pb2.GetFileRequest(
-            uri=request.uri,
+            uri='file/'+request.uri,
             read_offset=request.read_offset,
             read_limit=request.read_limit,
             archive_entry=request.archive_entry,
@@ -120,6 +121,7 @@ class ProxyServer(
 
     def ListTargets(self, request, context):
         _LOGGER.info('Received request: %s', request)
+        print('meme1', flush=True)
         metadata = context.invocation_metadata()
         new_request = resultstore_download_pb2.ListTargetsRequest(
             page_token=request.page_token,
@@ -135,6 +137,9 @@ class ProxyServer(
             return resultstore_download_pb2.ListTargetsResponse()
         else:
             _LOGGER.info('Received message: %s', response)
+            print('meme', flush=True)
+            print(response.targets[0].files, flush=True)
+            print(response, flush=True)
             return response
 
     def GetInitialState(self, request, context):
