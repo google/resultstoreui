@@ -49,6 +49,8 @@ service ResultStoreDownload {
   // - If the given File uri is badly formatted.
   rpc GetFile(GetFileRequest) returns (stream GetFileResponse);
 
+  rpc DownloadFile(DownloadFileRequest) returns (DownloadFileResponse);
+
   rpc GetInitialState(GetInitialStateRequest) returns (GetInitialStateResponse);
 }
 
@@ -197,3 +199,11 @@ message GetFileResponse {
 message GetInitialStateRequest {}
 
 message GetInitialStateResponse { repeated string tools_list = 1; }
+
+message DownloadFileRequest {
+  string file_name = 1;
+}
+
+message DownloadFileResponse {
+  string file_data = 1;
+}

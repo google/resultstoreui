@@ -17,6 +17,8 @@ import * as invocation_pb from './invocation_pb';
 import * as target_pb from './target_pb';
 
 import {
+  DownloadFileRequest,
+  DownloadFileResponse,
   GetFileRequest,
   GetFileResponse,
   GetInitialStateRequest,
@@ -179,6 +181,45 @@ export class ResultStoreDownloadClient {
       request,
       metadata || {},
       this.methodInfoGetFile);
+  }
+
+  methodInfoDownloadFile = new grpcWeb.AbstractClientBase.MethodInfo(
+    DownloadFileResponse,
+    (request: DownloadFileRequest) => {
+      return request.serializeBinary();
+    },
+    DownloadFileResponse.deserializeBinary
+  );
+
+  downloadFile(
+    request: DownloadFileRequest,
+    metadata: grpcWeb.Metadata | null): Promise<DownloadFileResponse>;
+
+  downloadFile(
+    request: DownloadFileRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: DownloadFileResponse) => void): grpcWeb.ClientReadableStream<DownloadFileResponse>;
+
+  downloadFile(
+    request: DownloadFileRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: DownloadFileResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        new URL('/resultstoresearch.v1.ResultStoreDownload/DownloadFile', this.hostname_).toString(),
+        request,
+        metadata || {},
+        this.methodInfoDownloadFile,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/resultstoresearch.v1.ResultStoreDownload/DownloadFile',
+    request,
+    metadata || {},
+    this.methodInfoDownloadFile);
   }
 
   methodInfoGetInitialState = new grpcWeb.AbstractClientBase.MethodInfo(

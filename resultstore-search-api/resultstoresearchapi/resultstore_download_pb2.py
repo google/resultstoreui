@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x1aresultstore_download.proto\x12\x14resultstoresearch.v1\x1a\x10invocation.proto\x1a\x0ctarget.proto\"\xa9\x01\n\x18SearchInvocationsRequest\x12\x11\n\tpage_size\x18\x01 \x01(\x05\x12\x14\n\npage_token\x18\x02 \x01(\tH\x00\x12\x10\n\x06offset\x18\x03 \x01(\x03H\x00\x12\r\n\x05query\x18\x04 \x01(\t\x12\x12\n\nproject_id\x18\x05 \x01(\t\x12\x13\n\x0b\x65xact_match\x18\x07 \x01(\x08\x12\x0c\n\x04tool\x18\x08 \x01(\tB\x0c\n\npage_start\"\x7f\n\x19SearchInvocationsResponse\x12\x35\n\x0binvocations\x18\x01 \x03(\x0b\x32 .resultstoresearch.v1.Invocation\x12\x17\n\x0fnext_page_token\x18\x02 \x01(\t\x12\x12\n\ntools_list\x18\x03 \x03(\t\"$\n\x14GetInvocationRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"}\n\x12ListTargetsRequest\x12\x0e\n\x06parent\x18\x01 \x01(\t\x12\x11\n\tpage_size\x18\x02 \x01(\x05\x12\x14\n\npage_token\x18\x03 \x01(\tH\x00\x12\x10\n\x06offset\x18\x04 \x01(\x03H\x00\x12\x0e\n\x06\x66ilter\x18\x05 \x01(\tB\x0c\n\npage_start\"]\n\x13ListTargetsResponse\x12-\n\x07targets\x18\x01 \x03(\x0b\x32\x1c.resultstoresearch.v1.Target\x12\x17\n\x0fnext_page_token\x18\x02 \x01(\t\"]\n\x0eGetFileRequest\x12\x0b\n\x03uri\x18\x01 \x01(\t\x12\x13\n\x0bread_offset\x18\x02 \x01(\x03\x12\x12\n\nread_limit\x18\x03 \x01(\x03\x12\x15\n\rarchive_entry\x18\x04 \x01(\t\"\x1f\n\x0fGetFileResponse\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x0c\"\x18\n\x16GetInitialStateRequest\"-\n\x17GetInitialStateResponse\x12\x12\n\ntools_list\x18\x01 \x03(\t2\x98\x04\n\x13ResultStoreDownload\x12t\n\x11SearchInvocations\x12..resultstoresearch.v1.SearchInvocationsRequest\x1a/.resultstoresearch.v1.SearchInvocationsResponse\x12]\n\rGetInvocation\x12*.resultstoresearch.v1.GetInvocationRequest\x1a .resultstoresearch.v1.Invocation\x12\x62\n\x0bListTargets\x12(.resultstoresearch.v1.ListTargetsRequest\x1a).resultstoresearch.v1.ListTargetsResponse\x12X\n\x07GetFile\x12$.resultstoresearch.v1.GetFileRequest\x1a%.resultstoresearch.v1.GetFileResponse0\x01\x12n\n\x0fGetInitialState\x12,.resultstoresearch.v1.GetInitialStateRequest\x1a-.resultstoresearch.v1.GetInitialStateResponseb\x06proto3'
+  serialized_pb=b'\n\x1aresultstore_download.proto\x12\x14resultstoresearch.v1\x1a\x10invocation.proto\x1a\x0ctarget.proto\"\xa9\x01\n\x18SearchInvocationsRequest\x12\x11\n\tpage_size\x18\x01 \x01(\x05\x12\x14\n\npage_token\x18\x02 \x01(\tH\x00\x12\x10\n\x06offset\x18\x03 \x01(\x03H\x00\x12\r\n\x05query\x18\x04 \x01(\t\x12\x12\n\nproject_id\x18\x05 \x01(\t\x12\x13\n\x0b\x65xact_match\x18\x07 \x01(\x08\x12\x0c\n\x04tool\x18\x08 \x01(\tB\x0c\n\npage_start\"\x7f\n\x19SearchInvocationsResponse\x12\x35\n\x0binvocations\x18\x01 \x03(\x0b\x32 .resultstoresearch.v1.Invocation\x12\x17\n\x0fnext_page_token\x18\x02 \x01(\t\x12\x12\n\ntools_list\x18\x03 \x03(\t\"$\n\x14GetInvocationRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"}\n\x12ListTargetsRequest\x12\x0e\n\x06parent\x18\x01 \x01(\t\x12\x11\n\tpage_size\x18\x02 \x01(\x05\x12\x14\n\npage_token\x18\x03 \x01(\tH\x00\x12\x10\n\x06offset\x18\x04 \x01(\x03H\x00\x12\x0e\n\x06\x66ilter\x18\x05 \x01(\tB\x0c\n\npage_start\"]\n\x13ListTargetsResponse\x12-\n\x07targets\x18\x01 \x03(\x0b\x32\x1c.resultstoresearch.v1.Target\x12\x17\n\x0fnext_page_token\x18\x02 \x01(\t\"]\n\x0eGetFileRequest\x12\x0b\n\x03uri\x18\x01 \x01(\t\x12\x13\n\x0bread_offset\x18\x02 \x01(\x03\x12\x12\n\nread_limit\x18\x03 \x01(\x03\x12\x15\n\rarchive_entry\x18\x04 \x01(\t\"\x1f\n\x0fGetFileResponse\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x0c\"\x18\n\x16GetInitialStateRequest\"-\n\x17GetInitialStateResponse\x12\x12\n\ntools_list\x18\x01 \x03(\t\"(\n\x13\x44ownloadFileRequest\x12\x11\n\tfile_name\x18\x01 \x01(\t\")\n\x14\x44ownloadFileResponse\x12\x11\n\tfile_data\x18\x01 \x01(\t2\xff\x04\n\x13ResultStoreDownload\x12t\n\x11SearchInvocations\x12..resultstoresearch.v1.SearchInvocationsRequest\x1a/.resultstoresearch.v1.SearchInvocationsResponse\x12]\n\rGetInvocation\x12*.resultstoresearch.v1.GetInvocationRequest\x1a .resultstoresearch.v1.Invocation\x12\x62\n\x0bListTargets\x12(.resultstoresearch.v1.ListTargetsRequest\x1a).resultstoresearch.v1.ListTargetsResponse\x12X\n\x07GetFile\x12$.resultstoresearch.v1.GetFileRequest\x1a%.resultstoresearch.v1.GetFileResponse0\x01\x12\x65\n\x0c\x44ownloadFile\x12).resultstoresearch.v1.DownloadFileRequest\x1a*.resultstoresearch.v1.DownloadFileResponse\x12n\n\x0fGetInitialState\x12,.resultstoresearch.v1.GetInitialStateRequest\x1a-.resultstoresearch.v1.GetInitialStateResponseb\x06proto3'
   ,
   dependencies=[invocation__pb2.DESCRIPTOR,target__pb2.DESCRIPTOR,])
 
@@ -430,6 +430,70 @@ _GETINITIALSTATERESPONSE = _descriptor.Descriptor(
   serialized_end=844,
 )
 
+
+_DOWNLOADFILEREQUEST = _descriptor.Descriptor(
+  name='DownloadFileRequest',
+  full_name='resultstoresearch.v1.DownloadFileRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='file_name', full_name='resultstoresearch.v1.DownloadFileRequest.file_name', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=846,
+  serialized_end=886,
+)
+
+
+_DOWNLOADFILERESPONSE = _descriptor.Descriptor(
+  name='DownloadFileResponse',
+  full_name='resultstoresearch.v1.DownloadFileResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='file_data', full_name='resultstoresearch.v1.DownloadFileResponse.file_data', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=888,
+  serialized_end=929,
+)
+
 _SEARCHINVOCATIONSREQUEST.oneofs_by_name['page_start'].fields.append(
   _SEARCHINVOCATIONSREQUEST.fields_by_name['page_token'])
 _SEARCHINVOCATIONSREQUEST.fields_by_name['page_token'].containing_oneof = _SEARCHINVOCATIONSREQUEST.oneofs_by_name['page_start']
@@ -453,6 +517,8 @@ DESCRIPTOR.message_types_by_name['GetFileRequest'] = _GETFILEREQUEST
 DESCRIPTOR.message_types_by_name['GetFileResponse'] = _GETFILERESPONSE
 DESCRIPTOR.message_types_by_name['GetInitialStateRequest'] = _GETINITIALSTATEREQUEST
 DESCRIPTOR.message_types_by_name['GetInitialStateResponse'] = _GETINITIALSTATERESPONSE
+DESCRIPTOR.message_types_by_name['DownloadFileRequest'] = _DOWNLOADFILEREQUEST
+DESCRIPTOR.message_types_by_name['DownloadFileResponse'] = _DOWNLOADFILERESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 SearchInvocationsRequest = _reflection.GeneratedProtocolMessageType('SearchInvocationsRequest', (_message.Message,), {
@@ -518,6 +584,20 @@ GetInitialStateResponse = _reflection.GeneratedProtocolMessageType('GetInitialSt
   })
 _sym_db.RegisterMessage(GetInitialStateResponse)
 
+DownloadFileRequest = _reflection.GeneratedProtocolMessageType('DownloadFileRequest', (_message.Message,), {
+  'DESCRIPTOR' : _DOWNLOADFILEREQUEST,
+  '__module__' : 'resultstore_download_pb2'
+  # @@protoc_insertion_point(class_scope:resultstoresearch.v1.DownloadFileRequest)
+  })
+_sym_db.RegisterMessage(DownloadFileRequest)
+
+DownloadFileResponse = _reflection.GeneratedProtocolMessageType('DownloadFileResponse', (_message.Message,), {
+  'DESCRIPTOR' : _DOWNLOADFILERESPONSE,
+  '__module__' : 'resultstore_download_pb2'
+  # @@protoc_insertion_point(class_scope:resultstoresearch.v1.DownloadFileResponse)
+  })
+_sym_db.RegisterMessage(DownloadFileResponse)
+
 
 
 _RESULTSTOREDOWNLOAD = _descriptor.ServiceDescriptor(
@@ -527,8 +607,8 @@ _RESULTSTOREDOWNLOAD = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=847,
-  serialized_end=1383,
+  serialized_start=932,
+  serialized_end=1571,
   methods=[
   _descriptor.MethodDescriptor(
     name='SearchInvocations',
@@ -571,9 +651,19 @@ _RESULTSTOREDOWNLOAD = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
+    name='DownloadFile',
+    full_name='resultstoresearch.v1.ResultStoreDownload.DownloadFile',
+    index=4,
+    containing_service=None,
+    input_type=_DOWNLOADFILEREQUEST,
+    output_type=_DOWNLOADFILERESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
     name='GetInitialState',
     full_name='resultstoresearch.v1.ResultStoreDownload.GetInitialState',
-    index=4,
+    index=5,
     containing_service=None,
     input_type=_GETINITIALSTATEREQUEST,
     output_type=_GETINITIALSTATERESPONSE,
