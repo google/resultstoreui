@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import BaseTable from '../../../InfiniteTable/BaseTable';
 import * as file_pb from '../../../../api/file_pb';
+import { getFile } from '../../../../api/client/client';
 
 const TableContainer = styled.div`
     width: 100%;
@@ -57,6 +58,7 @@ interface Props {
     selectedName: string;
     selectedType: string;
     files: Array<file_pb.File>;
+    tokenID: string;
 }
 
 type Dimensions = Pick<TableProps, 'width' | 'height'>;
@@ -68,7 +70,7 @@ const parseFileTableData = (file: file_pb.File): Data => {
     return { name, type, size };
 };
 
-const FileTable: React.FC<Props> = ({ files }) => {
+const FileTable: React.FC<Props> = ({ files, tokenID }) => {
     const classes = useStyles();
     const [dimensions, setDimensions] = useState<Dimensions>({
         width: 1920,
@@ -81,8 +83,9 @@ const FileTable: React.FC<Props> = ({ files }) => {
     const ref = useRef<HTMLDivElement>();
 
     const setRefDimensions = () => {
+        console.log(ref.current ? ref.current.offsetWidth : 0);
         setDimensions({
-            width: ref.current ? ref.current.offsetWidth - 400 : 1920,
+            width: ref.current ? ref.current.offsetWidth : 1920,
             height: ref.current ? ref.current.offsetHeight : 1080,
         });
     };
@@ -104,9 +107,12 @@ const FileTable: React.FC<Props> = ({ files }) => {
     }, [ref]);
 
     useEffect(() => {
+        setRefDimensions();
         window.addEventListener('resize', setRefDimensions);
         return () => window.removeEventListener('resize', setRefDimensions);
     }, []);
+
+    const onRowClickCallback = (file: file_pb.File, fileData: string) => {};
 
     return (
         <TableContainer ref={ref}>
@@ -120,7 +126,10 @@ const FileTable: React.FC<Props> = ({ files }) => {
                 onRowsRendered={() => {}}
                 registerChild={null}
                 rowGetter={({ index }) => rows[index]}
-                // onRowClick={onRowClick}
+                onRowClick={({ index }) => {
+                    console.log(index);
+                    getFile(files[index], tokenID, onRowClickCallback);
+                }}
                 headerClass={headerClass}
                 cellClass={cellClass}
                 rowClassName={getRowClassName}

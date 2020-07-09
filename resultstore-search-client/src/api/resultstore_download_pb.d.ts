@@ -2,6 +2,7 @@ import * as jspb from "google-protobuf"
 
 import * as invocation_pb from './invocation_pb';
 import * as target_pb from './target_pb';
+import * as file_pb from './file_pb';
 
 export class SearchInvocationsRequest extends jspb.Message {
   getPageSize(): number;
@@ -164,6 +165,44 @@ export namespace ListTargetsResponse {
   export type AsObject = {
     targetsList: Array<target_pb.Target.AsObject>,
     nextPageToken: string,
+  }
+}
+
+export class ListTargetSubFilesRequest extends jspb.Message {
+  getParent(): string;
+  setParent(value: string): ListTargetSubFilesRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ListTargetSubFilesRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: ListTargetSubFilesRequest): ListTargetSubFilesRequest.AsObject;
+  static serializeBinaryToWriter(message: ListTargetSubFilesRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ListTargetSubFilesRequest;
+  static deserializeBinaryFromReader(message: ListTargetSubFilesRequest, reader: jspb.BinaryReader): ListTargetSubFilesRequest;
+}
+
+export namespace ListTargetSubFilesRequest {
+  export type AsObject = {
+    parent: string,
+  }
+}
+
+export class ListTargetSubFilesResponse extends jspb.Message {
+  getFilesList(): Array<file_pb.File>;
+  setFilesList(value: Array<file_pb.File>): ListTargetSubFilesResponse;
+  clearFilesList(): ListTargetSubFilesResponse;
+  addFiles(value?: file_pb.File, index?: number): file_pb.File;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ListTargetSubFilesResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: ListTargetSubFilesResponse): ListTargetSubFilesResponse.AsObject;
+  static serializeBinaryToWriter(message: ListTargetSubFilesResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ListTargetSubFilesResponse;
+  static deserializeBinaryFromReader(message: ListTargetSubFilesResponse, reader: jspb.BinaryReader): ListTargetSubFilesResponse;
+}
+
+export namespace ListTargetSubFilesResponse {
+  export type AsObject = {
+    filesList: Array<file_pb.File.AsObject>,
   }
 }
 

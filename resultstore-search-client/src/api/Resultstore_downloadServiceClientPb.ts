@@ -5,6 +5,8 @@
  */
 
 // GENERATED CODE -- DO NOT EDIT!
+/* tslint:disable */
+/* eslint-disable */
 
 
 /* eslint-disable */
@@ -15,6 +17,7 @@ import * as grpcWeb from 'grpc-web';
 
 import * as invocation_pb from './invocation_pb';
 import * as target_pb from './target_pb';
+import * as file_pb from './file_pb';
 
 import {
   GetFileRequest,
@@ -22,6 +25,8 @@ import {
   GetInitialStateRequest,
   GetInitialStateResponse,
   GetInvocationRequest,
+  ListTargetSubFilesRequest,
+  ListTargetSubFilesResponse,
   ListTargetsRequest,
   ListTargetsResponse,
   SearchInvocationsRequest,
@@ -161,6 +166,45 @@ export class ResultStoreDownloadClient {
     request,
     metadata || {},
     this.methodInfoListTargets);
+  }
+
+  methodInfoListTargetSubFiles = new grpcWeb.AbstractClientBase.MethodInfo(
+    ListTargetSubFilesResponse,
+    (request: ListTargetSubFilesRequest) => {
+      return request.serializeBinary();
+    },
+    ListTargetSubFilesResponse.deserializeBinary
+  );
+
+  listTargetSubFiles(
+    request: ListTargetSubFilesRequest,
+    metadata: grpcWeb.Metadata | null): Promise<ListTargetSubFilesResponse>;
+
+  listTargetSubFiles(
+    request: ListTargetSubFilesRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: ListTargetSubFilesResponse) => void): grpcWeb.ClientReadableStream<ListTargetSubFilesResponse>;
+
+  listTargetSubFiles(
+    request: ListTargetSubFilesRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: ListTargetSubFilesResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        new URL('/resultstoresearch.v1.ResultStoreDownload/ListTargetSubFiles', this.hostname_).toString(),
+        request,
+        metadata || {},
+        this.methodInfoListTargetSubFiles,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/resultstoresearch.v1.ResultStoreDownload/ListTargetSubFiles',
+    request,
+    metadata || {},
+    this.methodInfoListTargetSubFiles);
   }
 
   methodInfoGetFile = new grpcWeb.AbstractClientBase.MethodInfo(

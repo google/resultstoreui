@@ -30,7 +30,7 @@ const RowContainer = styled.div`
     border-width: 2px;
     border-color: #e0e0e0;
     height: 100%;
-    flex: 1;
+    flex: 0;
 `;
 
 const HeaderRow = styled(ListRow)`
@@ -151,6 +151,7 @@ const FileModal: React.FC<Props> = ({
                         selectedName={selectedName}
                         selectedType={selectedType}
                         files={selectedFiles}
+                        tokenID={tokenID}
                     />
                 </ModalContainer>
             </Fade>

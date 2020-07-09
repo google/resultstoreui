@@ -9,8 +9,11 @@ import {
     GetFileResponse,
     ListTargetsRequest,
     ListTargetsResponse,
+    ListTargetSubFilesRequest,
+    ListTargetSubFilesResponse,
 } from '../resultstore_download_pb';
 import * as invocation_pb from '../invocation_pb';
+import * as file_pb from '../file_pb';
 import config from '../../config/ConfigLoader';
 import { Auth } from '../../components/SearchWrapper';
 
@@ -22,10 +25,14 @@ export type SearchInvocationCallback = (
     err: grpcWeb.Error,
     response: SearchInvocationsResponse
 ) => void;
-export type GetFileCallback = (file: string) => void;
+export type GetFileCallback = (file: file_pb.File, fileData: string) => void;
 export type ListTargetsCallback = (
     err: grpcWeb.Error,
     response: ListTargetsResponse
+) => void;
+export type ListTargetSubFilesCallback = (
+    err: grpcWeb.Error,
+    response: ListTargetSubFilesResponse
 ) => void;
 
 const resultStore = new ResultStoreDownloadClient(
@@ -36,7 +43,8 @@ const resultStore = new ResultStoreDownloadClient(
 const defaultPageSize = 50;
 const searchFieldMask =
     'next_page_token,invocations.name,invocations.invocation_attributes,invocations.timing,invocations.workspace_info,invocations.status_attributes,invocations.files';
-const searchTargetFieldMask = 'next_page_token,targets.name,targets.files';
+const searchTargetFieldMask =
+    'next_page_token,targets.name,targets.files,targets.properties';
 
 /*
 Search for invocations by query
@@ -95,6 +103,21 @@ const listTargetsRequest = (
     resultStore.listTargets(request, metadata, callback);
 };
 
+const listTargetSubFiles = (
+    parent: string,
+    tokenID: Auth['tokenID'],
+    callback: ListTargetSubFilesCallback
+) => {
+    const request = new ListTargetSubFilesRequest();
+    request.setParent(parent);
+
+    const metadata = {
+        id_token: tokenID,
+    };
+
+    resultStore.listTargetSubFiles(request, metadata, callback);
+};
+
 const getInitialState = (setToolsList) => {
     const request = new GetInitialStateRequest();
     const metadata = {};
@@ -109,33 +132,36 @@ const getInitialState = (setToolsList) => {
     );
 };
 
-const getFileRequest = (
-    uri: string,
+const getFile = (
+    file: file_pb.File,
     tokenID: Auth['tokenID'],
     callback: GetFileCallback
 ) => {
     const request = new GetFileRequest();
-    request.setUri(uri);
+    request.setUri(file.getUri());
     const metadata = {
         id_token: tokenID,
     };
+    console.log(request);
     const stream = resultStore.getFile(request, metadata);
 
-    var file = '';
+    var aggregate_file = '';
 
     stream.on('data', (response) => {
-        file += response.getData_asB64();
+        console.log(response);
+        aggregate_file += response.getData_asB64();
     });
 
     stream.on('end', () => {
-        console.log(file);
-        callback(file);
+        console.log(aggregate_file);
+        callback(file, aggregate_file);
     });
 };
 
 export {
     searchInvocations,
     getInitialState,
-    getFileRequest,
+    getFile,
     listTargetsRequest,
+    listTargetSubFiles,
 };

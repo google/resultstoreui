@@ -4,6 +4,7 @@ package resultstoresearch.v1;
 
 import "invocation.proto";
 import "target.proto";
+import "file.proto";
 
 // This is the interface used to download information from the ResultStore
 // database.
@@ -40,6 +41,8 @@ service ResultStoreDownload {
   // - If the given parent name is badly formatted.
   // - If no field mask was given.
   rpc ListTargets(ListTargetsRequest) returns (ListTargetsResponse);
+
+  rpc ListTargetSubFiles(ListTargetSubFilesRequest) returns (ListTargetSubFilesResponse);
 
   // Retrieves the File with the given uri.
   // returns a stream of bytes to be stitched together in order.
@@ -159,6 +162,14 @@ message ListTargetsResponse {
   // Token to retrieve the next page of results, or empty if there are no
   // more results in the list.
   string next_page_token = 2;
+}
+
+message ListTargetSubFilesRequest {
+  string parent = 1;
+}
+
+message ListTargetSubFilesResponse {
+  repeated File files = 1;
 }
 
 // Request object for GetFile

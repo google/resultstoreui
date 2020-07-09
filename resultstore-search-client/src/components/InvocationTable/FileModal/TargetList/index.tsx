@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import {
     listTargetsRequest,
     ListTargetsCallback,
+    listTargetSubFiles,
+    ListTargetSubFilesCallback,
 } from '../../../../api/client/client';
 import * as target_pb from '../../../../api/target_pb';
 import * as file_pb from '../../../../api/file_pb';
@@ -19,6 +21,7 @@ export const ListRow = styled.div`
     cursor: pointer;
     text-overflow: ellipsis;
     height: 30px;
+    width: 100%;
     border-bottom-style: solid;
     border-color: #e0e0e0;
     border-width: 1px;
@@ -62,11 +65,30 @@ const TargetList: React.FC<Props> = ({
 
     const rowRenderer = ({ key, index }) => {
         const targetName = targets[index].getName().split('targets/')[1];
+
+        const filesCallback: ListTargetSubFilesCallback = (err, response) => {
+            if (err) {
+                console.log(err);
+            } else {
+                onClick(
+                    targetName,
+                    targets[index]
+                        .getFilesList()
+                        .concat(response.getFilesList())
+                );
+            }
+        };
+
         return (
             <ListRow
                 key={key}
                 onClick={() => {
                     onClick(targetName, targets[index].getFilesList());
+                    listTargetSubFiles(
+                        targets[index].getName(),
+                        tokenID,
+                        filesCallback
+                    );
                 }}
             >
                 {targetName}
