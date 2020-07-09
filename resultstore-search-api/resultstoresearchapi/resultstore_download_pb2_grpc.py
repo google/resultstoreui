@@ -40,6 +40,11 @@ class ResultStoreDownloadStub(object):
                 request_serializer=resultstore__download__pb2.GetFileRequest.SerializeToString,
                 response_deserializer=resultstore__download__pb2.GetFileResponse.FromString,
                 )
+        self.DownloadFile = channel.unary_unary(
+                '/resultstoresearch.v1.ResultStoreDownload/DownloadFile',
+                request_serializer=resultstore__download__pb2.DownloadFileRequest.SerializeToString,
+                response_deserializer=resultstore__download__pb2.DownloadFileResponse.FromString,
+                )
         self.GetInitialState = channel.unary_unary(
                 '/resultstoresearch.v1.ResultStoreDownload/GetInitialState',
                 request_serializer=resultstore__download__pb2.GetInitialStateRequest.SerializeToString,
@@ -108,6 +113,12 @@ class ResultStoreDownloadServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def DownloadFile(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def GetInitialState(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -136,6 +147,11 @@ def add_ResultStoreDownloadServicer_to_server(servicer, server):
                     servicer.GetFile,
                     request_deserializer=resultstore__download__pb2.GetFileRequest.FromString,
                     response_serializer=resultstore__download__pb2.GetFileResponse.SerializeToString,
+            ),
+            'DownloadFile': grpc.unary_unary_rpc_method_handler(
+                    servicer.DownloadFile,
+                    request_deserializer=resultstore__download__pb2.DownloadFileRequest.FromString,
+                    response_serializer=resultstore__download__pb2.DownloadFileResponse.SerializeToString,
             ),
             'GetInitialState': grpc.unary_unary_rpc_method_handler(
                     servicer.GetInitialState,
@@ -218,6 +234,22 @@ class ResultStoreDownload(object):
         return grpc.experimental.unary_stream(request, target, '/resultstoresearch.v1.ResultStoreDownload/GetFile',
             resultstore__download__pb2.GetFileRequest.SerializeToString,
             resultstore__download__pb2.GetFileResponse.FromString,
+            options, channel_credentials,
+            call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def DownloadFile(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/resultstoresearch.v1.ResultStoreDownload/DownloadFile',
+            resultstore__download__pb2.DownloadFileRequest.SerializeToString,
+            resultstore__download__pb2.DownloadFileResponse.FromString,
             options, channel_credentials,
             call_credentials, compression, wait_for_ready, timeout, metadata)
 

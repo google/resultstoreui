@@ -10,3 +10,5 @@ protoc -I=$INPUT_DIR *.proto \
 python -m grpc_tools.protoc -I=$INPUT_DIR *.proto \
   --python_out=$SERVER_OUTPUT_DIR \
   --grpc_python_out=$SERVER_OUTPUT_DIR
+
+python format.py

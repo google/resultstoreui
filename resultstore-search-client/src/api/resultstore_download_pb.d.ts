@@ -251,3 +251,39 @@ export namespace GetInitialStateResponse {
   }
 }
 
+export class DownloadFileRequest extends jspb.Message {
+  getFileName(): string;
+  setFileName(value: string): DownloadFileRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): DownloadFileRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: DownloadFileRequest): DownloadFileRequest.AsObject;
+  static serializeBinaryToWriter(message: DownloadFileRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): DownloadFileRequest;
+  static deserializeBinaryFromReader(message: DownloadFileRequest, reader: jspb.BinaryReader): DownloadFileRequest;
+}
+
+export namespace DownloadFileRequest {
+  export type AsObject = {
+    fileName: string,
+  }
+}
+
+export class DownloadFileResponse extends jspb.Message {
+  getFileData(): string;
+  setFileData(value: string): DownloadFileResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): DownloadFileResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: DownloadFileResponse): DownloadFileResponse.AsObject;
+  static serializeBinaryToWriter(message: DownloadFileResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): DownloadFileResponse;
+  static deserializeBinaryFromReader(message: DownloadFileResponse, reader: jspb.BinaryReader): DownloadFileResponse;
+}
+
+export namespace DownloadFileResponse {
+  export type AsObject = {
+    fileData: string,
+  }
+}
+
