@@ -23,8 +23,8 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const createToolItems = (toolsList: ToolSelectProps['toolsList']) => {
-    return toolsList.map((tool) => (
-        <MenuItem value={tool}>
+    return toolsList.map((tool, index) => (
+        <MenuItem value={tool} key={index}>
             <em>{tool}</em>
         </MenuItem>
     ));
