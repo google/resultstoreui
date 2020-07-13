@@ -23,7 +23,6 @@ class Credentials():
     """
     Credentials container/helper for resultstoreui
     """
-
     def __init__(self):
         """
         Initialize Credentials
@@ -36,10 +35,11 @@ class Credentials():
         self.scopes = ALL_SCOPES
         self.project_id = os.environ.get('PROJECT_ID')
         self.client_id = os.environ.get('CLIENT_ID')
-        self.destination_sever = os.environ.get('DESTINATION_SERVER')
+        self.destination_sever = os.environ.get('RESULT_STORE_API_ENDPOINT')
+        self.bigstore_bucket_name = os.environ.get('BUCKET_NAME')
         self.port = PORT
 
-    @ contextlib.contextmanager
+    @contextlib.contextmanager
     def create_secure_channel(self, addr):
         """
         Creates a secure channel using GOOGLE_APPLICATION_CREDENTIALS from the
@@ -79,21 +79,20 @@ class Credentials():
             Boolean, true if verified, false if not verified
         """
         credentials, _ = auth.default(scopes=self.scopes)
-        service = discovery.build(
-            'cloudresourcemanager', 'v1', credentials=credentials
-        )
-        policy = (
-            service.projects()
-            .getIamPolicy(
-                resource=self.project_id,
-                body={'options': {'requestedPolicyVersion': version}},
-            )
-            .execute()
-        )
+        service = discovery.build('cloudresourcemanager',
+                                  'v1',
+                                  credentials=credentials)
+        policy = (service.projects().getIamPolicy(
+            resource=self.project_id,
+            body={
+                'options': {
+                    'requestedPolicyVersion': version
+                }
+            },
+        ).execute())
         try:
             roles = policy['bindings']
-            index = self._index_of_role(
-                roles, RESULTSTORE_SEARCH_VIEW_ROLE)
+            index = self._index_of_role(roles, RESULTSTORE_SEARCH_VIEW_ROLE)
             if index == -1:
                 return False
             if 'user:{}'.format(email) in roles[index]['members']:
@@ -129,6 +128,9 @@ class Credentials():
             Application port
         """
         return self.port
+
+    def get_bucket_name(self):
+        return self.bigstore_bucket_name
 
     def _index_of_role(self, lst, role):
         """

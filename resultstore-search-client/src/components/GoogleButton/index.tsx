@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { GoogleLogout, GoogleLogin } from 'react-google-login';
 import styled from 'styled-components';
-import { Auth } from '../SearchWrapper';
 import config from '../../config/ConfigLoader';
+import { AuthContext } from '../../contexts/AuthContext';
 
 const CustomGoogleLogin = styled(GoogleLogin)`
     width: 100px;
@@ -20,10 +20,6 @@ const CustomGoogleLogout = styled(GoogleLogout)`
     margin-right: 5px;
 `;
 
-export interface GoogleButtonProps {
-    setTokenID: (tokenID: Auth['tokenID']) => void;
-}
-
 interface State {
     isLoggedIn: boolean;
 }
@@ -31,16 +27,17 @@ interface State {
 /*
     Button that handles google login and logout
 */
-const GoogleButton: React.FC<GoogleButtonProps> = ({ setTokenID }) => {
+const GoogleButton: React.FC = () => {
+    const authContext = useContext(AuthContext);
     const [isLoggedIn, setIsLoggedIn] = useState<State['isLoggedIn']>(false);
 
     const logIn = (response) => {
-        setTokenID(response.tokenObj.id_token);
+        authContext.setTokenId(response.tokenObj.id_token);
         setIsLoggedIn(true);
     };
 
     const logOut = () => {
-        setTokenID('');
+        authContext.setTokenId('');
         setIsLoggedIn(false);
     };
 
@@ -56,6 +53,7 @@ const GoogleButton: React.FC<GoogleButtonProps> = ({ setTokenID }) => {
                     onFailure={handleError}
                     responseType="id_token"
                     cookiePolicy={'single_host_origin'}
+                    isSignedIn={true}
                 />
             )}
             {isLoggedIn && (
@@ -65,6 +63,7 @@ const GoogleButton: React.FC<GoogleButtonProps> = ({ setTokenID }) => {
                     onLogoutSuccess={logOut}
                     onFailure={handleError}
                     cookiePolicy={'single_host_origin'}
+                    isSignedIn={true}
                 />
             )}
         </>

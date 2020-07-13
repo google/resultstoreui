@@ -5,12 +5,16 @@ import {
     SearchInvocationsResponse,
     GetInitialStateRequest,
     GetInitialStateResponse,
-    GetFileRequest,
-    GetFileResponse,
+    ListTargetsRequest,
+    ListTargetsResponse,
+    ListTargetSubFilesRequest,
+    ListTargetSubFilesResponse,
+    DownloadFileRequest,
+    DownloadFileResponse,
 } from '../resultstore_download_pb';
 import * as invocation_pb from '../invocation_pb';
 import config from '../../config/ConfigLoader';
-import { Auth } from '../../components/SearchWrapper';
+import { TokenId } from '../../contexts/AuthContext';
 
 export type SetInvocations = (
     invocations: Array<invocation_pb.Invocation>
@@ -20,16 +24,29 @@ export type SearchInvocationCallback = (
     err: grpcWeb.Error,
     response: SearchInvocationsResponse
 ) => void;
-export type GetFileCallback = (file: string) => void;
+export type DownloadFileCallback = (
+    err: grpcWeb.Error,
+    response: DownloadFileResponse
+) => void;
+export type ListTargetsCallback = (
+    err: grpcWeb.Error,
+    response: ListTargetsResponse
+) => void;
+export type ListTargetSubFilesCallback = (
+    err: grpcWeb.Error,
+    response: ListTargetSubFilesResponse
+) => void;
 
 const resultStore = new ResultStoreDownloadClient(
     config.destinationAddress,
     null,
     null
 );
-const defaultPageSize = 50;
+const defaultPageSize = 25;
 const searchFieldMask =
-    'next_page_token,invocations.name,invocations.invocation_attributes,invocations.timing,invocations.workspace_info,invocations.status_attributes';
+    'next_page_token,invocations.name,invocations.invocation_attributes,invocations.timing,invocations.workspace_info,invocations.status_attributes,invocations.files';
+const searchTargetFieldMask =
+    'next_page_token,targets.name,targets.files,targets.properties,targets.id';
 
 /*
 Search for invocations by query
@@ -44,7 +61,7 @@ const searchInvocations = (
     newQuery: boolean,
     tool: string,
     pageToken: string,
-    tokenID: Auth['tokenID'],
+    tokenID: TokenId,
     callback: SearchInvocationCallback
 ) => {
     const request = new SearchInvocationsRequest();
@@ -64,6 +81,45 @@ const searchInvocations = (
     resultStore.searchInvocations(request, metadata, callback);
 };
 
+const listTargetsRequest = (
+    newQuery: boolean,
+    parent: string,
+    pageToken: string,
+    tokenID: TokenId,
+    callback: ListTargetsCallback
+) => {
+    const request = new ListTargetsRequest();
+    request.setPageToken(pageToken);
+    request.setPageSize(defaultPageSize);
+    request.setParent(parent);
+
+    const metadata = {
+        'x-goog-fieldmask': searchTargetFieldMask,
+        id_token: tokenID,
+    };
+
+    if (!newQuery) {
+        request.setPageToken(pageToken);
+    }
+
+    resultStore.listTargets(request, metadata, callback);
+};
+
+const listTargetSubFiles = (
+    parent: string,
+    tokenID: TokenId,
+    callback: ListTargetSubFilesCallback
+) => {
+    const request = new ListTargetSubFilesRequest();
+    request.setParent(parent);
+
+    const metadata = {
+        id_token: tokenID,
+    };
+
+    resultStore.listTargetSubFiles(request, metadata, callback);
+};
+
 const getInitialState = (setToolsList) => {
     const request = new GetInitialStateRequest();
     const metadata = {};
@@ -78,28 +134,23 @@ const getInitialState = (setToolsList) => {
     );
 };
 
-const getFileRequest = (
-    uri: string,
-    tokenID: Auth['tokenID'],
-    callback: GetFileCallback
+const downloadFile = (
+    fileName: string,
+    tokenID: TokenId,
+    callback: DownloadFileCallback
 ) => {
-    const request = new GetFileRequest();
-    request.setUri(uri);
+    const request = new DownloadFileRequest();
+    request.setFileName(fileName);
     const metadata = {
         id_token: tokenID,
     };
-    const stream = resultStore.getFile(request, metadata);
-
-    var file = '';
-
-    stream.on('data', (response) => {
-        file += response.getData_asB64();
-    });
-
-    stream.on('end', () => {
-        console.log(file);
-        callback(file);
-    });
+    resultStore.downloadFile(request, metadata, callback);
 };
 
-export { searchInvocations, getInitialState, getFileRequest };
+export {
+    searchInvocations,
+    getInitialState,
+    downloadFile,
+    listTargetsRequest,
+    listTargetSubFiles,
+};

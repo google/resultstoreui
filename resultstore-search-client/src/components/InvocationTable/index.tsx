@@ -3,16 +3,11 @@ import clsx from 'clsx';
 import styled from 'styled-components';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import TableCell from '@material-ui/core/TableCell';
-import { InvocationTableProps } from './types';
+import { InvocationTableProps, ModalState } from './types';
 import { parseInvocationTableData } from './utils';
-import {
-    Column,
-    Table,
-    InfiniteLoader,
-    TableCellRenderer,
-    TableHeaderProps,
-} from 'react-virtualized';
+import { ColumnProps } from 'react-virtualized';
+import FileModal from './FileModal';
+import InfiniteTable from '../InfiniteTable';
 
 const HeaderHeight = 60;
 const RowHeight = 48;
@@ -23,9 +18,10 @@ const Container = styled(Paper)`
     margin-left: auto;
     margin-right: auto;
     margin-top: 20px;
+    outline: none;
 `;
 
-const columns: Column[] = [
+const columns: ColumnProps[] = [
     { dataKey: 'status', label: 'Status', width: 120 },
     { dataKey: 'name', label: 'Name', width: 400 },
     { dataKey: 'labels', label: 'Labels', width: 120 },
@@ -43,6 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         tableRow: {
             cursor: 'pointer',
+            outline: 'none',
         },
         tableRowHover: {
             '&:hover': {
@@ -52,7 +49,13 @@ const useStyles = makeStyles((theme: Theme) =>
         tableCell: {
             flex: 1,
         },
-        table: {},
+        tableGrid: {
+            outline: 'none',
+        },
+        tableHeader: {
+            fontWeight: 550,
+            fontSize: 16,
+        },
     })
 );
 
@@ -67,6 +70,16 @@ const InvocationTable: React.FC<InvocationTableProps> = ({
 }) => {
     const classes = useStyles();
     const containerRef = useRef<HTMLDivElement>(null);
+    const [modalState, setModalState] = useState<ModalState>({
+        isOpen: false,
+        index: 0,
+    });
+    const closeModal = () => {
+        setModalState({
+            isOpen: false,
+            index: 0,
+        });
+    };
     const [width, setWidth] = useState(1920);
     const [height, setHeight] = useState(1080);
     const rows = invocations.map((invocation) =>
@@ -103,6 +116,13 @@ const InvocationTable: React.FC<InvocationTableProps> = ({
         });
     };
 
+    const cellClass = clsx(classes.tableCell, classes.flexContainer);
+    const headerClass = clsx(
+        classes.tableCell,
+        classes.flexContainer,
+        classes.tableHeader
+    );
+
     const rowGetter = ({ index }) => {
         if (!isRowLoaded({ index })) {
             return {
@@ -112,80 +132,51 @@ const InvocationTable: React.FC<InvocationTableProps> = ({
         return rows[index];
     };
 
-    const cellRenderer: TableCellRenderer = ({ cellData }) => {
-        return (
-            <TableCell
-                component="div"
-                className={clsx(classes.tableCell, classes.flexContainer)}
-                variant="body"
-                style={{ height: RowHeight }}
-                align={'left'}
-            >
-                {cellData}
-            </TableCell>
-        );
+    const onRowClick = ({ index }) => {
+        setModalState({
+            isOpen: true,
+            index: index,
+        });
     };
 
-    const headerRenderer = ({ label }: TableHeaderProps) => {
-        return (
-            <TableCell
-                component="div"
-                className={clsx(classes.tableCell, classes.flexContainer)}
-                variant="head"
-                style={{ height: HeaderHeight }}
-                align={'center'}
-            >
-                <span>{label}</span>
-            </TableCell>
-        );
+    const getFiles = () => {
+        if (invocations.length > 0) {
+            return invocations[modalState.index].getFilesList();
+        }
+        return [];
+    };
+
+    const getParent = () => {
+        if (invocations.length > 0) {
+            return invocations[modalState.index].getName();
+        }
+        return '';
     };
 
     return (
-        <Container ref={containerRef} elevation={3}>
-            <InfiniteLoader
+        <Container ref={containerRef} elevation={3} id={'InvocationTable'}>
+            <InfiniteTable
+                columns={columns}
+                width={width}
+                height={height}
+                rowHeight={RowHeight}
+                headerHeight={HeaderHeight}
+                rowCount={rowCount}
+                rowGetter={rowGetter}
+                rowClassName={getRowClassName}
+                onRowClick={onRowClick}
                 isRowLoaded={isRowLoaded}
                 loadMoreRows={loadMoreRows}
-                rowCount={rowCount}
-                threshold={15}
-            >
-                {({ onRowsRendered, registerChild }) => (
-                    <Table
-                        height={height}
-                        width={width}
-                        rowHeight={48}
-                        gridStyle={{
-                            direction: 'inherit',
-                        }}
-                        className={classes.table}
-                        headerHeight={HeaderHeight}
-                        ref={registerChild}
-                        rowClassName={getRowClassName}
-                        onRowsRendered={onRowsRendered}
-                        headerStyle={{ display: 'flex', flexGrow: 1 }}
-                        rowGetter={rowGetter}
-                        rowCount={rowCount}
-                    >
-                        {columns.map(({ dataKey, ...other }, index) => {
-                            return (
-                                <Column
-                                    key={dataKey}
-                                    headerRenderer={(headerProps) =>
-                                        headerRenderer({
-                                            ...headerProps,
-                                            columnIndex: index,
-                                        })
-                                    }
-                                    className={classes.flexContainer}
-                                    cellRenderer={cellRenderer}
-                                    dataKey={dataKey}
-                                    flexGrow={1}
-                                    {...other}
-                                />
-                            );
-                        })}
-                    </Table>
-                )}
-            </InfiniteLoader>
+                cellClass={cellClass}
+                headerClass={headerClass}
+                gridClass={classes.tableGrid}
+            />
+            <FileModal
+                isOpen={modalState.isOpen}
+                close={closeModal}
+                files={getFiles()}
+                parent={getParent()}
+            />
         </Container>
     );
 };

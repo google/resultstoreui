@@ -45,7 +45,11 @@ const ToolSelect: React.FC<ToolSelectProps> = ({
     }, [setToolsList]);
 
     return (
-        <FormControl variant="outlined" className={classes.formControl}>
+        <FormControl
+            variant="outlined"
+            className={classes.formControl}
+            id="tool-select"
+        >
             <InputLabel id="demo-simple-select-outlined-label">
                 Tool Type
             </InputLabel>
