@@ -5,11 +5,13 @@ context("ResultStoreSearch Home Page", () => {
 
   it("Should display an error if the query is invalid", () => {
     cy.get('input[id="outlined-adornment-amount"]').type("incorrect query");
+    cy.get('input[id="outlined-adornment-amount"]').type("{enter}");
     cy.get('p[id="search-error"]').contains("Invalid query string");
   });
 
   it("Should render the invocations in the table", () => {
     cy.get('input[id="outlined-adornment-amount"]').type("a");
+    cy.get('input[id="outlined-adornment-amount"]').type("{enter}");
     cy.get('div[aria-label="row"]').contains(
       "invocations/51be7217-9798-4448-adf8-1e4428c71e9e"
     );
@@ -21,12 +23,15 @@ context("ResultStoreSearch Home Page", () => {
 
   it("Should display tool1 and tool2 in dropdown and have 1 invocation", () => {
     cy.get('input[id="outlined-adornment-amount"]').type("a");
+    cy.get('input[id="outlined-adornment-amount"]').type("{enter}");
     cy.get('div[id="tool-select"]').click();
     cy.get('li[data-value="tool1"]').contains("tool1");
     cy.get('li[data-value="tool2"').contains("tool2");
     cy.get('li[data-value="tool2"]').click();
     cy.get('input[id="outlined-adornment-amount"]').type("i");
+    cy.get('input[id="outlined-adornment-amount"]').type("{enter}");
     cy.get('input[id="outlined-adornment-amount"]').type("i");
+    cy.get('input[id="outlined-adornment-amount"]').type("{enter}");
     cy.get('div[id="InvocationTable"]')
       .find('div[aria-label="row"]')
       .should("have.length", 1);
@@ -41,6 +46,7 @@ context("ResultStoreSearch Home Page", () => {
 
   it("Should open the file modal on file button click", () => {
     cy.get('input[id="outlined-adornment-amount"]').type("a");
+    cy.get('input[id="outlined-adornment-amount"]').type("{enter}");
     cy.get('div[aria-rowindex="1"]').trigger("mouseover");
     cy.get('button[id="FileButton-0"]').click();
     cy.get('div[id="FileModal"]').should("have.length", 1);
@@ -48,6 +54,7 @@ context("ResultStoreSearch Home Page", () => {
 
   it("Should render files in the file table", () => {
     cy.get('input[id="outlined-adornment-amount"]').type("a");
+    cy.get('input[id="outlined-adornment-amount"]').type("{enter}");
     cy.get('div[aria-rowindex="1"]').trigger("mouseover");
     cy.get('button[id="FileButton-0"]').click();
     cy.get('div[id="InvocationModalRow"]').click();

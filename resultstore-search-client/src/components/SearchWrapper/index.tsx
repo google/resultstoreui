@@ -23,8 +23,9 @@ const SearchContainer = styled.div`
 `;
 
 const AppContainer = styled.div`
-    height: 100vh;
-    width: 100vw;
+    height: 98vh;
+    width: 98vw;
+    margin: 0 auto 0 auto;
 `;
 
 export interface State {
@@ -52,7 +53,6 @@ const SearchWrapper: React.FC = () => {
     >('');
     const [query, setQuery] = useState<SearchBarState['query']>('');
     const [pageToken, setPageToken] = useState<State['pageToken']>('');
-    const [newQuery, setNewQuery] = useState<State['newQuery']>(true);
     const [error, setError] = React.useState<State['error']>({
         errorText: '',
         hasError: false,
@@ -75,7 +75,6 @@ const SearchWrapper: React.FC = () => {
 
     useEffect(() => {
         if (query !== '') {
-            setNewQuery(true);
             setPageToken('');
             nextRows(true, '');
         }
@@ -83,7 +82,8 @@ const SearchWrapper: React.FC = () => {
 
     const searchInvocationsCallback: SearchInvocationCallback = (
         err,
-        response
+        response,
+        newQuery
     ) => {
         if (err) {
             setIsNextPageLoading(false);
@@ -103,7 +103,6 @@ const SearchWrapper: React.FC = () => {
                 setToolsList(toolsList);
             }
             if (newQuery) {
-                setNewQuery(false);
                 setInvocations(response.getInvocationsList());
             } else {
                 setInvocations([
@@ -126,6 +125,7 @@ const SearchWrapper: React.FC = () => {
                 <SearchBar
                     setQueryParent={setQuery}
                     hasError={error.hasError}
+                    loading={isNextPageLoading && pageToken === ''}
                 />
                 <GoogleButton />
             </SearchContainer>

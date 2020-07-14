@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import Modal from '@material-ui/core/Modal';
@@ -66,6 +66,7 @@ interface State {
     selectedFiles: Array<file_pb.File>;
     selectedName: string;
     selectedType: 'target' | 'invocation';
+    isLoadingTableRows: boolean;
 }
 
 const FileModal: React.FC<Props> = ({ isOpen, close, files, parent }) => {
@@ -74,11 +75,14 @@ const FileModal: React.FC<Props> = ({ isOpen, close, files, parent }) => {
         files
     );
     const [selectedName, setSelectedName] = useState<State['selectedName']>(
-        parent
+        parent.slice(12)
     );
     const [selectedType, setSelectedType] = useState<State['selectedType']>(
         'invocation'
     );
+    const [isLoadingTableRows, setIsLoadingTableRows] = useState<
+        State['isLoadingTableRows']
+    >(false);
 
     const invocationName = parent.replace('invocations/', '');
 
@@ -86,20 +90,35 @@ const FileModal: React.FC<Props> = ({ isOpen, close, files, parent }) => {
         close();
     };
 
-    const onClick = (name: string, files: Array<file_pb.File>) => {
+    const onClick = (
+        name: string,
+        files: Array<file_pb.File>,
+        isLoadingTableRows: boolean
+    ) => {
         setSelectedName(name);
         setSelectedFiles(files);
+        setIsLoadingTableRows(isLoadingTableRows);
     };
 
-    const onTargetClick = (name: string, files: Array<file_pb.File>) => {
+    const onTargetClick = (
+        name: string,
+        files: Array<file_pb.File>,
+        isLoadingTableRows: boolean
+    ) => {
         setSelectedType('target');
-        onClick(name, files);
+        onClick(name, files, isLoadingTableRows);
     };
 
     const onInvocationClick = () => {
         setSelectedType('invocation');
-        onClick(parent.slice(12), files);
+        onClick(parent.slice(12), files, false);
     };
+
+    useEffect(() => {
+        if (isOpen) {
+            onInvocationClick();
+        }
+    }, [isOpen]);
 
     return (
         <Modal
@@ -122,9 +141,7 @@ const FileModal: React.FC<Props> = ({ isOpen, close, files, parent }) => {
                             {'Invocation'}
                         </HeaderRow>
                         <ListRow
-                            onClick={() => {
-                                onInvocationClick();
-                            }}
+                            onClick={onInvocationClick}
                             id={'InvocationModalRow'}
                         >
                             {invocationName}
@@ -145,6 +162,7 @@ const FileModal: React.FC<Props> = ({ isOpen, close, files, parent }) => {
                         selectedName={selectedName}
                         selectedType={selectedType}
                         files={selectedFiles}
+                        isLoadingTableRows={isLoadingTableRows}
                     />
                 </ModalContainer>
             </Fade>

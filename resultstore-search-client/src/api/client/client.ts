@@ -22,7 +22,8 @@ export type SetInvocations = (
 export type SetToolsList = (toolsList: Array<string>) => void;
 export type SearchInvocationCallback = (
     err: grpcWeb.Error,
-    response: SearchInvocationsResponse
+    response: SearchInvocationsResponse,
+    newQuery: boolean
 ) => void;
 export type DownloadFileCallback = (
     err: grpcWeb.Error,
@@ -78,7 +79,9 @@ const searchInvocations = (
         'x-goog-fieldmask': searchFieldMask,
         id_token: tokenID,
     };
-    resultStore.searchInvocations(request, metadata, callback);
+    resultStore.searchInvocations(request, metadata, (err, response) => {
+        callback(err, response, newQuery);
+    });
 };
 
 const listTargetsRequest = (

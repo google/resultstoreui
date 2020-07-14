@@ -1,5 +1,5 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { ColumnProps, TableProps, AutoSizer } from 'react-virtualized';
+import React, { useRef } from 'react';
+import { ColumnProps, AutoSizer } from 'react-virtualized';
 import clsx from 'clsx';
 import styled from 'styled-components';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
@@ -56,6 +56,7 @@ interface Props {
     selectedName: string;
     selectedType: string;
     files: Array<file_pb.File>;
+    isLoadingTableRows: boolean;
 }
 
 const parseFileTableData = (file: file_pb.File): Data => {
@@ -65,7 +66,11 @@ const parseFileTableData = (file: file_pb.File): Data => {
     return { name, type, size };
 };
 
-const FileTable: React.FC<Props> = ({ files, selectedName }) => {
+const FileTable: React.FC<Props> = ({
+    files,
+    selectedName,
+    isLoadingTableRows,
+}) => {
     const classes = useStyles();
     const rows = files
         .filter((file) => !file.getHidden())
@@ -114,6 +119,7 @@ const FileTable: React.FC<Props> = ({ files, selectedName }) => {
                         headerClass={headerClass}
                         cellClass={cellClass}
                         rowClassName={getRowClassName}
+                        isNextPageLoading={isLoadingTableRows}
                     />
                 )}
             </AutoSizer>
