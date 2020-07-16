@@ -5,7 +5,9 @@ from resultstoresearchapi import (
     resultstoresearch_timestamp_pb2, duration_pb2 as
     resultstoresearch_duration_pb2, common_pb2 as resultstoresearch_common_pb2,
     wrappers_pb2 as resultoresearch_wrapper_pb2, file_pb2 as
-    resultstoresearch_file_pb2)
+    resultstoresearch_file_pb2, action_pb2 as resultstoresearch_action_pb2,
+    test_suite_pb2 as resultoresearch_test_suite_pb2)
+from collections import defaultdict
 import sys
 
 
@@ -84,9 +86,36 @@ def update_tools_list(invocations, tools_list, fs):
     return tools_list
 
 
+def parse_tests(invocation, actions):
+    target_case = {}
+    for action in actions:
+        if hasattr(action, 'test_action') and hasattr(action.test_action, 'test_suite'):
+            target_id = action.id.target_id
+            if target_id not in target_case:
+                target_case[target_id] = resultstoresearch_invocation_pb2.CaseNameToCaseMap(
+                )
+            for test in action.test_action.test_suite.tests:
+                test_case_name = test.test_case.case_name
+                if test_case_name not in target_case[target_id].case_name:
+                    target_case[target_id].case_name[test_case_name].CopyFrom(
+                        test.test_case)
+
+    return resultstoresearch_invocation_pb2.InvocationTest(
+        invocation=invocation,
+        target_case=target_case
+    )
+
+
 """
 Helper functions to convert resultstore objects into resultstoresearch objects
 """
+
+
+def convert_invocations(invocations):
+    converted_invocations = []
+    for invocation in invocations:
+        converted_invocations.append(convert_invocation(invocation))
+    return converted_invocations
 
 
 def convert_invocation(invocation):
@@ -191,6 +220,100 @@ def convert_status_attributes(status_attributes):
         status_attributes, 'description') else ''
     return resultstoresearch_common_pb2.StatusAttributes(
         status=status, description=description)
+
+
+def convert_actions(actions):
+    converted_actions = []
+    for action in actions:
+        converted_actions.append(convert_action(action))
+    return converted_actions
+
+
+def convert_action(action):
+    converted_action = resultstoresearch_action_pb2.Action(
+        name=action.name,
+        test_action=convert_test_action(action.test_action) if hasattr(
+            action, 'test_action') else None
+    )
+    return converted_action
+
+
+def convert_test_action(test_action):
+    converted_test_action = resultstoresearch_action_pb2.TestAction(
+        test_suite=convert_test_suite(test_action.test_suite) if hasattr(
+            test_action, 'test_suite') else None
+    )
+    return converted_test_action
+
+
+def convert_test_suite(test_suite):
+    converted_test_suite = resultoresearch_test_suite_pb2.TestSuite(
+        suite_name=test_suite.suite_name,
+        tests=convert_tests(test_suite.tests) if hasattr(
+            test_suite, 'tests') else None
+    )
+    return converted_test_suite
+
+
+def convert_tests(tests):
+    converted_tests = []
+    for test in tests:
+        converted_tests.append(convert_test(test))
+    return converted_tests
+
+
+def convert_test(test):
+    converted_test = resultoresearch_test_suite_pb2.Test(
+        test_case=convert_test_case(test.test_case)
+    )
+    return converted_test
+
+
+def convert_test_case(test_case):
+    converted_test_case = resultoresearch_test_suite_pb2.TestCase(
+        case_name=test_case.case_name,
+        class_name=test_case.class_name,
+        failures=convert_failures(test_case.failures) if hasattr(
+            test_case, 'failures') else None,
+        errors=convert_errors(test_case.errors) if hasattr(
+            test_case, 'errors') else None,
+        result=test_case.result,
+        timing=convert_timing(test_case.timing) if hasattr(
+            test_case, 'timing') else None
+    )
+    return converted_test_case
+
+
+def convert_failures(failures):
+    converted_failures = []
+    for failure in failures:
+        converted_failures.append(convert_failure(failure))
+    return converted_failures
+
+
+def convert_failure(failure):
+    return resultoresearch_test_suite_pb2.TestFailure(
+        failure_message=failure.failure_message,
+        exception_type=failure.exception_type,
+        stack_trace=failure.stack_trace,
+        expected=failure.expected,
+        actual=failure.actual
+    )
+
+
+def convert_errors(errors):
+    converted_errors = []
+    for error in errors:
+        converted_errors.append(convert_error(error))
+    return converted_errors
+
+
+def convert_error(error):
+    return resultoresearch_test_suite_pb2.TestError(
+        error_message=error.error_message,
+        exception_type=error.exception_type,
+        stack_trace=error.stack_trace
+    )
 
 
 def convert_files(files):

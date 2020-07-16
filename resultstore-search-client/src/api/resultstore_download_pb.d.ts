@@ -326,3 +326,85 @@ export namespace DownloadFileResponse {
   }
 }
 
+export class TestSuiteFilter extends jspb.Message {
+  getTestSuiteName(): string;
+  setTestSuiteName(value: string): TestSuiteFilter;
+
+  getToolTag(): string;
+  setToolTag(value: string): TestSuiteFilter;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): TestSuiteFilter.AsObject;
+  static toObject(includeInstance: boolean, msg: TestSuiteFilter): TestSuiteFilter.AsObject;
+  static serializeBinaryToWriter(message: TestSuiteFilter, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): TestSuiteFilter;
+  static deserializeBinaryFromReader(message: TestSuiteFilter, reader: jspb.BinaryReader): TestSuiteFilter;
+}
+
+export namespace TestSuiteFilter {
+  export type AsObject = {
+    testSuiteName: string,
+    toolTag: string,
+  }
+}
+
+export class GetTestCasesRequest extends jspb.Message {
+  getPageSize(): number;
+  setPageSize(value: number): GetTestCasesRequest;
+
+  getInvocationsList(): Array<invocation_pb.Invocation>;
+  setInvocationsList(value: Array<invocation_pb.Invocation>): GetTestCasesRequest;
+  clearInvocationsList(): GetTestCasesRequest;
+  addInvocations(value?: invocation_pb.Invocation, index?: number): invocation_pb.Invocation;
+
+  getPageToken(): string;
+  setPageToken(value: string): GetTestCasesRequest;
+
+  getQuery(): string;
+  setQuery(value: string): GetTestCasesRequest;
+
+  getProjectId(): string;
+  setProjectId(value: string): GetTestCasesRequest;
+
+  getTool(): string;
+  setTool(value: string): GetTestCasesRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetTestCasesRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: GetTestCasesRequest): GetTestCasesRequest.AsObject;
+  static serializeBinaryToWriter(message: GetTestCasesRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetTestCasesRequest;
+  static deserializeBinaryFromReader(message: GetTestCasesRequest, reader: jspb.BinaryReader): GetTestCasesRequest;
+}
+
+export namespace GetTestCasesRequest {
+  export type AsObject = {
+    pageSize: number,
+    invocationsList: Array<invocation_pb.Invocation.AsObject>,
+    pageToken: string,
+    query: string,
+    projectId: string,
+    tool: string,
+  }
+}
+
+export class GetTestCasesResponse extends jspb.Message {
+  getInvocationTestsList(): Array<invocation_pb.InvocationTest>;
+  setInvocationTestsList(value: Array<invocation_pb.InvocationTest>): GetTestCasesResponse;
+  clearInvocationTestsList(): GetTestCasesResponse;
+  addInvocationTests(value?: invocation_pb.InvocationTest, index?: number): invocation_pb.InvocationTest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetTestCasesResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: GetTestCasesResponse): GetTestCasesResponse.AsObject;
+  static serializeBinaryToWriter(message: GetTestCasesResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetTestCasesResponse;
+  static deserializeBinaryFromReader(message: GetTestCasesResponse, reader: jspb.BinaryReader): GetTestCasesResponse;
+}
+
+export namespace GetTestCasesResponse {
+  export type AsObject = {
+    invocationTestsList: Array<invocation_pb.InvocationTest.AsObject>,
+  }
+}
+

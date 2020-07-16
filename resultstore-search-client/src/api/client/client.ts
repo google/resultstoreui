@@ -11,6 +11,8 @@ import {
     ListTargetSubFilesResponse,
     DownloadFileRequest,
     DownloadFileResponse,
+    GetTestCasesRequest,
+    GetTestCasesResponse,
 } from '../resultstore_download_pb';
 import * as invocation_pb from '../invocation_pb';
 import config from '../../config/ConfigLoader';
@@ -36,6 +38,10 @@ export type ListTargetsCallback = (
 export type ListTargetSubFilesCallback = (
     err: grpcWeb.Error,
     response: ListTargetSubFilesResponse
+) => void;
+export type GetTestCasesCallback = (
+    err: grpcWeb.Error,
+    response: GetTestCasesResponse
 ) => void;
 
 const resultStore = new ResultStoreDownloadClient(
@@ -150,10 +156,35 @@ const downloadFile = (
     resultStore.downloadFile(request, metadata, callback);
 };
 
+const getTestCases = (
+    query: string,
+    tool: string,
+    pageToken: string,
+    tokenID: TokenId,
+    invocations: Array<invocation_pb.Invocation>,
+    callback: GetTestCasesCallback
+) => {
+    const metadata = {
+        'x-goog-fieldmask': searchFieldMask,
+        id_token: tokenID,
+    };
+
+    const request = new GetTestCasesRequest();
+    request.setPageSize(defaultPageSize);
+    request.setPageToken(pageToken);
+    request.setProjectId(config.projectId);
+    request.setQuery(query);
+    request.setTool(tool);
+    request.setInvocationsList(invocations);
+
+    resultStore.getTestCases(request, metadata, callback);
+};
+
 export {
     searchInvocations,
     getInitialState,
     downloadFile,
     listTargetsRequest,
     listTargetSubFiles,
+    getTestCases,
 };

@@ -16,6 +16,7 @@ import resultstoresearchapi.coverage_pb2 as coverage__pb2
 import resultstoresearchapi.coverage_summary_pb2 as coverage__summary__pb2
 import resultstoresearchapi.file_pb2 as file__pb2
 import resultstoresearchapi.file_processing_error_pb2 as file__processing__error__pb2
+import resultstoresearchapi.test_suite_pb2 as test__suite__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -24,9 +25,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x10invocation.proto\x12\x14resultstoresearch.v1\x1a\x0c\x63ommon.proto\x1a\x0e\x63overage.proto\x1a\x16\x63overage_summary.proto\x1a\nfile.proto\x1a\x1b\x66ile_processing_error.proto\"\x9c\x05\n\nInvocation\x12\x0c\n\x04name\x18\x01 \x01(\t\x12/\n\x02id\x18\x02 \x01(\x0b\x32#.resultstoresearch.v1.Invocation.Id\x12\x41\n\x11status_attributes\x18\x03 \x01(\x0b\x32&.resultstoresearch.v1.StatusAttributes\x12,\n\x06timing\x18\x04 \x01(\x0b\x32\x1c.resultstoresearch.v1.Timing\x12I\n\x15invocation_attributes\x18\x05 \x01(\x0b\x32*.resultstoresearch.v1.InvocationAttributes\x12;\n\x0eworkspace_info\x18\x06 \x01(\x0b\x32#.resultstoresearch.v1.WorkspaceInfo\x12\x32\n\nproperties\x18\x07 \x03(\x0b\x32\x1e.resultstoresearch.v1.Property\x12)\n\x05\x66iles\x18\x08 \x03(\x0b\x32\x1a.resultstoresearch.v1.File\x12I\n\x12\x63overage_summaries\x18\t \x03(\x0b\x32-.resultstoresearch.v1.LanguageCoverageSummary\x12\x43\n\x12\x61ggregate_coverage\x18\n \x01(\x0b\x32\'.resultstoresearch.v1.AggregateCoverage\x12J\n\x16\x66ile_processing_errors\x18\x0b \x03(\x0b\x32*.resultstoresearch.v1.FileProcessingErrors\x1a\x1b\n\x02Id\x12\x15\n\rinvocation_id\x18\x01 \x01(\t\"\x12\n\x10WorkspaceContext\"\xcb\x01\n\rWorkspaceInfo\x12\x41\n\x11workspace_context\x18\x01 \x01(\x0b\x32&.resultstoresearch.v1.WorkspaceContext\x12\x10\n\x08hostname\x18\x03 \x01(\t\x12\x19\n\x11working_directory\x18\x04 \x01(\t\x12\x10\n\x08tool_tag\x18\x05 \x01(\t\x12\x38\n\rcommand_lines\x18\x07 \x03(\x0b\x32!.resultstoresearch.v1.CommandLine\"I\n\x0b\x43ommandLine\x12\r\n\x05label\x18\x01 \x01(\t\x12\x0c\n\x04tool\x18\x02 \x01(\t\x12\x0c\n\x04\x61rgs\x18\x03 \x03(\t\x12\x0f\n\x07\x63ommand\x18\x04 \x01(\t\"\xa4\x01\n\x14InvocationAttributes\x12\x12\n\nproject_id\x18\x01 \x01(\t\x12\r\n\x05users\x18\x02 \x03(\t\x12\x0e\n\x06labels\x18\x03 \x03(\t\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\x12\x44\n\x13invocation_contexts\x18\x06 \x03(\x0b\x32\'.resultstoresearch.v1.InvocationContext\"6\n\x11InvocationContext\x12\x14\n\x0c\x64isplay_name\x18\x01 \x01(\t\x12\x0b\n\x03url\x18\x02 \x01(\tb\x06proto3'
+  serialized_pb=b'\n\x10invocation.proto\x12\x14resultstoresearch.v1\x1a\x0c\x63ommon.proto\x1a\x0e\x63overage.proto\x1a\x16\x63overage_summary.proto\x1a\nfile.proto\x1a\x1b\x66ile_processing_error.proto\x1a\x10test_suite.proto\"\x9c\x05\n\nInvocation\x12\x0c\n\x04name\x18\x01 \x01(\t\x12/\n\x02id\x18\x02 \x01(\x0b\x32#.resultstoresearch.v1.Invocation.Id\x12\x41\n\x11status_attributes\x18\x03 \x01(\x0b\x32&.resultstoresearch.v1.StatusAttributes\x12,\n\x06timing\x18\x04 \x01(\x0b\x32\x1c.resultstoresearch.v1.Timing\x12I\n\x15invocation_attributes\x18\x05 \x01(\x0b\x32*.resultstoresearch.v1.InvocationAttributes\x12;\n\x0eworkspace_info\x18\x06 \x01(\x0b\x32#.resultstoresearch.v1.WorkspaceInfo\x12\x32\n\nproperties\x18\x07 \x03(\x0b\x32\x1e.resultstoresearch.v1.Property\x12)\n\x05\x66iles\x18\x08 \x03(\x0b\x32\x1a.resultstoresearch.v1.File\x12I\n\x12\x63overage_summaries\x18\t \x03(\x0b\x32-.resultstoresearch.v1.LanguageCoverageSummary\x12\x43\n\x12\x61ggregate_coverage\x18\n \x01(\x0b\x32\'.resultstoresearch.v1.AggregateCoverage\x12J\n\x16\x66ile_processing_errors\x18\x0b \x03(\x0b\x32*.resultstoresearch.v1.FileProcessingErrors\x1a\x1b\n\x02Id\x12\x15\n\rinvocation_id\x18\x01 \x01(\t\"\x12\n\x10WorkspaceContext\"\xcb\x01\n\rWorkspaceInfo\x12\x41\n\x11workspace_context\x18\x01 \x01(\x0b\x32&.resultstoresearch.v1.WorkspaceContext\x12\x10\n\x08hostname\x18\x03 \x01(\t\x12\x19\n\x11working_directory\x18\x04 \x01(\t\x12\x10\n\x08tool_tag\x18\x05 \x01(\t\x12\x38\n\rcommand_lines\x18\x07 \x03(\x0b\x32!.resultstoresearch.v1.CommandLine\"I\n\x0b\x43ommandLine\x12\r\n\x05label\x18\x01 \x01(\t\x12\x0c\n\x04tool\x18\x02 \x01(\t\x12\x0c\n\x04\x61rgs\x18\x03 \x03(\t\x12\x0f\n\x07\x63ommand\x18\x04 \x01(\t\"\xa4\x01\n\x14InvocationAttributes\x12\x12\n\nproject_id\x18\x01 \x01(\t\x12\r\n\x05users\x18\x02 \x03(\t\x12\x0e\n\x06labels\x18\x03 \x03(\t\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\x12\x44\n\x13invocation_contexts\x18\x06 \x03(\x0b\x32\'.resultstoresearch.v1.InvocationContext\"6\n\x11InvocationContext\x12\x14\n\x0c\x64isplay_name\x18\x01 \x01(\t\x12\x0b\n\x03url\x18\x02 \x01(\t\"\xed\x01\n\x0eInvocationTest\x12\x34\n\ninvocation\x18\x01 \x01(\x0b\x32 .resultstoresearch.v1.Invocation\x12I\n\x0btarget_case\x18\x02 \x03(\x0b\x32\x34.resultstoresearch.v1.InvocationTest.TargetCaseEntry\x1aZ\n\x0fTargetCaseEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x36\n\x05value\x18\x02 \x01(\x0b\x32\'.resultstoresearch.v1.CaseNameToCaseMap:\x02\x38\x01\"\xae\x01\n\x11\x43\x61seNameToCaseMap\x12H\n\tcase_name\x18\x01 \x03(\x0b\x32\x35.resultstoresearch.v1.CaseNameToCaseMap.CaseNameEntry\x1aO\n\rCaseNameEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12-\n\x05value\x18\x02 \x01(\x0b\x32\x1e.resultstoresearch.v1.TestCase:\x02\x38\x01\x62\x06proto3'
   ,
-  dependencies=[common__pb2.DESCRIPTOR,coverage__pb2.DESCRIPTOR,coverage__summary__pb2.DESCRIPTOR,file__pb2.DESCRIPTOR,file__processing__error__pb2.DESCRIPTOR,])
+  dependencies=[common__pb2.DESCRIPTOR,coverage__pb2.DESCRIPTOR,coverage__summary__pb2.DESCRIPTOR,file__pb2.DESCRIPTOR,file__processing__error__pb2.DESCRIPTOR,test__suite__pb2.DESCRIPTOR,])
 
 
 
@@ -58,8 +59,8 @@ _INVOCATION_ID = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=779,
-  serialized_end=806,
+  serialized_start=797,
+  serialized_end=824,
 )
 
 _INVOCATION = _descriptor.Descriptor(
@@ -159,8 +160,8 @@ _INVOCATION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=138,
-  serialized_end=806,
+  serialized_start=156,
+  serialized_end=824,
 )
 
 
@@ -184,8 +185,8 @@ _WORKSPACECONTEXT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=808,
-  serialized_end=826,
+  serialized_start=826,
+  serialized_end=844,
 )
 
 
@@ -244,8 +245,8 @@ _WORKSPACEINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=829,
-  serialized_end=1032,
+  serialized_start=847,
+  serialized_end=1050,
 )
 
 
@@ -297,8 +298,8 @@ _COMMANDLINE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1034,
-  serialized_end=1107,
+  serialized_start=1052,
+  serialized_end=1125,
 )
 
 
@@ -357,8 +358,8 @@ _INVOCATIONATTRIBUTES = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1110,
-  serialized_end=1274,
+  serialized_start=1128,
+  serialized_end=1292,
 )
 
 
@@ -396,8 +397,155 @@ _INVOCATIONCONTEXT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1276,
-  serialized_end=1330,
+  serialized_start=1294,
+  serialized_end=1348,
+)
+
+
+_INVOCATIONTEST_TARGETCASEENTRY = _descriptor.Descriptor(
+  name='TargetCaseEntry',
+  full_name='resultstoresearch.v1.InvocationTest.TargetCaseEntry',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='key', full_name='resultstoresearch.v1.InvocationTest.TargetCaseEntry.key', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='value', full_name='resultstoresearch.v1.InvocationTest.TargetCaseEntry.value', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=b'8\001',
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1498,
+  serialized_end=1588,
+)
+
+_INVOCATIONTEST = _descriptor.Descriptor(
+  name='InvocationTest',
+  full_name='resultstoresearch.v1.InvocationTest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='invocation', full_name='resultstoresearch.v1.InvocationTest.invocation', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='target_case', full_name='resultstoresearch.v1.InvocationTest.target_case', index=1,
+      number=2, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[_INVOCATIONTEST_TARGETCASEENTRY, ],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1351,
+  serialized_end=1588,
+)
+
+
+_CASENAMETOCASEMAP_CASENAMEENTRY = _descriptor.Descriptor(
+  name='CaseNameEntry',
+  full_name='resultstoresearch.v1.CaseNameToCaseMap.CaseNameEntry',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='key', full_name='resultstoresearch.v1.CaseNameToCaseMap.CaseNameEntry.key', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='value', full_name='resultstoresearch.v1.CaseNameToCaseMap.CaseNameEntry.value', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=b'8\001',
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1686,
+  serialized_end=1765,
+)
+
+_CASENAMETOCASEMAP = _descriptor.Descriptor(
+  name='CaseNameToCaseMap',
+  full_name='resultstoresearch.v1.CaseNameToCaseMap',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='case_name', full_name='resultstoresearch.v1.CaseNameToCaseMap.case_name', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[_CASENAMETOCASEMAP_CASENAMEENTRY, ],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1591,
+  serialized_end=1765,
 )
 
 _INVOCATION_ID.containing_type = _INVOCATION
@@ -414,12 +562,21 @@ _INVOCATION.fields_by_name['file_processing_errors'].message_type = file__proces
 _WORKSPACEINFO.fields_by_name['workspace_context'].message_type = _WORKSPACECONTEXT
 _WORKSPACEINFO.fields_by_name['command_lines'].message_type = _COMMANDLINE
 _INVOCATIONATTRIBUTES.fields_by_name['invocation_contexts'].message_type = _INVOCATIONCONTEXT
+_INVOCATIONTEST_TARGETCASEENTRY.fields_by_name['value'].message_type = _CASENAMETOCASEMAP
+_INVOCATIONTEST_TARGETCASEENTRY.containing_type = _INVOCATIONTEST
+_INVOCATIONTEST.fields_by_name['invocation'].message_type = _INVOCATION
+_INVOCATIONTEST.fields_by_name['target_case'].message_type = _INVOCATIONTEST_TARGETCASEENTRY
+_CASENAMETOCASEMAP_CASENAMEENTRY.fields_by_name['value'].message_type = test__suite__pb2._TESTCASE
+_CASENAMETOCASEMAP_CASENAMEENTRY.containing_type = _CASENAMETOCASEMAP
+_CASENAMETOCASEMAP.fields_by_name['case_name'].message_type = _CASENAMETOCASEMAP_CASENAMEENTRY
 DESCRIPTOR.message_types_by_name['Invocation'] = _INVOCATION
 DESCRIPTOR.message_types_by_name['WorkspaceContext'] = _WORKSPACECONTEXT
 DESCRIPTOR.message_types_by_name['WorkspaceInfo'] = _WORKSPACEINFO
 DESCRIPTOR.message_types_by_name['CommandLine'] = _COMMANDLINE
 DESCRIPTOR.message_types_by_name['InvocationAttributes'] = _INVOCATIONATTRIBUTES
 DESCRIPTOR.message_types_by_name['InvocationContext'] = _INVOCATIONCONTEXT
+DESCRIPTOR.message_types_by_name['InvocationTest'] = _INVOCATIONTEST
+DESCRIPTOR.message_types_by_name['CaseNameToCaseMap'] = _CASENAMETOCASEMAP
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 Invocation = _reflection.GeneratedProtocolMessageType('Invocation', (_message.Message,), {
@@ -472,5 +629,37 @@ InvocationContext = _reflection.GeneratedProtocolMessageType('InvocationContext'
   })
 _sym_db.RegisterMessage(InvocationContext)
 
+InvocationTest = _reflection.GeneratedProtocolMessageType('InvocationTest', (_message.Message,), {
 
+  'TargetCaseEntry' : _reflection.GeneratedProtocolMessageType('TargetCaseEntry', (_message.Message,), {
+    'DESCRIPTOR' : _INVOCATIONTEST_TARGETCASEENTRY,
+    '__module__' : 'invocation_pb2'
+    # @@protoc_insertion_point(class_scope:resultstoresearch.v1.InvocationTest.TargetCaseEntry)
+    })
+  ,
+  'DESCRIPTOR' : _INVOCATIONTEST,
+  '__module__' : 'invocation_pb2'
+  # @@protoc_insertion_point(class_scope:resultstoresearch.v1.InvocationTest)
+  })
+_sym_db.RegisterMessage(InvocationTest)
+_sym_db.RegisterMessage(InvocationTest.TargetCaseEntry)
+
+CaseNameToCaseMap = _reflection.GeneratedProtocolMessageType('CaseNameToCaseMap', (_message.Message,), {
+
+  'CaseNameEntry' : _reflection.GeneratedProtocolMessageType('CaseNameEntry', (_message.Message,), {
+    'DESCRIPTOR' : _CASENAMETOCASEMAP_CASENAMEENTRY,
+    '__module__' : 'invocation_pb2'
+    # @@protoc_insertion_point(class_scope:resultstoresearch.v1.CaseNameToCaseMap.CaseNameEntry)
+    })
+  ,
+  'DESCRIPTOR' : _CASENAMETOCASEMAP,
+  '__module__' : 'invocation_pb2'
+  # @@protoc_insertion_point(class_scope:resultstoresearch.v1.CaseNameToCaseMap)
+  })
+_sym_db.RegisterMessage(CaseNameToCaseMap)
+_sym_db.RegisterMessage(CaseNameToCaseMap.CaseNameEntry)
+
+
+_INVOCATIONTEST_TARGETCASEENTRY._options = None
+_CASENAMETOCASEMAP_CASENAMEENTRY._options = None
 # @@protoc_insertion_point(module_scope)

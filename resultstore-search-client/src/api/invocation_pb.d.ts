@@ -5,6 +5,7 @@ import * as coverage_pb from './coverage_pb';
 import * as coverage_summary_pb from './coverage_summary_pb';
 import * as file_pb from './file_pb';
 import * as file_processing_error_pb from './file_processing_error_pb';
+import * as test_suite_pb from './test_suite_pb';
 
 export class Invocation extends jspb.Message {
   getName(): string;
@@ -246,6 +247,48 @@ export namespace InvocationContext {
   export type AsObject = {
     displayName: string,
     url: string,
+  }
+}
+
+export class InvocationTest extends jspb.Message {
+  getInvocation(): Invocation | undefined;
+  setInvocation(value?: Invocation): InvocationTest;
+  hasInvocation(): boolean;
+  clearInvocation(): InvocationTest;
+
+  getTargetCaseMap(): jspb.Map<string, CaseNameToCaseMap>;
+  clearTargetCaseMap(): InvocationTest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): InvocationTest.AsObject;
+  static toObject(includeInstance: boolean, msg: InvocationTest): InvocationTest.AsObject;
+  static serializeBinaryToWriter(message: InvocationTest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): InvocationTest;
+  static deserializeBinaryFromReader(message: InvocationTest, reader: jspb.BinaryReader): InvocationTest;
+}
+
+export namespace InvocationTest {
+  export type AsObject = {
+    invocation?: Invocation.AsObject,
+    targetCaseMap: Array<[string, CaseNameToCaseMap.AsObject]>,
+  }
+}
+
+export class CaseNameToCaseMap extends jspb.Message {
+  getCaseNameMap(): jspb.Map<string, test_suite_pb.TestCase>;
+  clearCaseNameMap(): CaseNameToCaseMap;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): CaseNameToCaseMap.AsObject;
+  static toObject(includeInstance: boolean, msg: CaseNameToCaseMap): CaseNameToCaseMap.AsObject;
+  static serializeBinaryToWriter(message: CaseNameToCaseMap, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): CaseNameToCaseMap;
+  static deserializeBinaryFromReader(message: CaseNameToCaseMap, reader: jspb.BinaryReader): CaseNameToCaseMap;
+}
+
+export namespace CaseNameToCaseMap {
+  export type AsObject = {
+    caseNameMap: Array<[string, test_suite_pb.TestCase.AsObject]>,
   }
 }
 
