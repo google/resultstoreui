@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import {
     Column,
@@ -9,12 +10,18 @@ import {
     TableProps,
 } from 'react-virtualized';
 import TableCell from '@material-ui/core/TableCell';
+import LoadingRow from './LoadingRow';
+
+const FirstLoadingRow = styled(LoadingRow)`
+    margin-top: 15px;
+`;
 
 export interface SelfProps {
     rowHeight: number;
     headerClass?: string;
     cellClass?: string;
     gridClass?: string;
+    isNextPageLoading?: boolean;
 }
 
 export type Props = SelfProps &
@@ -30,6 +37,7 @@ export type Props = SelfProps &
         | 'onRowClick'
         | 'onRowMouseOver'
         | 'onRowMouseOut'
+        | 'rowRenderer'
     > &
     InfiniteLoaderChildProps;
 
@@ -60,6 +68,8 @@ const BaseTable: React.FC<Props> = ({
     gridClass,
     onRowMouseOut,
     onRowMouseOver,
+    isNextPageLoading = false,
+    rowRenderer,
 }) => {
     const classes = useStyles();
 
@@ -109,6 +119,10 @@ const BaseTable: React.FC<Props> = ({
             onRowClick={onRowClick}
             onRowMouseOut={onRowMouseOut}
             onRowMouseOver={onRowMouseOver}
+            noRowsRenderer={() =>
+                isNextPageLoading && <FirstLoadingRow width={width} size={35} />
+            }
+            rowRenderer={rowRenderer}
         >
             {columns.map(({ dataKey, width, ...other }) => {
                 return (

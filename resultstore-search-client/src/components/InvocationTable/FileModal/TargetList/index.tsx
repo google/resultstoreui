@@ -42,7 +42,11 @@ interface SelfProps {
     width: number;
     height: number;
     rowHeight: number;
-    onClick: (name: string, files: Array<file_pb.File>) => void;
+    onClick: (
+        name: string,
+        files: Array<file_pb.File>,
+        isLoadingTableRows: boolean
+    ) => void;
 }
 
 type Props = SelfProps;
@@ -74,7 +78,8 @@ const TargetList: React.FC<Props> = ({
                     `${parent.slice(12)}/${targetName}`,
                     targets[index]
                         .getFilesList()
-                        .concat(response.getFilesList())
+                        .concat(response.getFilesList()),
+                    false
                 );
             }
         };
@@ -85,7 +90,8 @@ const TargetList: React.FC<Props> = ({
                 onClick={() => {
                     onClick(
                         `${parent.slice(12)}/${targetName}`,
-                        targets[index].getFilesList()
+                        targets[index].getFilesList(),
+                        true
                     );
                     listTargetSubFiles(
                         targets[index].getName(),

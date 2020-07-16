@@ -21,6 +21,8 @@ const InfiniteTable: React.FC<Props> = ({
     gridClass,
     onRowMouseOver,
     onRowMouseOut,
+    isNextPageLoading,
+    rowRenderer,
 }) => {
     return (
         <InfiniteLoader
@@ -47,6 +49,8 @@ const InfiniteTable: React.FC<Props> = ({
                     gridClass={gridClass}
                     onRowMouseOver={onRowMouseOver}
                     onRowMouseOut={onRowMouseOut}
+                    isNextPageLoading={isNextPageLoading}
+                    rowRenderer={rowRenderer}
                 />
             )}
         </InfiniteLoader>

@@ -4,27 +4,26 @@ import {
     ColumnProps,
     TableCellRenderer,
     RowMouseEventHandlerParams,
+    defaultTableRowRenderer,
+    TableRowProps,
 } from 'react-virtualized';
 import styled from 'styled-components';
-import Button from '@material-ui/core/Button';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import {
-    InvocationTableProps,
-    ModalState,
-    FileButtonProps,
-    HoverState,
-} from './types';
+import { InvocationTableProps, ModalState, HoverState } from './types';
 import { parseInvocationTableData } from './utils';
 import FileModal from './FileModal';
 import InfiniteTable from '../InfiniteTable';
+import LoadingRow from '../InfiniteTable/BaseTable/LoadingRow';
+import FileButton from './FileButton';
+import StatusIcon from '../StatusIcon';
 
 const HeaderHeight = 60;
 const RowHeight = 48;
 
 const Container = styled(Paper)`
     width: 91.5%;
-    height: 90%;
+    height: calc(98vh - 120px);
     margin-left: auto;
     margin-right: auto;
     margin-top: 20px;
@@ -40,15 +39,33 @@ const FileCell = styled.div`
     border-bottom: 1px solid rgba(224, 224, 224, 1);
 `;
 
-const FileButton = styled(Button)<FileButtonProps>`
-    margin-left: auto;
-    margin-right: auto;
-    visibility: ${({ isVisible }) => (isVisible ? 'visible' : 'hidden')};
+const StatusCell = styled.div`
+    height: ${RowHeight - 1}px;
+    width: 100%;
+    border-bottom: 1px solid rgba(224, 224, 224, 1);
+    margin-left: 5px;
 `;
 
-const createColumns = (fileRenderer: TableCellRenderer) => {
+const StatusContainer = styled.div`
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+`;
+
+const IconStyle: React.CSSProperties = { marginRight: '3px' };
+
+const createColumns = (
+    fileRenderer: TableCellRenderer,
+    statusCellRenderer: TableCellRenderer
+) => {
     const columns: ColumnProps[] = [
-        { dataKey: 'status', label: 'Status', width: 120 },
+        {
+            dataKey: 'status',
+            label: 'Status',
+            width: 150,
+            cellRenderer: statusCellRenderer,
+        },
         { dataKey: 'name', label: 'Name', width: 400 },
         { dataKey: 'labels', label: 'Labels', width: 120 },
         { dataKey: 'date', label: 'Run Date', width: 200 },
@@ -164,9 +181,7 @@ const InvocationTable: React.FC<InvocationTableProps> = ({
 
     const rowGetter = ({ index }) => {
         if (!isRowLoaded({ index })) {
-            return {
-                status: 'Loading...',
-            };
+            return {};
         }
         return rows[index];
     };
@@ -210,16 +225,22 @@ const InvocationTable: React.FC<InvocationTableProps> = ({
         return (
             <FileCell>
                 <FileButton
-                    onClick={(e: React.MouseEvent) =>
-                        openFileModal(rowIndex, e)
-                    }
-                    variant="contained"
                     isVisible={showFileButton()}
                     id={`FileButton-${rowIndex}`}
-                >
-                    Files
-                </FileButton>
+                    onClick={(e) => openFileModal(rowIndex, e)}
+                />
             </FileCell>
+        );
+    };
+
+    const statusCellRenderer: TableCellRenderer = ({ rowData }) => {
+        return (
+            <StatusCell>
+                <StatusContainer>
+                    <StatusIcon name={rowData.status} style={IconStyle} />
+                    {rowData.status}
+                </StatusContainer>
+            </StatusCell>
         );
     };
 
@@ -237,7 +258,19 @@ const InvocationTable: React.FC<InvocationTableProps> = ({
         });
     };
 
-    const columns = createColumns(fileCellRenderer);
+    const columns = createColumns(fileCellRenderer, statusCellRenderer);
+
+    const rowRenderer = (props: TableRowProps) => {
+        const { index, key, style } = props;
+        if (!isRowLoaded({ index })) {
+            return (
+                <div key={key} style={style}>
+                    <LoadingRow width={width} size={20} />
+                </div>
+            );
+        }
+        return defaultTableRowRenderer(props);
+    };
 
     return (
         <Container ref={containerRef} elevation={3} id={'InvocationTable'}>
@@ -258,6 +291,8 @@ const InvocationTable: React.FC<InvocationTableProps> = ({
                 onRowMouseOver={onRowMouseOver}
                 onRowMouseOut={onRowMouseOut}
                 gridClass={classes.tableGrid}
+                isNextPageLoading={isNextPageLoading}
+                rowRenderer={rowRenderer}
             />
             <FileModal
                 isOpen={modalState.isOpen}
