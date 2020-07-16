@@ -1,11 +1,21 @@
 import React, { useRef, useState, useEffect } from 'react';
 import clsx from 'clsx';
+import {
+    ColumnProps,
+    TableCellRenderer,
+    RowMouseEventHandlerParams,
+} from 'react-virtualized';
 import styled from 'styled-components';
+import Button from '@material-ui/core/Button';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import { InvocationTableProps, ModalState } from './types';
+import {
+    InvocationTableProps,
+    ModalState,
+    FileButtonProps,
+    HoverState,
+} from './types';
 import { parseInvocationTableData } from './utils';
-import { ColumnProps } from 'react-virtualized';
 import FileModal from './FileModal';
 import InfiniteTable from '../InfiniteTable';
 
@@ -21,14 +31,39 @@ const Container = styled(Paper)`
     outline: none;
 `;
 
-const columns: ColumnProps[] = [
-    { dataKey: 'status', label: 'Status', width: 120 },
-    { dataKey: 'name', label: 'Name', width: 400 },
-    { dataKey: 'labels', label: 'Labels', width: 120 },
-    { dataKey: 'date', label: 'Run Date', width: 200 },
-    { dataKey: 'duration', label: 'Duration', width: 120 },
-    { dataKey: 'user', label: 'User', width: 400 },
-];
+const FileCell = styled.div`
+    height: ${RowHeight - 1}px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid rgba(224, 224, 224, 1);
+`;
+
+const FileButton = styled(Button)<FileButtonProps>`
+    margin-left: auto;
+    margin-right: auto;
+    visibility: ${({ isVisible }) => (isVisible ? 'visible' : 'hidden')};
+`;
+
+const createColumns = (fileRenderer: TableCellRenderer) => {
+    const columns: ColumnProps[] = [
+        { dataKey: 'status', label: 'Status', width: 120 },
+        { dataKey: 'name', label: 'Name', width: 400 },
+        { dataKey: 'labels', label: 'Labels', width: 120 },
+        { dataKey: 'date', label: 'Run Date', width: 200 },
+        { dataKey: 'duration', label: 'Duration', width: 120 },
+        { dataKey: 'user', label: 'User', width: 400 },
+        {
+            dataKey: 'files',
+            label: '',
+            width: 100,
+            cellRenderer: fileRenderer,
+            flexGrow: 0,
+        },
+    ];
+    return columns;
+};
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -69,6 +104,10 @@ const InvocationTable: React.FC<InvocationTableProps> = ({
     isNextPageLoading,
 }) => {
     const classes = useStyles();
+    const [hoverState, setHoverState] = useState<HoverState>({
+        isHovered: false,
+        rowIndex: -1,
+    });
     const containerRef = useRef<HTMLDivElement>(null);
     const [modalState, setModalState] = useState<ModalState>({
         isOpen: false,
@@ -132,11 +171,13 @@ const InvocationTable: React.FC<InvocationTableProps> = ({
         return rows[index];
     };
 
-    const onRowClick = ({ index }) => {
-        setModalState({
-            isOpen: true,
-            index: index,
-        });
+    const onRowClick = ({ index }: RowMouseEventHandlerParams) => {
+        window.open(
+            `https://source.cloud.google.com/results/${invocations[
+                index
+            ].getName()}`
+        );
+        return false;
     };
 
     const getFiles = () => {
@@ -152,6 +193,51 @@ const InvocationTable: React.FC<InvocationTableProps> = ({
         }
         return '';
     };
+
+    const fileCellRenderer: TableCellRenderer = ({ rowIndex }) => {
+        const openFileModal = (index: number, event: React.MouseEvent) => {
+            event.stopPropagation();
+            setModalState({
+                isOpen: true,
+                index: index,
+            });
+        };
+
+        const showFileButton = () => {
+            return hoverState.isHovered && rowIndex === hoverState.rowIndex;
+        };
+
+        return (
+            <FileCell>
+                <FileButton
+                    onClick={(e: React.MouseEvent) =>
+                        openFileModal(rowIndex, e)
+                    }
+                    variant="contained"
+                    isVisible={showFileButton()}
+                    id={`FileButton-${rowIndex}`}
+                >
+                    Files
+                </FileButton>
+            </FileCell>
+        );
+    };
+
+    const onRowMouseOver = ({ index }: RowMouseEventHandlerParams) => {
+        setHoverState({
+            isHovered: true,
+            rowIndex: index,
+        });
+    };
+
+    const onRowMouseOut = ({ index }: RowMouseEventHandlerParams) => {
+        setHoverState({
+            isHovered: false,
+            rowIndex: index,
+        });
+    };
+
+    const columns = createColumns(fileCellRenderer);
 
     return (
         <Container ref={containerRef} elevation={3} id={'InvocationTable'}>
@@ -169,6 +255,8 @@ const InvocationTable: React.FC<InvocationTableProps> = ({
                 loadMoreRows={loadMoreRows}
                 cellClass={cellClass}
                 headerClass={headerClass}
+                onRowMouseOver={onRowMouseOver}
+                onRowMouseOut={onRowMouseOut}
                 gridClass={classes.tableGrid}
             />
             <FileModal

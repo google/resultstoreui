@@ -33,21 +33,23 @@ context("ResultStoreSearch Home Page", () => {
   });
 
   it("Should display tooltip on hover", () => {
-    cy.get('svg[aria-label="SearchHelp"').trigger("mouseover");
+    cy.get('svg[aria-label="SearchHelp"]').trigger("mouseover");
     cy.get('div[class="MuiTooltip-popper"]').contains(
       'Fields that support equals ("=") restrictions:'
     );
   });
 
-  it("Should open the file modal on row click", () => {
+  it("Should open the file modal on file button click", () => {
     cy.get('input[id="outlined-adornment-amount"]').type("a");
-    cy.get('div[aria-rowindex="1"]').click();
+    cy.get('div[aria-rowindex="1"]').trigger("mouseover");
+    cy.get('button[id="FileButton-0"]').click();
     cy.get('div[id="FileModal"]').should("have.length", 1);
   });
 
   it("Should render files in the file table", () => {
     cy.get('input[id="outlined-adornment-amount"]').type("a");
-    cy.get('div[aria-rowindex="1"]').click();
+    cy.get('div[aria-rowindex="1"]').trigger("mouseover");
+    cy.get('button[id="FileButton-0"]').click();
     cy.get('div[id="InvocationModalRow"]').click();
     cy.get('div[id="FileTable"]').contains("test-file");
   });

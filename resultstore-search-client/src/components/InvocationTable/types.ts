@@ -29,3 +29,12 @@ export interface ModalState {
     isOpen: boolean;
     index: number;
 }
+
+export interface FileButtonProps {
+    isVisible: boolean;
+}
+
+export interface HoverState {
+    isHovered: boolean;
+    rowIndex: number;
+}

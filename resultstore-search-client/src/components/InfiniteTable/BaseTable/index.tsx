@@ -28,6 +28,8 @@ export type Props = SelfProps &
         | 'rowGetter'
         | 'rowClassName'
         | 'onRowClick'
+        | 'onRowMouseOver'
+        | 'onRowMouseOut'
     > &
     InfiniteLoaderChildProps;
 
@@ -56,6 +58,8 @@ const BaseTable: React.FC<Props> = ({
     headerClass,
     cellClass,
     gridClass,
+    onRowMouseOut,
+    onRowMouseOver,
 }) => {
     const classes = useStyles();
 
@@ -103,6 +107,8 @@ const BaseTable: React.FC<Props> = ({
             rowGetter={rowGetter}
             rowCount={rowCount}
             onRowClick={onRowClick}
+            onRowMouseOut={onRowMouseOut}
+            onRowMouseOver={onRowMouseOver}
         >
             {columns.map(({ dataKey, width, ...other }) => {
                 return (
