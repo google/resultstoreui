@@ -233,7 +233,11 @@ def convert_action(action):
     converted_action = resultstoresearch_action_pb2.Action(
         name=action.name,
         test_action=convert_test_action(action.test_action) if hasattr(
-            action, 'test_action') else None
+            action, 'test_action') else None,
+        id=resultstoresearch_action_pb2.Action.Id(invocation_id=action.id.invocation_id,
+                                                  target_id=action.id.target_id,
+                                                  configuration_id=action.id.configuration_id,
+                                                  action_id=action.id.action_id)
     )
     return converted_action
 

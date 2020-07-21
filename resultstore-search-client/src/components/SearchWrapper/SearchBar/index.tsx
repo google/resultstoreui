@@ -7,6 +7,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import * as invocation_pb from '../../../api/invocation_pb';
 import SearchTooltip from './SearchTooltip';
 import SearchButton from './SearchButton';
+import FlakyTestButton from './FlakyTestButton';
 import { State as PageWrapperState } from '../';
 
 interface QueryPrefix {
@@ -53,8 +54,13 @@ export interface State {
 
 export interface SearchBarProps {
     setQueryParent: (query: PageWrapperState['query']) => void;
+    queryParent: PageWrapperState['query'];
     hasError: boolean;
     loading: boolean;
+    onFlakyTestClick?: () => void;
+    showSearchButton?: boolean;
+    showFlakyTestButton?: boolean;
+    disabled: boolean;
 }
 
 /*
@@ -62,8 +68,13 @@ SearchBar component to search for invocations by query string
 */
 const SearchBar: React.FC<SearchBarProps> = ({
     setQueryParent,
+    queryParent,
     hasError,
     loading,
+    showSearchButton = true,
+    showFlakyTestButton = true,
+    onFlakyTestClick,
+    disabled,
 }) => {
     const [query, setQuery] = React.useState<State['query']>('');
     const classes = useStyles();
@@ -132,10 +143,19 @@ const SearchBar: React.FC<SearchBarProps> = ({
                     ></Autocomplete>
                 </FormControl>
             </div>
-            <SearchButton
-                showSpinner={loading}
-                onClick={() => setQueryParent(query)}
-            />
+            {showSearchButton && (
+                <SearchButton
+                    showSpinner={loading}
+                    onClick={() => setQueryParent(query)}
+                    disabled={disabled}
+                />
+            )}
+            {showFlakyTestButton && (
+                <FlakyTestButton
+                    onClick={onFlakyTestClick}
+                    disabled={disabled || queryParent === ''}
+                />
+            )}
         </>
     );
 };

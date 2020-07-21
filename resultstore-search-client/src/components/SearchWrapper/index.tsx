@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
 import InvocationTable from '../InvocationTable';
 import SearchBar, { State as SearchBarState } from './SearchBar';
 import { InvocationTableProps } from '../InvocationTable/types';
@@ -7,8 +8,10 @@ import ToolSelect, { ToolSelectProps } from './ToolSelect';
 import {
     searchInvocations,
     SearchInvocationCallback,
+    getTestCases,
+    GetTestCasesCallback,
 } from '../../api/client/client';
-import { toSentenceCase } from '../../utils/utils';
+import { toSentenceCase } from '../../utils';
 import ErrorText from '../ErrorText';
 import GoogleButton from '../GoogleButton';
 import { Error } from '../ErrorText';
@@ -20,12 +23,6 @@ const SearchContainer = styled.div`
     margin-top: 10px;
     margin-left: auto;
     margin-right: auto;
-`;
-
-const AppContainer = styled.div`
-    height: 98vh;
-    width: 98vw;
-    margin: 0 auto 0 auto;
 `;
 
 export interface State {
@@ -41,6 +38,7 @@ Wrapper around SearchBar and InvocationTable that passes invocations
 returned from SearchBar to the InvocationTable to be rendered
 */
 const SearchWrapper: React.FC = () => {
+    const history = useHistory();
     const authContext = useContext(AuthContext);
     const [invocations, setInvocations] = useState<
         InvocationTableProps['invocations']
@@ -72,13 +70,6 @@ const SearchWrapper: React.FC = () => {
             searchInvocationsCallback
         );
     };
-
-    useEffect(() => {
-        if (query !== '') {
-            setPageToken('');
-            nextRows(true, '');
-        }
-    }, [query]);
 
     const searchInvocationsCallback: SearchInvocationCallback = (
         err,
@@ -113,8 +104,38 @@ const SearchWrapper: React.FC = () => {
         }
     };
 
+    const getTestCasesCallback: GetTestCasesCallback = (err, response) => {
+        setIsNextPageLoading(false);
+        if (err) {
+            console.error(err);
+        } else {
+            history.push('/flaky-test', {
+                invocationsTestList: response.serializeBinary(),
+            });
+        }
+    };
+
+    const onFlakyTestClick = () => {
+        setIsNextPageLoading(true);
+        getTestCases(
+            query,
+            selectedTool,
+            pageToken,
+            authContext.tokenId,
+            invocations,
+            getTestCasesCallback
+        );
+    };
+
+    useEffect(() => {
+        if (query !== '') {
+            setPageToken('');
+            nextRows(true, '');
+        }
+    }, [query]);
+
     return (
-        <AppContainer>
+        <>
             <SearchContainer>
                 <ToolSelect
                     toolsList={toolsList}
@@ -126,6 +147,9 @@ const SearchWrapper: React.FC = () => {
                     setQueryParent={setQuery}
                     hasError={error.hasError}
                     loading={isNextPageLoading && pageToken === ''}
+                    disabled={isNextPageLoading}
+                    onFlakyTestClick={onFlakyTestClick}
+                    queryParent={query}
                 />
                 <GoogleButton />
             </SearchContainer>
@@ -137,7 +161,7 @@ const SearchWrapper: React.FC = () => {
                 isNextPageLoading={isNextPageLoading}
                 tokenID={authContext.tokenId}
             />
-        </AppContainer>
+        </>
     );
 };
 

@@ -25,11 +25,22 @@ interface Props {
     showSpinner: boolean;
     size?: number;
     onClick?: () => void;
+    disabled?: boolean;
 }
 
-const SearchButton: React.FC<Props> = ({ showSpinner, size = 25, onClick }) => {
+const SearchButton: React.FC<Props> = ({
+    showSpinner,
+    size = 25,
+    onClick,
+    disabled,
+}) => {
     return (
-        <SearchButtonContainer variant="outlined" onClick={onClick}>
+        <SearchButtonContainer
+            variant="outlined"
+            onClick={onClick}
+            title={'Search'}
+            disabled={disabled}
+        >
             {showSpinner && <TableSpinner size={size} />}
             {!showSpinner && <SearchIcon />}
         </SearchButtonContainer>

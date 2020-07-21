@@ -4,6 +4,7 @@ import BuildIcon from '@material-ui/icons/Build';
 import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 import TimerIcon from '@material-ui/icons/Timer';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import ErrorIcon from '@material-ui/icons/Error';
 
 interface Props {
     name:
@@ -65,6 +66,15 @@ const StatusIcon: React.FC<Props> = ({ name, style }) => {
                 <HelpOutlineIcon
                     fontSize={'small'}
                     htmlColor={'#252422'}
+                    style={style}
+                />
+            );
+        }
+        case 'FAILED': {
+            return (
+                <ErrorIcon
+                    fontSize={'small'}
+                    htmlColor={'#d73f35'}
                     style={style}
                 />
             );

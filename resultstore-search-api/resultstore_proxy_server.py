@@ -12,7 +12,7 @@ from google.cloud import storage
 import logging
 import grpc
 
-GET_TEST_CASES_FIELD_MASK = 'next_page_token,actions.test_action,actions.name,actions.test_action.test_suite'
+GET_TEST_CASES_FIELD_MASK = 'next_page_token,actions.test_action,actions.name,actions.test_action.test_suite,actions.id'
 
 _LOGGER = logging.getLogger(__name__)
 _LOGGER.setLevel(logging.INFO)
@@ -237,7 +237,6 @@ class ProxyServer(
             page_token = response.next_page_token
 
         page_token = ''
-        first_request = True
         stub = resultstore_download_pb2_grpc.ResultStoreDownloadStub(
             self.channel)
         metadata = [
@@ -246,6 +245,7 @@ class ProxyServer(
         invocation_tests = []
 
         for invocation in invocations:
+            first_request = True
             action_parent = '{}/targets/-/configuredTargets/-'.format(
                 invocation.name)
             while page_token != '' or first_request:
