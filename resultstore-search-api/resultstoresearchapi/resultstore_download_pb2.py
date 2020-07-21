@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x1aresultstore_download.proto\x12\x14resultstoresearch.v1\x1a\x10invocation.proto\x1a\x0ctarget.proto\x1a\nfile.proto\"\xa9\x01\n\x18SearchInvocationsRequest\x12\x11\n\tpage_size\x18\x01 \x01(\x05\x12\x14\n\npage_token\x18\x02 \x01(\tH\x00\x12\x10\n\x06offset\x18\x03 \x01(\x03H\x00\x12\r\n\x05query\x18\x04 \x01(\t\x12\x12\n\nproject_id\x18\x05 \x01(\t\x12\x13\n\x0b\x65xact_match\x18\x07 \x01(\x08\x12\x0c\n\x04tool\x18\x08 \x01(\tB\x0c\n\npage_start\"\x7f\n\x19SearchInvocationsResponse\x12\x35\n\x0binvocations\x18\x01 \x03(\x0b\x32 .resultstoresearch.v1.Invocation\x12\x17\n\x0fnext_page_token\x18\x02 \x01(\t\x12\x12\n\ntools_list\x18\x03 \x03(\t\"$\n\x14GetInvocationRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"}\n\x12ListTargetsRequest\x12\x0e\n\x06parent\x18\x01 \x01(\t\x12\x11\n\tpage_size\x18\x02 \x01(\x05\x12\x14\n\npage_token\x18\x03 \x01(\tH\x00\x12\x10\n\x06offset\x18\x04 \x01(\x03H\x00\x12\x0e\n\x06\x66ilter\x18\x05 \x01(\tB\x0c\n\npage_start\"]\n\x13ListTargetsResponse\x12-\n\x07targets\x18\x01 \x03(\x0b\x32\x1c.resultstoresearch.v1.Target\x12\x17\n\x0fnext_page_token\x18\x02 \x01(\t\"+\n\x19ListTargetSubFilesRequest\x12\x0e\n\x06parent\x18\x01 \x01(\t\"G\n\x1aListTargetSubFilesResponse\x12)\n\x05\x66iles\x18\x01 \x03(\x0b\x32\x1a.resultstoresearch.v1.File\"]\n\x0eGetFileRequest\x12\x0b\n\x03uri\x18\x01 \x01(\t\x12\x13\n\x0bread_offset\x18\x02 \x01(\x03\x12\x12\n\nread_limit\x18\x03 \x01(\x03\x12\x15\n\rarchive_entry\x18\x04 \x01(\t\"\x1f\n\x0fGetFileResponse\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x0c\"\x18\n\x16GetInitialStateRequest\"-\n\x17GetInitialStateResponse\x12\x12\n\ntools_list\x18\x01 \x03(\t\"(\n\x13\x44ownloadFileRequest\x12\x11\n\tfile_name\x18\x01 \x01(\t\")\n\x14\x44ownloadFileResponse\x12\x11\n\tfile_data\x18\x01 \x01(\t2\xf8\x05\n\x13ResultStoreDownload\x12t\n\x11SearchInvocations\x12..resultstoresearch.v1.SearchInvocationsRequest\x1a/.resultstoresearch.v1.SearchInvocationsResponse\x12]\n\rGetInvocation\x12*.resultstoresearch.v1.GetInvocationRequest\x1a .resultstoresearch.v1.Invocation\x12\x62\n\x0bListTargets\x12(.resultstoresearch.v1.ListTargetsRequest\x1a).resultstoresearch.v1.ListTargetsResponse\x12w\n\x12ListTargetSubFiles\x12/.resultstoresearch.v1.ListTargetSubFilesRequest\x1a\x30.resultstoresearch.v1.ListTargetSubFilesResponse\x12X\n\x07GetFile\x12$.resultstoresearch.v1.GetFileRequest\x1a%.resultstoresearch.v1.GetFileResponse0\x01\x12\x65\n\x0c\x44ownloadFile\x12).resultstoresearch.v1.DownloadFileRequest\x1a*.resultstoresearch.v1.DownloadFileResponse\x12n\n\x0fGetInitialState\x12,.resultstoresearch.v1.GetInitialStateRequest\x1a-.resultstoresearch.v1.GetInitialStateResponseb\x06proto3'
+  serialized_pb=b'\n\x1aresultstore_download.proto\x12\x14resultstoresearch.v1\x1a\x10invocation.proto\x1a\x0ctarget.proto\x1a\nfile.proto\"\xa9\x01\n\x18SearchInvocationsRequest\x12\x11\n\tpage_size\x18\x01 \x01(\x05\x12\x14\n\npage_token\x18\x02 \x01(\tH\x00\x12\x10\n\x06offset\x18\x03 \x01(\x03H\x00\x12\r\n\x05query\x18\x04 \x01(\t\x12\x12\n\nproject_id\x18\x05 \x01(\t\x12\x13\n\x0b\x65xact_match\x18\x07 \x01(\x08\x12\x0c\n\x04tool\x18\x08 \x01(\tB\x0c\n\npage_start\"\x7f\n\x19SearchInvocationsResponse\x12\x35\n\x0binvocations\x18\x01 \x03(\x0b\x32 .resultstoresearch.v1.Invocation\x12\x17\n\x0fnext_page_token\x18\x02 \x01(\t\x12\x12\n\ntools_list\x18\x03 \x03(\t\"$\n\x14GetInvocationRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"}\n\x12ListTargetsRequest\x12\x0e\n\x06parent\x18\x01 \x01(\t\x12\x11\n\tpage_size\x18\x02 \x01(\x05\x12\x14\n\npage_token\x18\x03 \x01(\tH\x00\x12\x10\n\x06offset\x18\x04 \x01(\x03H\x00\x12\x0e\n\x06\x66ilter\x18\x05 \x01(\tB\x0c\n\npage_start\"]\n\x13ListTargetsResponse\x12-\n\x07targets\x18\x01 \x03(\x0b\x32\x1c.resultstoresearch.v1.Target\x12\x17\n\x0fnext_page_token\x18\x02 \x01(\t\"+\n\x19ListTargetSubFilesRequest\x12\x0e\n\x06parent\x18\x01 \x01(\t\"G\n\x1aListTargetSubFilesResponse\x12)\n\x05\x66iles\x18\x01 \x03(\x0b\x32\x1a.resultstoresearch.v1.File\"]\n\x0eGetFileRequest\x12\x0b\n\x03uri\x18\x01 \x01(\t\x12\x13\n\x0bread_offset\x18\x02 \x01(\x03\x12\x12\n\nread_limit\x18\x03 \x01(\x03\x12\x15\n\rarchive_entry\x18\x04 \x01(\t\"\x1f\n\x0fGetFileResponse\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x0c\"\x18\n\x16GetInitialStateRequest\"-\n\x17GetInitialStateResponse\x12\x12\n\ntools_list\x18\x01 \x03(\t\"(\n\x13\x44ownloadFileRequest\x12\x11\n\tfile_name\x18\x01 \x01(\t\")\n\x14\x44ownloadFileResponse\x12\x11\n\tfile_data\x18\x01 \x01(\t\"<\n\x0fTestSuiteFilter\x12\x17\n\x0ftest_suite_name\x18\x01 \x01(\t\x12\x10\n\x08tool_tag\x18\x02 \x01(\t\"\xa4\x01\n\x13GetTestCasesRequest\x12\x11\n\tpage_size\x18\x01 \x01(\x05\x12\x35\n\x0binvocations\x18\x02 \x03(\x0b\x32 .resultstoresearch.v1.Invocation\x12\x12\n\npage_token\x18\x03 \x01(\t\x12\r\n\x05query\x18\x04 \x01(\t\x12\x12\n\nproject_id\x18\x05 \x01(\t\x12\x0c\n\x04tool\x18\x06 \x01(\t\"V\n\x14GetTestCasesResponse\x12>\n\x10invocation_tests\x18\x02 \x03(\x0b\x32$.resultstoresearch.v1.InvocationTest2\xdf\x06\n\x13ResultStoreDownload\x12t\n\x11SearchInvocations\x12..resultstoresearch.v1.SearchInvocationsRequest\x1a/.resultstoresearch.v1.SearchInvocationsResponse\x12]\n\rGetInvocation\x12*.resultstoresearch.v1.GetInvocationRequest\x1a .resultstoresearch.v1.Invocation\x12\x62\n\x0bListTargets\x12(.resultstoresearch.v1.ListTargetsRequest\x1a).resultstoresearch.v1.ListTargetsResponse\x12w\n\x12ListTargetSubFiles\x12/.resultstoresearch.v1.ListTargetSubFilesRequest\x1a\x30.resultstoresearch.v1.ListTargetSubFilesResponse\x12X\n\x07GetFile\x12$.resultstoresearch.v1.GetFileRequest\x1a%.resultstoresearch.v1.GetFileResponse0\x01\x12\x65\n\x0c\x44ownloadFile\x12).resultstoresearch.v1.DownloadFileRequest\x1a*.resultstoresearch.v1.DownloadFileResponse\x12n\n\x0fGetInitialState\x12,.resultstoresearch.v1.GetInitialStateRequest\x1a-.resultstoresearch.v1.GetInitialStateResponse\x12\x65\n\x0cGetTestCases\x12).resultstoresearch.v1.GetTestCasesRequest\x1a*.resultstoresearch.v1.GetTestCasesResponseb\x06proto3'
   ,
   dependencies=[invocation__pb2.DESCRIPTOR,target__pb2.DESCRIPTOR,file__pb2.DESCRIPTOR,])
 
@@ -559,6 +559,144 @@ _DOWNLOADFILERESPONSE = _descriptor.Descriptor(
   serialized_end=1059,
 )
 
+
+_TESTSUITEFILTER = _descriptor.Descriptor(
+  name='TestSuiteFilter',
+  full_name='resultstoresearch.v1.TestSuiteFilter',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='test_suite_name', full_name='resultstoresearch.v1.TestSuiteFilter.test_suite_name', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='tool_tag', full_name='resultstoresearch.v1.TestSuiteFilter.tool_tag', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1061,
+  serialized_end=1121,
+)
+
+
+_GETTESTCASESREQUEST = _descriptor.Descriptor(
+  name='GetTestCasesRequest',
+  full_name='resultstoresearch.v1.GetTestCasesRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='page_size', full_name='resultstoresearch.v1.GetTestCasesRequest.page_size', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='invocations', full_name='resultstoresearch.v1.GetTestCasesRequest.invocations', index=1,
+      number=2, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='page_token', full_name='resultstoresearch.v1.GetTestCasesRequest.page_token', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='query', full_name='resultstoresearch.v1.GetTestCasesRequest.query', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='project_id', full_name='resultstoresearch.v1.GetTestCasesRequest.project_id', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='tool', full_name='resultstoresearch.v1.GetTestCasesRequest.tool', index=5,
+      number=6, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1124,
+  serialized_end=1288,
+)
+
+
+_GETTESTCASESRESPONSE = _descriptor.Descriptor(
+  name='GetTestCasesResponse',
+  full_name='resultstoresearch.v1.GetTestCasesResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='invocation_tests', full_name='resultstoresearch.v1.GetTestCasesResponse.invocation_tests', index=0,
+      number=2, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1290,
+  serialized_end=1376,
+)
+
 _SEARCHINVOCATIONSREQUEST.oneofs_by_name['page_start'].fields.append(
   _SEARCHINVOCATIONSREQUEST.fields_by_name['page_token'])
 _SEARCHINVOCATIONSREQUEST.fields_by_name['page_token'].containing_oneof = _SEARCHINVOCATIONSREQUEST.oneofs_by_name['page_start']
@@ -574,6 +712,8 @@ _LISTTARGETSREQUEST.oneofs_by_name['page_start'].fields.append(
 _LISTTARGETSREQUEST.fields_by_name['offset'].containing_oneof = _LISTTARGETSREQUEST.oneofs_by_name['page_start']
 _LISTTARGETSRESPONSE.fields_by_name['targets'].message_type = target__pb2._TARGET
 _LISTTARGETSUBFILESRESPONSE.fields_by_name['files'].message_type = file__pb2._FILE
+_GETTESTCASESREQUEST.fields_by_name['invocations'].message_type = invocation__pb2._INVOCATION
+_GETTESTCASESRESPONSE.fields_by_name['invocation_tests'].message_type = invocation__pb2._INVOCATIONTEST
 DESCRIPTOR.message_types_by_name['SearchInvocationsRequest'] = _SEARCHINVOCATIONSREQUEST
 DESCRIPTOR.message_types_by_name['SearchInvocationsResponse'] = _SEARCHINVOCATIONSRESPONSE
 DESCRIPTOR.message_types_by_name['GetInvocationRequest'] = _GETINVOCATIONREQUEST
@@ -587,6 +727,9 @@ DESCRIPTOR.message_types_by_name['GetInitialStateRequest'] = _GETINITIALSTATEREQ
 DESCRIPTOR.message_types_by_name['GetInitialStateResponse'] = _GETINITIALSTATERESPONSE
 DESCRIPTOR.message_types_by_name['DownloadFileRequest'] = _DOWNLOADFILEREQUEST
 DESCRIPTOR.message_types_by_name['DownloadFileResponse'] = _DOWNLOADFILERESPONSE
+DESCRIPTOR.message_types_by_name['TestSuiteFilter'] = _TESTSUITEFILTER
+DESCRIPTOR.message_types_by_name['GetTestCasesRequest'] = _GETTESTCASESREQUEST
+DESCRIPTOR.message_types_by_name['GetTestCasesResponse'] = _GETTESTCASESRESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 SearchInvocationsRequest = _reflection.GeneratedProtocolMessageType('SearchInvocationsRequest', (_message.Message,), {
@@ -680,6 +823,27 @@ DownloadFileResponse = _reflection.GeneratedProtocolMessageType('DownloadFileRes
   })
 _sym_db.RegisterMessage(DownloadFileResponse)
 
+TestSuiteFilter = _reflection.GeneratedProtocolMessageType('TestSuiteFilter', (_message.Message,), {
+  'DESCRIPTOR' : _TESTSUITEFILTER,
+  '__module__' : 'resultstore_download_pb2'
+  # @@protoc_insertion_point(class_scope:resultstoresearch.v1.TestSuiteFilter)
+  })
+_sym_db.RegisterMessage(TestSuiteFilter)
+
+GetTestCasesRequest = _reflection.GeneratedProtocolMessageType('GetTestCasesRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETTESTCASESREQUEST,
+  '__module__' : 'resultstore_download_pb2'
+  # @@protoc_insertion_point(class_scope:resultstoresearch.v1.GetTestCasesRequest)
+  })
+_sym_db.RegisterMessage(GetTestCasesRequest)
+
+GetTestCasesResponse = _reflection.GeneratedProtocolMessageType('GetTestCasesResponse', (_message.Message,), {
+  'DESCRIPTOR' : _GETTESTCASESRESPONSE,
+  '__module__' : 'resultstore_download_pb2'
+  # @@protoc_insertion_point(class_scope:resultstoresearch.v1.GetTestCasesResponse)
+  })
+_sym_db.RegisterMessage(GetTestCasesResponse)
+
 
 
 _RESULTSTOREDOWNLOAD = _descriptor.ServiceDescriptor(
@@ -689,8 +853,8 @@ _RESULTSTOREDOWNLOAD = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1062,
-  serialized_end=1822,
+  serialized_start=1379,
+  serialized_end=2242,
   methods=[
   _descriptor.MethodDescriptor(
     name='SearchInvocations',
@@ -759,6 +923,16 @@ _RESULTSTOREDOWNLOAD = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_GETINITIALSTATEREQUEST,
     output_type=_GETINITIALSTATERESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetTestCases',
+    full_name='resultstoresearch.v1.ResultStoreDownload.GetTestCases',
+    index=7,
+    containing_service=None,
+    input_type=_GETTESTCASESREQUEST,
+    output_type=_GETTESTCASESRESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),

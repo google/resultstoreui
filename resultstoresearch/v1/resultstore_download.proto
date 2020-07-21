@@ -55,6 +55,8 @@ service ResultStoreDownload {
   rpc DownloadFile(DownloadFileRequest) returns (DownloadFileResponse);
 
   rpc GetInitialState(GetInitialStateRequest) returns (GetInitialStateResponse);
+
+  rpc GetTestCases(GetTestCasesRequest) returns (GetTestCasesResponse);
 }
 
 // Request passed into SearchInvocations
@@ -218,3 +220,22 @@ message DownloadFileRequest {
 message DownloadFileResponse {
   string file_data = 1;
 }
+
+message TestSuiteFilter {
+  string test_suite_name = 1;
+  string tool_tag = 2;
+}
+
+message GetTestCasesRequest {
+  int32 page_size = 1;
+  repeated Invocation invocations = 2;
+  string page_token = 3;
+  string query = 4;
+  string project_id = 5;
+  string tool = 6;
+}
+
+message GetTestCasesResponse {
+  repeated InvocationTest invocation_tests = 2;
+}
+

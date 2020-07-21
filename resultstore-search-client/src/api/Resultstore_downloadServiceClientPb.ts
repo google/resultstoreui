@@ -25,6 +25,8 @@ import {
   GetInitialStateRequest,
   GetInitialStateResponse,
   GetInvocationRequest,
+  GetTestCasesRequest,
+  GetTestCasesResponse,
   ListTargetSubFilesRequest,
   ListTargetSubFilesResponse,
   ListTargetsRequest,
@@ -301,6 +303,45 @@ export class ResultStoreDownloadClient {
     request,
     metadata || {},
     this.methodInfoGetInitialState);
+  }
+
+  methodInfoGetTestCases = new grpcWeb.AbstractClientBase.MethodInfo(
+    GetTestCasesResponse,
+    (request: GetTestCasesRequest) => {
+      return request.serializeBinary();
+    },
+    GetTestCasesResponse.deserializeBinary
+  );
+
+  getTestCases(
+    request: GetTestCasesRequest,
+    metadata: grpcWeb.Metadata | null): Promise<GetTestCasesResponse>;
+
+  getTestCases(
+    request: GetTestCasesRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: GetTestCasesResponse) => void): grpcWeb.ClientReadableStream<GetTestCasesResponse>;
+
+  getTestCases(
+    request: GetTestCasesRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: GetTestCasesResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        new URL('/resultstoresearch.v1.ResultStoreDownload/GetTestCases', this.hostname_).toString(),
+        request,
+        metadata || {},
+        this.methodInfoGetTestCases,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/resultstoresearch.v1.ResultStoreDownload/GetTestCases',
+    request,
+    metadata || {},
+    this.methodInfoGetTestCases);
   }
 
 }

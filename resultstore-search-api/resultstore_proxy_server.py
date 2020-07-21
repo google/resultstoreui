@@ -5,10 +5,14 @@ from resultstoresearchapi import (
     resultstore_download_pb2 as resultstoresearch_download_pb2,
 )
 from proxy_server_utils import (configure_grpc_error, filter_tool,
-                                update_tools_list, convert_files)
+                                update_tools_list, convert_files,
+                                convert_invocation, parse_tests, convert_actions,
+                                convert_invocations)
 from google.cloud import storage
 import logging
 import grpc
+
+GET_TEST_CASES_FIELD_MASK = 'next_page_token,actions.test_action,actions.name,actions.test_action.test_suite'
 
 _LOGGER = logging.getLogger(__name__)
 _LOGGER.setLevel(logging.INFO)
@@ -50,26 +54,7 @@ class ProxyServer(
             page_size=request.page_size,
             page_token=request.page_token,
         )
-        metadata = context.invocation_metadata()
-        stub = resultstore_download_pb2_grpc.ResultStoreDownloadStub(
-            self.channel)
-        try:
-            response = stub.SearchInvocations(new_request, metadata=metadata)
-        except grpc.RpcError as rpc_error:
-            _LOGGER.error('Received error: %s', rpc_error)
-            configure_grpc_error(context, rpc_error)
-            return resultstoresearch_download_pb2.SearchInvocationsResponse()
-        else:
-            _LOGGER.info('Received message: %s', response)
-            tools_list = self.fs.get_tools()
-            tools_list = update_tools_list(response.invocations, tools_list,
-                                           self.fs)
-            filtered_invocations = filter_tool(response.invocations,
-                                               request.tool)
-            return resultstoresearch_download_pb2.SearchInvocationsResponse(
-                invocations=filtered_invocations,
-                next_page_token=response.next_page_token,
-                tools_list=list(tools_list))
+        return self._search_helper(new_request, request.tool, context)
 
     def GetInvocation(self, request, context):
         """
@@ -233,3 +218,72 @@ class ProxyServer(
             return resultstoresearch_download_pb2.DownloadFileResponse()
         else:
             return resultstoresearch_download_pb2.DownloadFileResponse(file_data=file_data)
+
+    def GetTestCases(self, request, context):
+        _LOGGER.info('Received request: %s', request)
+        invocations = convert_invocations(request.invocations)
+        page_token = request.page_token
+        first_request = len(invocations) == 0
+        while (first_request or page_token != ''):
+            first_request = False
+            new_request = resultstore_download_pb2.SearchInvocationsRequest(
+                query=request.query,
+                project_id=request.project_id,
+                page_size=request.page_size,
+                page_token=page_token,
+            )
+            response = self._search_helper(new_request, request.tool, context)
+            invocations += response.invocations
+            page_token = response.next_page_token
+
+        page_token = ''
+        first_request = True
+        stub = resultstore_download_pb2_grpc.ResultStoreDownloadStub(
+            self.channel)
+        metadata = [
+            ('x-goog-fieldmask', GET_TEST_CASES_FIELD_MASK)]
+
+        invocation_tests = []
+
+        for invocation in invocations:
+            action_parent = '{}/targets/-/configuredTargets/-'.format(
+                invocation.name)
+            while page_token != '' or first_request:
+                first_request = False
+                list_actions_request = resultstore_download_pb2.ListActionsRequest(
+                    parent=action_parent,
+                    page_size=200,
+                    page_token=page_token
+                )
+                list_actions_response = stub.ListActions(
+                    list_actions_request, metadata=metadata)
+                actions = list_actions_response.actions
+                new_actions = convert_actions(actions)
+                page_token = list_actions_response.next_page_token
+                invocation_test = parse_tests(
+                    invocation, new_actions)
+                invocation_tests.append(invocation_test)
+        return resultstoresearch_download_pb2.GetTestCasesResponse(
+            invocation_tests=invocation_tests
+        )
+
+    def _search_helper(self, request, tool, context):
+        metadata = context.invocation_metadata()
+        stub = resultstore_download_pb2_grpc.ResultStoreDownloadStub(
+            self.channel)
+        try:
+            response = stub.SearchInvocations(request, metadata=metadata)
+        except grpc.RpcError as rpc_error:
+            _LOGGER.error('Received error: %s', rpc_error)
+            configure_grpc_error(context, rpc_error)
+            return resultstoresearch_download_pb2.SearchInvocationsResponse()
+        else:
+            _LOGGER.info('Received message: %s', response)
+            tools_list = self.fs.get_tools()
+            tools_list = update_tools_list(response.invocations, tools_list,
+                                           self.fs)
+            filtered_invocations = filter_tool(response.invocations, tool)
+            return resultstoresearch_download_pb2.SearchInvocationsResponse(
+                invocations=filtered_invocations,
+                next_page_token=response.next_page_token,
+                tools_list=list(tools_list))

@@ -55,6 +55,11 @@ class ResultStoreDownloadStub(object):
                 request_serializer=resultstore__download__pb2.GetInitialStateRequest.SerializeToString,
                 response_deserializer=resultstore__download__pb2.GetInitialStateResponse.FromString,
                 )
+        self.GetTestCases = channel.unary_unary(
+                '/resultstoresearch.v1.ResultStoreDownload/GetTestCases',
+                request_serializer=resultstore__download__pb2.GetTestCasesRequest.SerializeToString,
+                response_deserializer=resultstore__download__pb2.GetTestCasesResponse.FromString,
+                )
 
 
 class ResultStoreDownloadServicer(object):
@@ -136,6 +141,12 @@ class ResultStoreDownloadServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetTestCases(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_ResultStoreDownloadServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -173,6 +184,11 @@ def add_ResultStoreDownloadServicer_to_server(servicer, server):
                     servicer.GetInitialState,
                     request_deserializer=resultstore__download__pb2.GetInitialStateRequest.FromString,
                     response_serializer=resultstore__download__pb2.GetInitialStateResponse.SerializeToString,
+            ),
+            'GetTestCases': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetTestCases,
+                    request_deserializer=resultstore__download__pb2.GetTestCasesRequest.FromString,
+                    response_serializer=resultstore__download__pb2.GetTestCasesResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -298,5 +314,21 @@ class ResultStoreDownload(object):
         return grpc.experimental.unary_unary(request, target, '/resultstoresearch.v1.ResultStoreDownload/GetInitialState',
             resultstore__download__pb2.GetInitialStateRequest.SerializeToString,
             resultstore__download__pb2.GetInitialStateResponse.FromString,
+            options, channel_credentials,
+            call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetTestCases(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/resultstoresearch.v1.ResultStoreDownload/GetTestCases',
+            resultstore__download__pb2.GetTestCasesRequest.SerializeToString,
+            resultstore__download__pb2.GetTestCasesResponse.FromString,
             options, channel_credentials,
             call_credentials, compression, wait_for_ready, timeout, metadata)
