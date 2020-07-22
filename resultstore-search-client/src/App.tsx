@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import SearchWrapper from './components/SearchWrapper';
 import FilePage from './Pages/FilePage';
+import Home from './Pages/HomePage';
+import FlakyTest from './Pages/FlakyTestPage';
 import { AuthContext, TokenId } from './contexts/AuthContext';
 
 function App() {
@@ -11,9 +12,10 @@ function App() {
             <Router>
                 <Switch>
                     <Route exact path="/">
-                        <SearchWrapper />
+                        <Home />
                     </Route>
                     <Route exact path="/file" component={FilePage} />
+                    <Route exact path="/flaky-test" component={FlakyTest} />
                 </Switch>
             </Router>
         </AuthContext.Provider>

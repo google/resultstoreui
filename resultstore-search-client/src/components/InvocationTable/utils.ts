@@ -2,6 +2,7 @@ import moment from 'moment';
 import invocation_pb from '../../api/invocation_pb';
 import common_pb from '../../api/common_pb';
 import { Data } from './types';
+import { getDate } from '../../utils';
 
 /*
 Parses invocation returned from search into invocation table consumable data
@@ -33,16 +34,6 @@ export const parseInvocationTableData = (
 /*
 Helper functions to format invocation table data
 */
-
-const getDate = (timing: common_pb.Timing | undefined) => {
-    const startTiming =
-        (timing &&
-            timing.getStartTime() &&
-            timing.getStartTime().getSeconds()) ||
-        0;
-    const startTime = moment.unix(startTiming);
-    return startTime.format('YYYY-MM-DD, hh:mm A');
-};
 
 const getUser = (
     invocationAttributes: invocation_pb.InvocationAttributes | undefined,
