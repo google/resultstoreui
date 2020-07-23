@@ -58,6 +58,9 @@ const SearchWrapper: React.FC = () => {
     const [isNextPageLoading, setIsNextPageLoading] = React.useState<
         State['isNextPageLoading']
     >(false);
+    const [isFlakyProcessing, setIsFlakyProcessing] = React.useState<
+        State['isNextPageLoading']
+    >(false);
 
     const nextRows = (newQuery: boolean, pageToken: string) => {
         setIsNextPageLoading(true);
@@ -105,7 +108,7 @@ const SearchWrapper: React.FC = () => {
     };
 
     const getTestCasesCallback: GetTestCasesCallback = (err, response) => {
-        setIsNextPageLoading(false);
+        setIsFlakyProcessing(false);
         if (err) {
             console.error(err);
         } else {
@@ -116,7 +119,7 @@ const SearchWrapper: React.FC = () => {
     };
 
     const onFlakyTestClick = () => {
-        setIsNextPageLoading(true);
+        setIsFlakyProcessing(true);
         getTestCases(
             query,
             selectedTool,
@@ -154,7 +157,8 @@ const SearchWrapper: React.FC = () => {
                     setQueryParent={setQuery}
                     hasError={error.hasError}
                     loading={isNextPageLoading && pageToken === ''}
-                    disabled={isNextPageLoading}
+                    searchDisabled={isNextPageLoading}
+                    flakyDisabled={isFlakyProcessing}
                     onFlakyTestClick={onFlakyTestClick}
                     queryParent={query}
                 />
