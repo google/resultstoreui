@@ -12,6 +12,10 @@ const ButtonContainer = styled(Button)`
     font-size: 17px !important;
 `;
 
+const TextContainer = styled.span`
+    margin-left: 4px;
+`;
+
 interface Props {
     onClick: () => void;
     disabled: boolean;
@@ -26,6 +30,7 @@ const FlakyTestButton: React.FC<Props> = ({ onClick, disabled }) => {
             disabled={disabled}
         >
             <DirectionsRunIcon />
+            <TextContainer>{'Flaky '}</TextContainer>
         </ButtonContainer>
     );
 };

@@ -19,6 +19,11 @@ const TableSpinner = styled(CircularProgress)`
 
 const SearchIcon = styled(Search)`
     color: #6e6e6e !important;
+    font-size: 25px !important;
+`;
+
+const TextContainer = styled.span`
+    margin-left: 4px;
 `;
 
 interface Props {
@@ -43,6 +48,7 @@ const SearchButton: React.FC<Props> = ({
         >
             {showSpinner && <TableSpinner size={size} />}
             {!showSpinner && <SearchIcon />}
+            <TextContainer>{'Search'}</TextContainer>
         </SearchButtonContainer>
     );
 };
