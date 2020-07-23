@@ -134,6 +134,13 @@ const SearchWrapper: React.FC = () => {
         }
     }, [query]);
 
+    useEffect(() => {
+        if (query !== '') {
+            setPageToken('');
+            nextRows(true, '');
+        }
+    }, [selectedTool]);
+
     return (
         <>
             <SearchContainer>
