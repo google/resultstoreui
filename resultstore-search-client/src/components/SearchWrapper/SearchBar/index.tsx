@@ -60,7 +60,8 @@ export interface SearchBarProps {
     onFlakyTestClick?: () => void;
     showSearchButton?: boolean;
     showFlakyTestButton?: boolean;
-    disabled: boolean;
+    flakyDisabled: boolean;
+    searchDisabled: boolean;
 }
 
 /*
@@ -74,7 +75,8 @@ const SearchBar: React.FC<SearchBarProps> = ({
     showSearchButton = true,
     showFlakyTestButton = true,
     onFlakyTestClick,
-    disabled,
+    flakyDisabled,
+    searchDisabled,
 }) => {
     const [query, setQuery] = React.useState<State['query']>('');
     const classes = useStyles();
@@ -99,7 +101,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
         const splitQuery = query.split(' ');
         const latestQuery = splitQuery[splitQuery.length - 1];
         const filteredOptions = options.filter((option) => {
-            return option.label.startsWith(latestQuery);
+            return option.label.includes(latestQuery);
         });
         return filteredOptions;
     };
@@ -147,13 +149,16 @@ const SearchBar: React.FC<SearchBarProps> = ({
                 <SearchButton
                     showSpinner={loading}
                     onClick={() => setQueryParent(query)}
-                    disabled={disabled}
+                    disabled={searchDisabled || flakyDisabled}
                 />
             )}
             {showFlakyTestButton && (
                 <FlakyTestButton
+                    showSpinner={flakyDisabled}
                     onClick={onFlakyTestClick}
-                    disabled={disabled || queryParent === ''}
+                    disabled={
+                        flakyDisabled || searchDisabled || queryParent === ''
+                    }
                 />
             )}
         </>

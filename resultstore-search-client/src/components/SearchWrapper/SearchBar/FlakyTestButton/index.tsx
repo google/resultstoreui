@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const ButtonContainer = styled(Button)`
     height: 56px;
@@ -16,12 +17,21 @@ const TextContainer = styled.span`
     margin-left: 4px;
 `;
 
+const TableSpinner = styled(CircularProgress)`
+    color: #6e6e6e !important;
+`;
+
 interface Props {
     onClick: () => void;
     disabled: boolean;
+    showSpinner: boolean;
 }
 
-const FlakyTestButton: React.FC<Props> = ({ onClick, disabled }) => {
+const FlakyTestButton: React.FC<Props> = ({
+    onClick,
+    disabled,
+    showSpinner,
+}) => {
     return (
         <ButtonContainer
             variant="outlined"
@@ -29,7 +39,8 @@ const FlakyTestButton: React.FC<Props> = ({ onClick, disabled }) => {
             title={'Flaky Tests'}
             disabled={disabled}
         >
-            <DirectionsRunIcon />
+            {showSpinner && <TableSpinner size={25} />}
+            {!showSpinner && <DirectionsRunIcon />}
             <TextContainer>{'Flaky '}</TextContainer>
         </ButtonContainer>
     );
