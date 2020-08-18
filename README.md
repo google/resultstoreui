@@ -24,7 +24,69 @@ Viewer
 Locally:
 
 ```shell
-docker-compose -f ./ci/docker-compose.prod.yaml up --build
+./startup
 ```
 
 Navigate to [localhost](http://localhost/)
+
+## Overview
+
+### Main Page
+
+Page where users can search, filter, and view invocation information
+
+![main-page](https://user-images.githubusercontent.com/22064715/90549470-94541280-e15c-11ea-95ee-4652a1c40ab3.png)
+
+### Top Bar
+
+![top-bar](https://user-images.githubusercontent.com/22064715/90548798-80f47780-e15b-11ea-86b5-b904079f6a19.png)
+
+#### Tool Type Selection
+
+Dropdown thats allows a user to select a tool type to filter search results by.
+
+![tool-type](https://user-images.githubusercontent.com/22064715/90549145-0d9f3580-e15c-11ea-9b4b-a03c0f2d24c2.png)
+
+#### Search Bar
+
+Enter queries to search for invocations. The search bar features an autocomplete typeahead for fields that can be filtered on.
+
+![search-bar](https://user-images.githubusercontent.com/22064715/90549837-15130e80-e15d-11ea-83ae-752e68ed505b.png)
+
+#### Search Button
+
+Initiates a search for invocations based on the query in the search bar
+
+![search-button](https://user-images.githubusercontent.com/22064715/90549687-da10db00-e15c-11ea-9a4c-f93b7b2fd071.png)
+
+#### Flaky Test Button
+
+Initiates the flaky test interface for the current query in the search bar.
+
+![flaky-test](https://user-images.githubusercontent.com/22064715/90549943-3b38ae80-e15d-11ea-9aec-ea3b944fc180.png)
+
+#### Google Login / Logout Button
+
+Google login / logout button for authentication
+
+![google-button](https://user-images.githubusercontent.com/22064715/90550082-720ec480-e15d-11ea-878d-8c5948708fa8.png)
+
+### Invocation Table
+
+Table that lists the result of an invocation search
+
+#### File Modal
+
+Users can view files associated with the current invocation
+
+![file-modal](https://user-images.githubusercontent.com/22064715/90553262-1b57b980-e162-11ea-87eb-d4ef17a3717c.png)
+
+## Flaky Test Page
+
+Users can view the results of tests over time with different invocations.
+
+- Grey: No test was run
+- Green: Test Success
+- Red: Test Failed
+
+![flaky-test](https://user-images.githubusercontent.com/22064715/90553945-2fe88180-e163-11ea-9946-7c3b4c372709.png)
