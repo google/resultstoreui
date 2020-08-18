@@ -130,6 +130,7 @@ def get_default_invocation(invocation_id=None, labels=None):
     for label in labels:
         invocation.invocation_attributes.labels.append(label)
     invocation.workspace_info.hostname = socket.getfqdn()
+    invocation.workspace_info.tool_tag = 'real_tool'
     invocation.workspace_info.working_directory = os.getcwd()
     return invocation
 

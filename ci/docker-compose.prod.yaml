@@ -24,8 +24,7 @@ services:
     volumes:
       - ../resultstore-search-client/:/usr/src/app
       - /usr/src/app/node_modules
-    depends_on:
-      - server
+
     ports:
       - "80:80"
     expose:
