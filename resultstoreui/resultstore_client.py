@@ -131,7 +131,8 @@ class ResultStoreClient(object):
         request = resultstore_upload_pb2.CreateInvocationRequest(
             request_id=request_id,
             authorization_token=self.authorization_token,
-            invocation=invocation)
+            invocation=invocation,
+            )
         request.invocation.CopyFrom(invocation)
         request.invocation_id = invocation.id.invocation_id
         try:
