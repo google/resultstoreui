@@ -35,17 +35,17 @@ Navigate to [localhost](http://localhost/)
 
 Page where users can search, filter, and view invocation information
 
-![main-page](https://user-images.githubusercontent.com/22064715/90549470-94541280-e15c-11ea-95ee-4652a1c40ab3.png)
+![main-page](https://user-images.githubusercontent.com/22064715/90555764-e0f01b80-e165-11ea-94df-4f6a1f2ec1f9.png)
 
 ### Top Bar
 
-![top-bar](https://user-images.githubusercontent.com/22064715/90548798-80f47780-e15b-11ea-86b5-b904079f6a19.png)
+![top-bar](https://user-images.githubusercontent.com/22064715/90555769-e188b200-e165-11ea-86bf-535cc8ac4d1b.png)
 
 #### Tool Type Selection
 
 Dropdown thats allows a user to select a tool type to filter search results by.
 
-![tool-type](https://user-images.githubusercontent.com/22064715/90549145-0d9f3580-e15c-11ea-9b4b-a03c0f2d24c2.png)
+![tool-type](https://user-images.githubusercontent.com/22064715/90555771-e2214880-e165-11ea-82f6-2a931b1a5948.png)
 
 #### Search Bar
 
@@ -79,7 +79,7 @@ Table that lists the result of an invocation search
 
 Users can view files associated with the current invocation
 
-![file-modal](https://user-images.githubusercontent.com/22064715/90553262-1b57b980-e162-11ea-87eb-d4ef17a3717c.png)
+![file-modal](https://user-images.githubusercontent.com/22064715/90555776-e3527580-e165-11ea-8142-81f83ca25868.png)
 
 ## Flaky Test Page
 
@@ -89,4 +89,4 @@ Users can view the results of tests over time with different invocations.
 - Green: Test Success
 - Red: Test Failed
 
-![flaky-test](https://user-images.githubusercontent.com/22064715/90553945-2fe88180-e163-11ea-9946-7c3b4c372709.png)
+![flaky-test](https://user-images.githubusercontent.com/22064715/90555782-e3eb0c00-e165-11ea-932d-010ee4b74dd6.png)
