@@ -1,3 +1,9 @@
+// FileModal Component
+/**
+ * Component that renders the file modal. Files are shown according to the current active
+ * invocation or target.
+ * @packageDocumentation
+ */
 import React, { useState, useEffect, useRef } from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
@@ -56,22 +62,39 @@ const useStyles = makeStyles(() =>
     })
 );
 
+/** FileModal Props */
 export interface Props {
+    /** FileModal is visible if true */
     isOpen: boolean;
+    /** Callback fired when modal is closed */
     close: () => void;
+    /** Files to be rendered in the file modal for the parent invocation */
     files: Array<file_pb.File>;
+    /** Current invocation whose files and target files are being rendered */
     parent: string;
 }
 
+/** FileModal State */
 interface State {
+    /** Currently selected files to be viewed in the file table */
     selectedFiles: Array<file_pb.File>;
+    /** Current resource whose files are viewable */
     selectedName: string;
+    /** Type of currently selected resource */
     selectedType: 'target' | 'invocation';
+    /** Show spinner if tables rows are being loaded */
     isLoadingTableRows: boolean;
+    /** Height of the FileModal */
     height: number;
 }
 
-const FileModal: React.FC<Props> = ({ isOpen, close, files, parent }) => {
+/** FileModal Component */
+export const FileModal: React.FC<Props> = ({
+    isOpen,
+    close,
+    files,
+    parent,
+}) => {
     const classes = useStyles();
     const containerRef = useRef(null);
     const [selectedFiles, setSelectedFiles] = useState<State['selectedFiles']>(

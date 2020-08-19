@@ -1,3 +1,8 @@
+// BackButton Component
+/**
+ * Component that allows users to navigte to previous page on click
+ * @packageDocumentation
+ */
 import React from 'react';
 import styled from 'styled-components';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -13,11 +18,14 @@ const ButtonContainer = styled(Button)`
     font-size: 17px !important;
 `;
 
+/** BackButton Props */
 interface Props {
+    /** Callback fired on button click */
     onClick: () => void;
 }
 
-const BackButton: React.FC<Props> = ({ onClick }) => {
+/** BackButton Component */
+export const BackButton: React.FC<Props> = ({ onClick }) => {
     return (
         <ButtonContainer variant="outlined" onClick={onClick}>
             <ArrowBackIcon />

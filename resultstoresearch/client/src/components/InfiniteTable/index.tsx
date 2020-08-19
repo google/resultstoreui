@@ -1,10 +1,17 @@
+// InfiniteTable Component
+/**
+ * Component that adds an infinite loader to the BaseTable Componenet
+ * @packageDocumentation
+ */
 import React from 'react';
 import { TableProps, InfiniteLoader } from 'react-virtualized';
 import BaseTable, { SelfProps as BaseTableProps } from './BaseTable';
 
+/** InfiniteTable Props */
 type Props = BaseTableProps & TableProps;
 
-const InfiniteTable: React.FC<Props> = ({
+/** InfiniteTable Component */
+export const InfiniteTable: React.FC<Props> = ({
     isRowLoaded,
     loadMoreRows,
     columns,

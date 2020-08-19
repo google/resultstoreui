@@ -1,6 +1,10 @@
+// TestCard Component
+/**
+ * Card to display individual aggregate test results
+ * @packageDocumentation
+ */
 import React from 'react';
 import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import styled from 'styled-components';
 
 const CardContainer = styled(Card)`
@@ -32,10 +36,13 @@ const NumberContainer = styled.div`
     margin: auto 15px auto 0px;
 `;
 
+/** TestCard Props */
 interface Props {
+    /** Total number of tests */
     numberTests: number;
 }
 
+/** TestCard Component */
 const TestCard: React.FC<Props> = ({ children, numberTests }) => {
     return (
         <CardContainer>

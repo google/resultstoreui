@@ -1,3 +1,9 @@
+// FileTable Component
+/**
+ * Table to render files and their information.
+ * Opens a new page with file contents on row click
+ * @packageDocumentation
+ */
 import React, { useRef } from 'react';
 import { ColumnProps, AutoSizer } from 'react-virtualized';
 import clsx from 'clsx';
@@ -46,19 +52,29 @@ const columns: ColumnProps[] = [
     { dataKey: 'size', label: 'File Size', width: 100 },
 ];
 
+/** Data rendered by the file table */
 export interface Data {
     name: string;
     type: string;
     size: number;
 }
 
+/** FileTable Props */
 interface Props {
+    /** Currently selected resource's name whose files are viewable*/
     selectedName: string;
+    /** Currently selected resource's type whose files are viewable*/
     selectedType: string;
+    /** Array of files to be rendered in the table */
     files: Array<file_pb.File>;
+    /** Table rows are being loaded if true */
     isLoadingTableRows: boolean;
 }
 
+/**
+ *
+ * @param file File whose information will be parsed into table readable data
+ */
 const parseFileTableData = (file: file_pb.File): Data => {
     const name = file.getUid();
     const type = file.getContentType();
@@ -66,7 +82,8 @@ const parseFileTableData = (file: file_pb.File): Data => {
     return { name, type, size };
 };
 
-const FileTable: React.FC<Props> = ({
+/** FileTable Component */
+export const FileTable: React.FC<Props> = ({
     files,
     selectedName,
     isLoadingTableRows,

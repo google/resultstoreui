@@ -1,6 +1,10 @@
 # Resultstore Search
 
-Service to search through invocation in resultstore.
+Service to search and render invocations and tests in resultstore.
+
+## Client Documentation
+
+Client component documentation can be viewed [here](https://google.github.io/resultstoreui/)
 
 ## Prerequisites
 

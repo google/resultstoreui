@@ -1,3 +1,8 @@
+// ToolSelect Component
+/**
+ * Dropdown to filter invocation search on tooltype
+ * @packageDocumentation
+ */
 import React, { useEffect } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
@@ -6,10 +11,15 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import { getInitialState } from '../../../api/client/client';
 
+/** ToolSelect Props */
 export interface ToolSelectProps {
+    /** List of tools available for selection in dropdown */
     toolsList: Array<string>;
+    /** Set the list of tools available for selection in the dropdown */
     setToolsList: (toolsList: Array<string>) => void;
+    /** Currently selected tool */
     selectedTool: string;
+    /** Callback fired when a tool is selected from the dropdown */
     setSelectedTool: (selectedTool: string) => void;
 }
 
@@ -30,10 +40,8 @@ const createToolItems = (toolsList: ToolSelectProps['toolsList']) => {
     ));
 };
 
-/*
-Tool select dropdown
-*/
-const ToolSelect: React.FC<ToolSelectProps> = ({
+/** Tool Select Component */
+export const ToolSelect: React.FC<ToolSelectProps> = ({
     selectedTool,
     setSelectedTool,
     toolsList,

@@ -1,10 +1,19 @@
+// FileButton Component
+/**
+ * Button that opens the file modal
+ * @packageDocumentation
+ */
 import React from 'react';
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 
+/** FileButton Props  */
 interface Props {
+    /** Visible if true else hidden */
     isVisible: boolean;
+    /** Callback fired on button click */
     onClick: (e: React.MouseEvent) => void;
+    /** FileButton id */
     id: string;
 }
 
@@ -14,7 +23,8 @@ const FileButtonContainer = styled(Button)<Props>`
     visibility: ${({ isVisible }) => (isVisible ? 'visible' : 'hidden')};
 `;
 
-const FileButton: React.FC<Props> = ({ onClick, isVisible, id }) => {
+/** FileButton Props */
+export const FileButton: React.FC<Props> = ({ onClick, isVisible, id }) => {
     return (
         <FileButtonContainer
             onClick={onClick}

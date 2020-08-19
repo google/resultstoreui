@@ -1,3 +1,8 @@
+// TargetList Component
+/**
+ * List of targets whose files can be viewed in the FileTable
+ * @packageDocumentation
+ */
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import { List, InfiniteLoader } from 'react-virtualized';
 import styled from 'styled-components';
@@ -32,6 +37,7 @@ export const ListRow = styled.div<{ rowHeight: number }>`
     }
 `;
 
+/** TargetList State */
 interface State {
     targets: Array<target_pb.Target>;
     pageToken: string;
@@ -39,11 +45,17 @@ interface State {
     isNextPageLoading: boolean;
 }
 
-interface SelfProps {
+/** TargetList Props */
+interface Props {
+    /** Parent invocation name for targets */
     parent: string;
+    /** Width of the target list */
     width: number;
+    /** Height of the target list */
     height: number;
+    /** Height of each row in the target list */
     rowHeight: number;
+    /** Callback called on each row click */
     onClick: (
         name: string,
         files: Array<file_pb.File>,
@@ -51,9 +63,8 @@ interface SelfProps {
     ) => void;
 }
 
-type Props = SelfProps;
-
-const TargetList: React.FC<Props> = ({
+/** TargetList Component */
+export const TargetList: React.FC<Props> = ({
     parent,
     width,
     height,

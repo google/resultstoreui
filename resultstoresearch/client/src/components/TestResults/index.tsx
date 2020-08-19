@@ -1,3 +1,8 @@
+// TestResults Component
+/**
+ * Container to display aggregations of tests, passed tests and failed tests
+ * @packageDocumentation
+ */
 import React from 'react';
 import styled from 'styled-components';
 import Typography from '@material-ui/core/Typography';
@@ -15,13 +20,18 @@ const TextContainer = styled(Typography)`
     font-size: 19px !important;
 `;
 
+/** TestResults Props*/
 export interface Props {
+    /** Total tests conducted */
     totalTests: number;
+    /** Total number of tests failed */
     failedTests: number;
+    /** Total number of tests passed */
     passedTests: number;
 }
 
-const TestResults: React.FC<Props> = ({
+/** TestResults Component */
+export const TestResults: React.FC<Props> = ({
     totalTests,
     failedTests,
     passedTests,

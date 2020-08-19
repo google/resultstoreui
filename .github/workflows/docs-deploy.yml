@@ -1,0 +1,30 @@
+name: Build and Deploy Docs
+on: [push]
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          working-directory: ./resultstoresearch/client
+      - uses: actions/setup-node@master
+        with:
+          working-directory: ./resultstoresearch/client
+      - name: Install Yarn
+        working-directory: ./resultstoresearch/client
+        run: |
+          yarn install
+      - name: Build Docs
+        working-directory: ./resultstoresearch/client
+        run: |
+          yarn typedoc
+      - name: Add No Jekyll
+        working-directory: ./resultstoresearch/client/docs
+        run: |
+          touch .nojekyll
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@3.5.9
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages # The branch the action should deploy to.
+          FOLDER: resultstoresearch/client/docs # The folder the action should deploy.

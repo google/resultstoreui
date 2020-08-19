@@ -1,3 +1,8 @@
+// SearchWrapper Component
+/**
+ * Wrapper around the contents of the main page including search wrapper and invocation table
+ * @packageDocumentation
+ */
 import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
@@ -14,7 +19,6 @@ import {
 import { toSentenceCase } from '../../utils';
 import ErrorText from '../ErrorText';
 import GoogleButton from '../GoogleButton';
-import { Error } from '../ErrorText';
 import { AuthContext } from '../../contexts/AuthContext';
 
 const SearchContainer = styled.div`
@@ -25,19 +29,29 @@ const SearchContainer = styled.div`
     margin-right: auto;
 `;
 
+/** SearchWrapper State */
 export interface State {
+    /** Current selected query in the search bar */
     query: string;
+    /** Token for the next page of the current search query */
     pageToken: string;
-    newQuery: boolean;
+    /** True if next page of invocations is loading */
     isNextPageLoading: boolean;
+    /** Current state of error text for the search bar */
     error: Error;
+}
+
+/** Error Text props */
+interface Error {
+    errorText: string;
+    hasError: boolean;
 }
 
 /*
 Wrapper around SearchBar and InvocationTable that passes invocations
 returned from SearchBar to the InvocationTable to be rendered
 */
-const SearchWrapper: React.FC = () => {
+export const SearchWrapper: React.FC = () => {
     const history = useHistory();
     const authContext = useContext(AuthContext);
     const [invocations, setInvocations] = useState<

@@ -1,3 +1,8 @@
+// InvocationTable Component
+/**
+ * Component that renders invocations data and information in a table
+ * @packageDocumentation
+ */
 import React, { useRef, useState, useEffect } from 'react';
 import clsx from 'clsx';
 import {
@@ -55,7 +60,12 @@ const StatusContainer = styled.div`
 
 const IconStyle: React.CSSProperties = { marginRight: '3px' };
 
-const createColumns = (
+/**
+ *
+ * @param fileRenderer function to open file modal button
+ * @param statusCellRenderer function to render status cell button
+ */
+export const createColumns = (
     fileRenderer: TableCellRenderer,
     statusCellRenderer: TableCellRenderer
 ) => {
@@ -111,10 +121,8 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
-/*
-Table that displays results of an invocation search
-*/
-const InvocationTable: React.FC<InvocationTableProps> = ({
+/** InvocationTable Component */
+export const InvocationTable: React.FC<InvocationTableProps> = ({
     invocations,
     pageToken,
     next,

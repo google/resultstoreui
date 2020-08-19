@@ -1,3 +1,8 @@
+// BaseTable Component
+/**
+ * Component that render data in a table
+ * @packageDocumentation
+ */
 import React from 'react';
 import styled from 'styled-components';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
@@ -16,11 +21,17 @@ const FirstLoadingRow = styled(LoadingRow)`
     margin-top: 15px;
 `;
 
+/** BaseTable's OwnProps */
 export interface SelfProps {
+    /** Height of each row in the table */
     rowHeight: number;
+    /** Class to be assigned to table header */
     headerClass?: string;
+    /** Class to be assigned to each table cell */
     cellClass?: string;
+    /** Class to be assigned to the table grid */
     gridClass?: string;
+    /** True if the next set of data is currently loading else false */
     isNextPageLoading?: boolean;
 }
 

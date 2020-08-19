@@ -52,6 +52,7 @@
         "@types/react-router-dom": "^5.1.5",
         "@types/react-virtualized": "^9.21.10",
         "env-cmd": "^10.1.0",
-        "prettier": "^2.0.5"
+        "prettier": "^2.0.5",
+        "typedoc": "^0.18.0"
     }
 }

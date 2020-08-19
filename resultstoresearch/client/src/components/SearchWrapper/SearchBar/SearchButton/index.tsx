@@ -1,3 +1,8 @@
+// SearchButton Component
+/**
+ * Button that initiates invocation search
+ * @packageDocumentation
+ */
 import React from 'react';
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
@@ -26,14 +31,20 @@ const TextContainer = styled.span`
     margin-left: 4px;
 `;
 
+/** SearchButton Props */
 interface Props {
+    /** Show spinner if true */
     showSpinner: boolean;
+    /** Size of spinner svg */
     size?: number;
+    /** Callback fired on click */
     onClick?: () => void;
+    /** Disabled if true */
     disabled?: boolean;
 }
 
-const SearchButton: React.FC<Props> = ({
+/** SearchButton Components */
+export const SearchButton: React.FC<Props> = ({
     showSpinner,
     size = 25,
     onClick,

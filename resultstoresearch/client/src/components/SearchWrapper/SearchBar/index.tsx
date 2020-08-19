@@ -1,3 +1,8 @@
+// SearchBar Component
+/**
+ * SearchBar that queries a list of invocations to be rendered in the invocation table
+ * @packageDocumentation
+ */
 import React from 'react';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -47,27 +52,38 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
+/** SearchBar State */
 export interface State {
+    /** Current query in the search bar */
     query: string;
-    invocations: Array<invocation_pb.Invocation>;
 }
 
+/** SearchBar Props */
 export interface SearchBarProps {
+    /** Set the current search bar query in the search wrapper */
     setQueryParent: (query: PageWrapperState['query']) => void;
+    /** Currently selected query in the search wrapper */
     queryParent: PageWrapperState['query'];
+    /** Current query has an error if true */
     hasError: boolean;
+    /** True if current search query is in process */
     loading: boolean;
+    /** Callback fired when the flaky test button is clicked */
     onFlakyTestClick?: () => void;
+    /** Show the search button if true */
     showSearchButton?: boolean;
+    /** Show flaky test button if true */
     showFlakyTestButton?: boolean;
+    /** Flaky button click is disabled if true */
     flakyDisabled: boolean;
+    /** Search is disabled if true */
     searchDisabled: boolean;
 }
 
 /*
 SearchBar component to search for invocations by query string
 */
-const SearchBar: React.FC<SearchBarProps> = ({
+export const SearchBar: React.FC<SearchBarProps> = ({
     setQueryParent,
     queryParent,
     hasError,
