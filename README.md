@@ -16,7 +16,7 @@ Viewer
 ```
 
 4. Generate a [client id](https://developers.google.com/identity/sign-in/web/sign-in#create_authorization_credentials)
-5. Configure .env file in ./ci following example.env
+5. Configure .env file in ./resultstoresearch/ci following example.env
 6. Add eligible users to the cloudsourcetoolscore.developer role in your GCP project
 
 ## Usage
