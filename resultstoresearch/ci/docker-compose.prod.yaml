@@ -1,0 +1,52 @@
+version: "3.8"
+services:
+  envoy:
+    build:
+      context: ../client/envoy/
+      network: host
+    image: gcr.io/google.com/gchips-productivity/resultstoresearch-envoy
+    expose:
+      - "8090"
+      - "9901"
+    ports:
+      - "8090:8090"
+      - "9901:9901"
+
+  client:
+    build:
+      context: ../client/
+      args:
+        REACT_APP_PROJECT_ID: ${PROJECT_ID}
+        REACT_APP_CLIENT_ID: ${CLIENT_ID}
+        REACT_APP_ENVOY_ADDRESS: ${ENVOY_ADDRESS}
+    image: gcr.io/google.com/gchips-productivity/resultstoresearch-client
+    env_file: .env
+    volumes:
+      - ../client/:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "3000:80"
+    expose:
+      - "3000"
+    stdin_open: true
+    depends_on:
+      - server
+      - envoy
+
+  server:
+    build:
+      context: ../server/
+      dockerfile: Dockerfile.prod
+    image: gcr.io/google.com/gchips-productivity/resultstoresearch-server
+    env_file: .env
+    environment:
+      GOOGLE_APPLICATION_CREDENTIALS: /root/keys/keyfile.json
+      CLIENT_ID: ${CLIENT_ID}
+      PROJECT_ID: ${PROJECT_ID}
+      RESULT_STORE_API_ENDPOINT: ${RESULT_STORE_API_ENDPOINT}
+      BUCKET_NAME: ${BUCKET_NAME}
+    volumes:
+      - ../server/:/usr/src/app
+      - ${SERVICE_ACCOUNT}:/root/keys/keyfile.json:ro
+    ports:
+      - "9090:9090"
