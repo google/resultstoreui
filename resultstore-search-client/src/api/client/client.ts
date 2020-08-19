@@ -33,7 +33,8 @@ export type DownloadFileCallback = (
 ) => void;
 export type ListTargetsCallback = (
     err: grpcWeb.Error,
-    response: ListTargetsResponse
+    response: ListTargetsResponse,
+    newQuery: boolean
 ) => void;
 export type ListTargetSubFilesCallback = (
     err: grpcWeb.Error,
@@ -111,7 +112,9 @@ const listTargetsRequest = (
         request.setPageToken(pageToken);
     }
 
-    resultStore.listTargets(request, metadata, callback);
+    resultStore.listTargets(request, metadata, (err, response) => {
+        callback(err, response, newQuery);
+    });
 };
 
 const listTargetSubFiles = (

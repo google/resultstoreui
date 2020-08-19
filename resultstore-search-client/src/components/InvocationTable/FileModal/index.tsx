@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import Modal from '@material-ui/core/Modal';
@@ -9,7 +9,8 @@ import * as file_pb from '../../../api/file_pb';
 import TargetList, { ListRow } from './TargetList';
 import FileTable from './FileTable';
 
-const ListWidth = 400;
+const DEFAULT_LIST_WIDTH = 400;
+const DEFAULT_ROW_HEIGHT = 30;
 
 const ModalContainer = styled.div`
     background-color: white;
@@ -26,7 +27,7 @@ const ModalContainer = styled.div`
 `;
 
 const RowContainer = styled.div`
-    width: ${ListWidth}px;
+    width: ${DEFAULT_LIST_WIDTH}px;
     border-right-style: solid;
     border-width: 2px;
     border-color: #e0e0e0;
@@ -67,13 +68,16 @@ interface State {
     selectedName: string;
     selectedType: 'target' | 'invocation';
     isLoadingTableRows: boolean;
+    height: number;
 }
 
 const FileModal: React.FC<Props> = ({ isOpen, close, files, parent }) => {
     const classes = useStyles();
+    const containerRef = useRef(null);
     const [selectedFiles, setSelectedFiles] = useState<State['selectedFiles']>(
         files
     );
+    const [height, setHeight] = useState(1080);
     const [selectedName, setSelectedName] = useState<State['selectedName']>(
         parent.slice(12)
     );
@@ -83,6 +87,17 @@ const FileModal: React.FC<Props> = ({ isOpen, close, files, parent }) => {
     const [isLoadingTableRows, setIsLoadingTableRows] = useState<
         State['isLoadingTableRows']
     >(false);
+    const setDimensions = () => {
+        setHeight(
+            containerRef.current ? containerRef.current.offsetHeight : 1080
+        );
+    };
+
+    useEffect(() => {
+        setDimensions();
+        window.addEventListener('resize', setDimensions);
+        return () => window.removeEventListener('resize', setDimensions);
+    }, [containerRef.current, isOpen]);
 
     const invocationName = parent.replace('invocations/', '');
 
@@ -134,7 +149,7 @@ const FileModal: React.FC<Props> = ({ isOpen, close, files, parent }) => {
             }}
         >
             <Fade in={isOpen}>
-                <ModalContainer id="FileModal">
+                <ModalContainer id="FileModal" ref={containerRef}>
                     <RowContainer>
                         <HeaderRow>
                             <ChevronDown />
@@ -152,9 +167,9 @@ const FileModal: React.FC<Props> = ({ isOpen, close, files, parent }) => {
                         </HeaderRow>
                         <TargetList
                             parent={parent}
-                            rowHeight={60}
-                            height={800}
-                            width={ListWidth}
+                            rowHeight={DEFAULT_ROW_HEIGHT}
+                            height={height - 3 * DEFAULT_ROW_HEIGHT - 10}
+                            width={DEFAULT_LIST_WIDTH}
                             onClick={onTargetClick}
                         />
                     </RowContainer>
