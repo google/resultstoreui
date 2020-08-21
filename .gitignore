@@ -120,19 +120,15 @@ dmypy.json
 .pyre/
 
 # Node Modules
-resultstoresearch/client/node_modules
-resultstoresearch/e2e/node_modules
-resultstoresearch/e2e/cypress/videos
-resultstoresearch/e2e/cypress/screenshots
+/resultstore-search-client/node_modules
+/e2e/node_modules
+/e2e/cypress/videos
+/e2e/cypress/screenshots
 
 # vscode
 /.vscode
 
 # Docker
-resultstoresearch/ci/.env
-
-# Cypress
-resultstoresearch/e2e/cypress/screenshots
-resultstoresearch/e2e/cypress/videos
+/ci/.env
 
 # End of https://www.gitignore.io/api/python

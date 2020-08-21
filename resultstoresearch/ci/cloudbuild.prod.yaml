@@ -1,9 +1,0 @@
-steps:
-  - name: node
-    entrypoint: yarn
-    args: ["install"]
-
-  - name: "docker/compose:1.26.0"
-    args: ["-f", "resultstoresearch/ci/docker-compose.prod.yaml", "up", "-d"]
-    env:
-      - "PROJECT_ID=$PROJECT_ID"
