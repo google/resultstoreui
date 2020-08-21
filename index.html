@@ -64,93 +64,67 @@
 	<div class="row">
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
-				<a href="#resultstore-search" id="resultstore-search" style="color: inherit; text-decoration: none;">
-					<h1>Resultstore Search</h1>
+				<p>This project was bootstrapped with <a href="https://github.com/facebook/create-react-app">Create React App</a>.</p>
+				<a href="#available-scripts" id="available-scripts" style="color: inherit; text-decoration: none;">
+					<h2>Available Scripts</h2>
 				</a>
-				<p>Service to search and render invocations and tests in resultstore.</p>
-				<a href="#client-documentation" id="client-documentation" style="color: inherit; text-decoration: none;">
-					<h2>Client Documentation</h2>
+				<p>In the project directory, you can run:</p>
+				<a href="#yarn-start" id="yarn-start" style="color: inherit; text-decoration: none;">
+					<h3><code>yarn start</code></h3>
 				</a>
-				<p>Client component documentation can be viewed <a href="https://google.github.io/resultstoreui/">here</a></p>
-				<a href="#prerequisites" id="prerequisites" style="color: inherit; text-decoration: none;">
-					<h2>Prerequisites</h2>
+				<p>Runs the app in the development mode.<br />
+				Open <a href="http://localhost:3000">http://localhost:3000</a> to view it in the browser.</p>
+				<p>The page will reload if you make edits.<br />
+				You will also see any lint errors in the console.</p>
+				<a href="#yarn-test" id="yarn-test" style="color: inherit; text-decoration: none;">
+					<h3><code>yarn test</code></h3>
 				</a>
-				<ol>
-					<li>Docker and docker-compose installed <a href="https://www.docker.com/">here</a></li>
-					<li>Generate <a href="https://cloud.google.com/iam/docs/creating-managing-service-account-keys">service account</a></li>
-					<li>Enable the following permissions on the service account</li>
-				</ol>
-				<pre><code>Cloud Source Tools Core - Developer
-Cloud Datastore<span class="hljs-built_in"> User
-</span>Storage Object Viewer
-Viewer</code></pre>
-				<ol start="4">
-					<li>Generate a <a href="https://developers.google.com/identity/sign-in/web/sign-in#create_authorization_credentials">client id</a></li>
-					<li>Configure .env file in ./resultstoresearch/ci following example.env</li>
-					<li>Add eligible users to the cloudsourcetoolscore.developer role in your GCP project</li>
-				</ol>
-				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
-					<h2>Usage</h2>
+				<p>Launches the test runner in the interactive watch mode.<br />
+				See the section about <a href="https://facebook.github.io/create-react-app/docs/running-tests">running tests</a> for more information.</p>
+				<a href="#yarn-build" id="yarn-build" style="color: inherit; text-decoration: none;">
+					<h3><code>yarn build</code></h3>
 				</a>
-				<p>Locally:</p>
-				<pre><code class="language-shell">./startup</code></pre>
-				<p>Navigate to <a href="http://localhost/">localhost</a></p>
-				<a href="#overview" id="overview" style="color: inherit; text-decoration: none;">
-					<h2>Overview</h2>
+				<p>Builds the app for production to the <code>build</code> folder.<br />
+				It correctly bundles React in production mode and optimizes the build for the best performance.</p>
+				<p>The build is minified and the filenames include the hashes.<br />
+				Your app is ready to be deployed!</p>
+				<p>See the section about <a href="https://facebook.github.io/create-react-app/docs/deployment">deployment</a> for more information.</p>
+				<a href="#yarn-eject" id="yarn-eject" style="color: inherit; text-decoration: none;">
+					<h3><code>yarn eject</code></h3>
 				</a>
-				<a href="#main-page" id="main-page" style="color: inherit; text-decoration: none;">
-					<h3>Main Page</h3>
+				<p><strong>Note: this is a one-way operation. Once you <code>eject</code>, you can’t go back!</strong></p>
+				<p>If you aren’t satisfied with the build tool and configuration choices, you can <code>eject</code> at any time. This command will remove the single build dependency from your project.</p>
+				<p>Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except <code>eject</code> will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.</p>
+				<p>You don’t have to ever use <code>eject</code>. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.</p>
+				<a href="#learn-more" id="learn-more" style="color: inherit; text-decoration: none;">
+					<h2>Learn More</h2>
 				</a>
-				<p>Page where users can search, filter, and view invocation information</p>
-				<p><img src="https://user-images.githubusercontent.com/22064715/90555764-e0f01b80-e165-11ea-94df-4f6a1f2ec1f9.png" alt="main-page"></p>
-				<a href="#top-bar" id="top-bar" style="color: inherit; text-decoration: none;">
-					<h3>Top Bar</h3>
+				<p>You can learn more in the <a href="https://facebook.github.io/create-react-app/docs/getting-started">Create React App documentation</a>.</p>
+				<p>To learn React, check out the <a href="https://reactjs.org/">React documentation</a>.</p>
+				<a href="#code-splitting" id="code-splitting" style="color: inherit; text-decoration: none;">
+					<h3>Code Splitting</h3>
 				</a>
-				<p><img src="https://user-images.githubusercontent.com/22064715/90555769-e188b200-e165-11ea-86bf-535cc8ac4d1b.png" alt="top-bar"></p>
-				<a href="#tool-type-selection" id="tool-type-selection" style="color: inherit; text-decoration: none;">
-					<h4>Tool Type Selection</h4>
+				<p>This section has moved here: <a href="https://facebook.github.io/create-react-app/docs/code-splitting">https://facebook.github.io/create-react-app/docs/code-splitting</a></p>
+				<a href="#analyzing-the-bundle-size" id="analyzing-the-bundle-size" style="color: inherit; text-decoration: none;">
+					<h3>Analyzing the Bundle Size</h3>
 				</a>
-				<p>Dropdown thats allows a user to select a tool type to filter search results by.</p>
-				<p><img src="https://user-images.githubusercontent.com/22064715/90555771-e2214880-e165-11ea-82f6-2a931b1a5948.png" alt="tool-type"></p>
-				<a href="#search-bar" id="search-bar" style="color: inherit; text-decoration: none;">
-					<h4>Search Bar</h4>
+				<p>This section has moved here: <a href="https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size">https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size</a></p>
+				<a href="#making-a-progressive-web-app" id="making-a-progressive-web-app" style="color: inherit; text-decoration: none;">
+					<h3>Making a Progressive Web App</h3>
 				</a>
-				<p>Enter queries to search for invocations. The search bar features an autocomplete typeahead for fields that can be filtered on.</p>
-				<p><img src="https://user-images.githubusercontent.com/22064715/90549837-15130e80-e15d-11ea-83ae-752e68ed505b.png" alt="search-bar"></p>
-				<a href="#search-button" id="search-button" style="color: inherit; text-decoration: none;">
-					<h4>Search Button</h4>
+				<p>This section has moved here: <a href="https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app">https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app</a></p>
+				<a href="#advanced-configuration" id="advanced-configuration" style="color: inherit; text-decoration: none;">
+					<h3>Advanced Configuration</h3>
 				</a>
-				<p>Initiates a search for invocations based on the query in the search bar</p>
-				<p><img src="https://user-images.githubusercontent.com/22064715/90549687-da10db00-e15c-11ea-9a4c-f93b7b2fd071.png" alt="search-button"></p>
-				<a href="#flaky-test-button" id="flaky-test-button" style="color: inherit; text-decoration: none;">
-					<h4>Flaky Test Button</h4>
+				<p>This section has moved here: <a href="https://facebook.github.io/create-react-app/docs/advanced-configuration">https://facebook.github.io/create-react-app/docs/advanced-configuration</a></p>
+				<a href="#deployment" id="deployment" style="color: inherit; text-decoration: none;">
+					<h3>Deployment</h3>
 				</a>
-				<p>Initiates the flaky test interface for the current query in the search bar.</p>
-				<p><img src="https://user-images.githubusercontent.com/22064715/90549943-3b38ae80-e15d-11ea-9aec-ea3b944fc180.png" alt="flaky-test"></p>
-				<a href="#google-login--logout-button" id="google-login--logout-button" style="color: inherit; text-decoration: none;">
-					<h4>Google Login / Logout Button</h4>
+				<p>This section has moved here: <a href="https://facebook.github.io/create-react-app/docs/deployment">https://facebook.github.io/create-react-app/docs/deployment</a></p>
+				<a href="#yarn-build-fails-to-minify" id="yarn-build-fails-to-minify" style="color: inherit; text-decoration: none;">
+					<h3><code>yarn build</code> fails to minify</h3>
 				</a>
-				<p>Google login / logout button for authentication</p>
-				<p><img src="https://user-images.githubusercontent.com/22064715/90550082-720ec480-e15d-11ea-878d-8c5948708fa8.png" alt="google-button"></p>
-				<a href="#invocation-table" id="invocation-table" style="color: inherit; text-decoration: none;">
-					<h3>Invocation Table</h3>
-				</a>
-				<p>Table that lists the result of an invocation search</p>
-				<a href="#file-modal" id="file-modal" style="color: inherit; text-decoration: none;">
-					<h4>File Modal</h4>
-				</a>
-				<p>Users can view files associated with the current invocation</p>
-				<p><img src="https://user-images.githubusercontent.com/22064715/90555776-e3527580-e165-11ea-8142-81f83ca25868.png" alt="file-modal"></p>
-				<a href="#flaky-test-page" id="flaky-test-page" style="color: inherit; text-decoration: none;">
-					<h2>Flaky Test Page</h2>
-				</a>
-				<p>Users can view the results of tests over time with different invocations.</p>
-				<ul>
-					<li>Grey: No test was run</li>
-					<li>Green: Test Success</li>
-					<li>Red: Test Failed</li>
-				</ul>
-				<p><img src="https://user-images.githubusercontent.com/22064715/90555782-e3eb0c00-e165-11ea-932d-010ee4b74dd6.png" alt="flaky-test"></p>
+				<p>This section has moved here: <a href="https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify">https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify</a></p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
