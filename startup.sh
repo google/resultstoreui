@@ -1,2 +1,2 @@
 #!/bin/bash
-eval $(egrep -v '^#' ./resultstoresearch/ci/.env | xargs) docker-compose -f ./resultstoresearch/ci/docker-compose.prod.yaml up --build
+eval $(egrep -v '^#' ./ci/.env | xargs) docker-compose -f ./ci/docker-compose.prod.yaml up --build
