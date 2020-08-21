@@ -1,0 +1,12 @@
+FROM python:3
+
+ENV INSTALL_HOME /usr/src/app
+ENV APP_HOME /usr/src/app/resultstoresearch
+WORKDIR $INSTALL_HOME
+COPY . ./
+
+RUN pip install -r requirements.txt
+RUN pip install .
+
+WORKDIR $APP_HOME
+CMD ["python3", "-u", "server.py"]
