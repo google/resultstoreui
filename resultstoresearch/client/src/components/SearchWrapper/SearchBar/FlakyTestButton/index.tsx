@@ -1,3 +1,8 @@
+// FlakyTestButton Component
+/**
+ * Button that initiates query and redirects to a flaky test page
+ * @packageDocumentation
+ */
 import React from 'react';
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
@@ -21,13 +26,18 @@ const TableSpinner = styled(CircularProgress)`
     color: #6e6e6e !important;
 `;
 
+/** FlakyTestButton Props */
 interface Props {
+    /** Callback fired on click*/
     onClick: () => void;
+    /** Disabled if true */
     disabled: boolean;
+    /** Show spinner if true */
     showSpinner: boolean;
 }
 
-const FlakyTestButton: React.FC<Props> = ({
+/** FlakyTestButton Component */
+export const FlakyTestButton: React.FC<Props> = ({
     onClick,
     disabled,
     showSpinner,

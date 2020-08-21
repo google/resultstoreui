@@ -1,3 +1,8 @@
+// BackButton Component
+/**
+ * Component that handles user login / logout via google sign-in
+ * @packageDocumentation
+ */
 import React, { useState, useContext } from 'react';
 import { GoogleLogout, GoogleLogin } from 'react-google-login';
 import styled from 'styled-components';
@@ -20,14 +25,16 @@ const CustomGoogleLogout = styled(GoogleLogout)`
     margin-right: 5px;
 `;
 
+/** GoogleButton State */
 interface State {
+    /** True if user is logged in*/
     isLoggedIn: boolean;
 }
 
 /*
     Button that handles google login and logout
 */
-const GoogleButton: React.FC = () => {
+export const GoogleButton: React.FC = () => {
     const authContext = useContext(AuthContext);
     const [isLoggedIn, setIsLoggedIn] = useState<State['isLoggedIn']>(false);
 

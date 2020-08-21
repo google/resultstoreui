@@ -1,3 +1,9 @@
+// FlakyTestTable Component
+/**
+ * Component that renders flaky test data
+ * @packageDocumentation
+ */
+
 import React, { useEffect, useState } from 'react';
 import {
     AutoSizer,
@@ -30,16 +36,27 @@ import {
     Container,
 } from './styles';
 
-interface Props {
-    invocationsTestList: Array<InvocationTest>;
-    setAggregateTestData: (aggregateTestData: AggregateTestData) => void;
-}
-
 export const DividerRowHeight = 25;
 export const RowHeight = 35;
 const HeaderRowHeight = 50;
 const TestNameCellWidth = 400;
 const ColumnWidth = 50;
+
+/** FlakyTestTable Props */
+interface Props {
+    /** List of tests to be rendered in the flaky test ui */
+    invocationsTestList: Array<InvocationTest>;
+    /** Callback function that will pass the total tests, number of tests passed and number of test failed */
+    setAggregateTestData: (aggregateTestData: AggregateTestData) => void;
+}
+
+interface State {
+    columns: ColumnProps[];
+    rows: TableCell[];
+    rowNames: string[];
+    tableSize: number;
+    aggregateTestData: AggregateTestData;
+}
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -53,19 +70,13 @@ const useStyles = makeStyles(() =>
     })
 );
 
+/** Function to render TestNameHeaders */
 const testNameHeaderCellRenderer: GridCellRenderer = ({ style }) => {
     return <TitleHeaderCell style={style} />;
 };
 
-interface State {
-    columns: ColumnProps[];
-    rows: TableCell[];
-    rowNames: string[];
-    tableSize: number;
-    aggregateTestData: AggregateTestData;
-}
-
-const FlakyTestTable: React.FC<Props> = ({
+/** FlakyTestTable Component */
+export const FlakyTestTable: React.FC<Props> = ({
     invocationsTestList,
     setAggregateTestData,
 }) => {

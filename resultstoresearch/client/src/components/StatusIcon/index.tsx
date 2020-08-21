@@ -1,3 +1,8 @@
+// StatusIcon Component
+/**
+ * Icon used to signify status of an invocation
+ * @packageDocumentation
+ */
 import React from 'react';
 import CheckIcon from '@material-ui/icons/Check';
 import BuildIcon from '@material-ui/icons/Build';
@@ -6,7 +11,9 @@ import TimerIcon from '@material-ui/icons/Timer';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import ErrorIcon from '@material-ui/icons/Error';
 
+/** StatusIcon Props */
 interface Props {
+    /** Type of status to be displayed */
     name:
         | 'PASS'
         | 'BUILDING'
@@ -19,7 +26,9 @@ interface Props {
         | 'TOOL_FAILED'
         | 'UNKNOWN'
         | 'SKIPPED';
+    /** Size of display icon svg */
     size?: number;
+    /** Display icon style */
     style?: React.CSSProperties;
 }
 

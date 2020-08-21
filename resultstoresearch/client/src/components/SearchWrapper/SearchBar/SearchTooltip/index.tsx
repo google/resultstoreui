@@ -1,9 +1,15 @@
+// SearchTooltip Component
+/**
+ * Tooltip on the search bar
+ * @packageDocumentation
+ */
 import React from 'react';
 import Tooltip from '@material-ui/core/Tooltip';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import Typography from '@material-ui/core/Typography';
 
-const SearchTooltip: React.FC = () => {
+/** SearchTooltip Component */
+export const SearchTooltip: React.FC = () => {
     return (
         <Tooltip
             title={
