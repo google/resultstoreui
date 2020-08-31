@@ -135,7 +135,9 @@ resultstoresearch/ci/.env
 resultstoresearch/e2e/cypress/screenshots
 resultstoresearch/e2e/cypress/videos
 
-# Docs 
+# Docs
 resultstoresearch/client/docs
 
 # End of https://www.gitignore.io/api/python
+
+.env
