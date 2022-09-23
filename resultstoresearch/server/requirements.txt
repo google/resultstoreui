@@ -1,5 +1,5 @@
 grpcio==1.29.0
-protobuf==3.12.2
+protobuf==3.18.3
 gcloud==0.18.3
 google-api-python-client==1.9.3
 firebase-admin==4.3.0
