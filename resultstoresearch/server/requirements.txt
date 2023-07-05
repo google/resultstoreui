@@ -1,4 +1,4 @@
-grpcio==1.29.0
+grpcio==1.53.0
 protobuf==3.12.2
 gcloud==0.18.3
 google-api-python-client==1.9.3
